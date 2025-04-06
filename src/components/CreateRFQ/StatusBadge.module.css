@@ -1,0 +1,21 @@
+.badge {
+    color: #141217;
+    text-align: center;
+    background-color: #f2f0f5;
+    border-radius: 12px;
+    height: 32px;
+    padding: 0 16px;
+    font-family: Manrope;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+  }
+  @media(width<=991px){
+    .badge{
+      width: 100%;
+    }
+  }

@@ -1,0 +1,64 @@
+.container {
+    flex-direction: column;
+    align-self: stretch;
+    align-items: flex-start;
+    padding: 20px 16px;
+    display: flex;
+  }
+  
+  .title {
+    color: #121417;
+    margin-bottom: 20px;
+    font-family:Manrope;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 28px;
+  }
+  
+  .description {
+    color: #121417;
+    align-self: stretch;
+    margin-bottom: 12px;
+    font-family:Manrope;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    padding-left: 16px;
+  }
+  
+  .buttonContainer {
+    align-self: stretch;
+    align-items: flex-start;
+    padding: 12px 16px;
+    display: flex;
+  }
+  
+  .button {
+    color: #fff;
+    cursor: pointer;
+    background-color: #660DD4;
+    border: none;
+    border-radius: 12px;
+    height: 40px;
+    padding: 0 16px;
+    font-family:Manrope;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+  }
+  
+  @media (width <= 640px) {
+    .container {
+      padding: 16px 12px;
+    }
+    .title{
+      margin-bottom: 0px;
+    }
+    .description{
+      padding: 0px;
+    }
+    .buttonContainer {
+      padding: 0px;
+    }
+  }
+  

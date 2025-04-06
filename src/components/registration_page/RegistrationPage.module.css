@@ -1,0 +1,87 @@
+.registrationPage {
+    background-color: #fff;
+  }
+  
+  .container {
+    background-color: #fff;
+    width: 100%;
+    min-height: 800px;
+    overflow: hidden;
+  }
+  
+  .contentWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    padding: 20px 0;
+  }
+  
+  .formContainer {
+    flex: 1;
+    width: 100%;
+    min-width: 240px;
+    max-width: 960px;
+    padding: 20px 0;
+  }
+  
+  .form {
+    width: 100%;
+  }
+  
+  .title {
+    color: #121217;
+    width: 100%;
+    padding: 20px 16px 12px;
+    font-family: Manrope;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  
+  .formGrid {
+    display: flex;
+    flex-direction: column;
+    max-width: 480px;
+    gap: 12px;
+    padding: 0 16px;
+  }
+  
+  .cityStateGroup,
+  .postalGroup {
+    display: flex;
+    gap: 16px;
+    
+  }
+  
+  .uploadSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin: 20px 0;
+  }
+  
+  .submitSection {
+    padding: 12px 16px;
+  }
+  
+  @media (width <= 991px) {
+    .container {
+      max-width: 100%;
+    }
+  
+  
+    .formContainer {
+      max-width: 100%;
+    }
+  
+    .title {
+      max-width: 100%;
+    }
+  
+    .cityStateGroup,
+    .postalGroup {
+      flex-wrap: wrap;
+    }
+  }
+  

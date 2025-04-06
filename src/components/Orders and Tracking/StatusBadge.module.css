@@ -1,0 +1,20 @@
+.badge {
+    color: #140d1c;
+    background-color: #ede8f2;
+    border-radius: 12px;
+    height: 32px;
+    padding: 0 16px;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  @media (width <= 640px) {
+    .badge {
+      padding: 0 12px;
+      font-size: 12px;
+    }
+  }
+  

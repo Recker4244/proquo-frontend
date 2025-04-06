@@ -1,0 +1,93 @@
+.container {
+    flex-direction: column;
+    gap: 12px;
+    padding: 20px 16px;
+    display: flex;
+  }
+  
+  .title {
+    color: #140d1c;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 28px;
+    margin: 0;
+  }
+  
+  .content {
+    flex-direction: column;
+    gap: 24px;
+    display: flex;
+  }
+  
+  .row {
+    gap: 24px;
+    display: flex;
+  }
+  
+  .field {
+    border-top: 1px solid #e5e8eb;
+    flex: 1;
+    padding: 20px 0;
+  }
+  
+  .label {
+    color: #704a9c;
+    margin-bottom: 10px;
+    font-size: 14px;
+    line-height: 21px;
+    font-weight: normal;
+    margin-top: 0;
+  }
+  
+  .value {
+    color: #140d1c;
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0;
+  }
+  
+  .trackButton {
+    color: #faf7fc;
+    cursor: pointer;
+    background-color: #660dd4;
+    border: none;
+    border-radius: 12px;
+    height: 48px;
+    margin: 12px 0;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  .dashboardButton {
+    color: #140d1c;
+    cursor: pointer;
+    background-color: #ede8f2;
+    border: none;
+    border-radius: 12px;
+    height: 48px;
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  
+  .downloadText {
+    color: #704a9c;
+    text-align: center;
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  @media (width <= 991px) {
+    .row {
+      flex-direction: column;
+    }
+  }
+  
+  @media (width <= 640px) {
+    .field {
+      padding: 15px 0;
+    }
+  }
+  

@@ -1,0 +1,70 @@
+.banner {
+    background:
+      linear-gradient(90deg, #0000001a 0%, #0006 100%),
+      #d3d3d3
+        url(https://cdn.builder.io/api/v1/image/assets/TEMP/d4e986f46500671cfb85412de52d2aebbbff0e65)
+        50% / cover no-repeat;
+    border-radius: 12px;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 30px;
+    min-height: 480px;
+    padding: 210px 70px 100px;
+    display: flex;
+    position: relative;
+  }
+  
+  .content {
+    text-align: center;
+    color: #fff;
+    max-width: 789px;
+  }
+  
+  .title {
+    letter-spacing: -2px;
+    margin-bottom: 8px;
+    font-size: 48px;
+    font-weight: 900;
+    line-height: 60px;
+  }
+  
+  .description {
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+  }
+  
+  .inviteButton {
+    color: #faf7fc;
+    cursor: pointer;
+    background-color: #660dd4;
+    border: none;
+    border-radius: 12px;
+    height: 48px;
+    padding: 0 20px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+  
+  /* @media (width <= 991px) {
+    .content {
+      padding: 0 20px;
+    }
+  } */
+  
+  @media (width <= 640px) {
+    .banner {
+      padding: 160px 20px 60px;
+    }
+  
+    .title {
+      font-size: 32px;
+      line-height: 40px;
+    }
+  
+    .description {
+      font-size: 14px;
+    }
+  }
+  

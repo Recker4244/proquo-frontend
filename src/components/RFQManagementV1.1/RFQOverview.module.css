@@ -1,0 +1,32 @@
+* {
+  box-sizing: border-box;
+}
+.overviewContainer {
+    width: 100%;
+  }
+  
+  @media (width<=991px) {
+    .overviewContainer {
+      max-width: 100%;
+    }
+  }
+  
+  @media (width<=991px) {
+    .cardRow {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+    }
+  }
+  
+  .card {
+    width: 33%;
+  }
+  
+  @media (width<=991px) {
+    .card {
+      width: 100%;
+      margin-top: 16px;
+    }
+  }
+  

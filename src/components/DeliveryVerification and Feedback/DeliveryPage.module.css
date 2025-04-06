@@ -1,0 +1,67 @@
+.pageContainer {
+    background-color: #fff;
+    flex-direction: column;
+    min-height: 800px;
+    display: flex;
+  }
+  
+  .mainContent {
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px 160px;
+    display: flex;
+  }
+  
+  .contentWrapper {
+    flex-direction: column;
+    flex: 1 0 0;
+    max-width: 960px;
+    display: flex;
+  }
+  
+  .titleSection {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    display: flex;
+  }
+  
+  .pageTitle {
+    color: #140d1c;
+    min-width: 288px;
+    font-family: Manrope;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+  }
+  
+  .downloadButton {
+    color: #140d1c;
+    text-align: center;
+    background-color: #ede8f2;
+    border-radius: 12px;
+    min-width: 84px;
+    max-width: 480px;
+    height: 32px;
+    padding: 0 16px;
+    font-family: Manrope;
+    font-size: 14px;
+    line-height: 21px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  @media (width <= 991px) {
+    .mainContent {
+      padding: 20px 40px;
+    }
+  }
+  
+  @media (width <= 640px) {
+    .mainContent {
+      padding: 20px;
+    }
+  }
+  

@@ -1,0 +1,36 @@
+.container {
+    margin-top: 20px;
+  }
+  
+  .section {
+    margin-bottom: 24px;
+  }
+  
+  .sectionTitle {
+    color: #121417;
+    padding: 20px 16px 12px;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0;
+  }
+  
+  .detailsContent {
+    padding: 16px;
+  }
+  
+  .detailRow {
+    justify-content: space-between;
+    padding: 8px 0;
+    display: flex;
+  }
+  
+  .label {
+    color: #637587;
+    font-size: 14px;
+  }
+  
+  .value {
+    color: #121417;
+    font-size: 14px;
+  }
+  

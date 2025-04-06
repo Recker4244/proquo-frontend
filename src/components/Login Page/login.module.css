@@ -1,0 +1,134 @@
+*{
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    background-color: white;
+    font-family: Manrope;
+}
+.content{
+    display: flex;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    align-items: center;
+    justify-content: center;
+}
+.section{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+    position: relative;
+  max-width: 400px; /* Adjust width to fit your design */
+  width: 100%;
+  padding: 40px;
+  background-color: white;
+  border-radius: 10px; /* Rounded corners for the form */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for the floating effect */
+  z-index: 1
+}
+.logoContainer {
+    align-items: center;
+    gap: 16px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .logoWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    display: flex;
+  }
+  
+  .logoText {
+    color: #120d1c;
+    height: 23px;
+    font-family:
+      Manrope,
+      sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    margin: 0;
+  }
+.loginDetails{
+    display: flex;
+    gap: 20px;
+    flex-direction: column;
+}
+.label{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.input{
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #DEDBE5;
+    outline: none;
+    transition: all 0.3s ease-in-out;
+}
+.input:focus{
+  border: 1px solid #DEDBE5;
+  box-shadow: 0 0 10px #D9CFE8;
+}
+.passwordContainer {
+  display: flex;
+}
+.passwordContainer input {
+  width: 100%;
+  padding: 10px;
+  padding-right: 40px; /* Prevents text from overlapping the icon */
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  outline: none;
+}
+.eye_icon {
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  background-color: #EDE8F2;
+  cursor: pointer;
+}
+.icon{
+  padding: 2px;
+  align-items: center;
+  color: #140D1C;
+}
+/* Eye icon hover effect */
+.eye-icon:hover {
+  color: #6a1bb7;
+}
+.signIn{
+  width: 100%;
+}
+.signInButton{
+  background-color: #660DD4;
+  color: #FAF7FC;
+  padding: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Manrope;
+  border: none;
+  cursor: pointer;
+}
+.account{
+  text-align: center;
+}
+.account a{
+  text-decoration: none;
+}
+.forgot{
+  display: flex;
+  justify-content: end;
+  text-decoration: none;
+}
+.passwordInput{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}

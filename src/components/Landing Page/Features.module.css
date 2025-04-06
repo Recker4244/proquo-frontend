@@ -1,0 +1,61 @@
+.featuresSection {
+    width: 100%;
+    padding: 40px 16px;
+    padding-left: 8px;
+  }
+  
+  .featuresContent {
+    color: #121217;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    font-family: Manrope;
+  }
+  
+  .title {
+    letter-spacing: -1px;
+    width: 720px;
+    max-width: 100%;
+    font-size: 36px;
+    font-weight: 900;
+    line-height: 1;
+    margin: 0;
+  }
+  
+  .description {
+    width: 720px;
+    max-width: 100%;
+    margin-top: 16px;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 24px;
+  }
+  
+  .featureCards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: stretch;
+    gap: 12px;
+    width: 100%;
+    margin-top: 20px;
+  }
+  
+  @media (width <= 991px) {
+    .featuresSection {
+      max-width: 100%;
+          
+    }
+  
+    .title,
+    .description {
+      max-width: 100%;
+    }
+  
+    .featureCards {
+      max-width: 100%;
+    }
+  }
+  

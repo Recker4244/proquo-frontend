@@ -1,0 +1,113 @@
+.heroSection {
+  width: 100%;
+  color: #fff;
+  font-family: Manrope;
+  padding: 0 16px;
+  box-sizing: border-box;
+}
+
+.heroContent {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  color: #fff;
+  font-family: Manrope;
+}
+
+/* Return to fixed height but with better border handling */
+.heroWrapper {
+  position: relative;
+  width: 100%;
+  height: 480px; /* Fixed height on desktop */
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 20px;
+}
+
+.heroBackground {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
+/* Container for content with proper positioning */
+.contentContainer {
+  position: absolute;
+  bottom: -20px;
+  
+  left: 0;
+  width: 100%;
+  padding: 50px;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+.heroText {
+  width: 100%;
+  max-width: 712px;
+  
+}
+
+.heroTitle {
+  letter-spacing: -2px;
+  font-size: 48px;
+  font-weight: 900;
+  line-height: 1;
+  margin: 0;
+}
+
+.heroSubtitle {
+  font-size: 16px;
+  font-weight: 400;
+  margin-top: 16px;
+  max-width: 766px;
+}
+
+/* Responsive adjustments with fixed minimum heights */
+@media (max-width: 991px) {
+  .heroWrapper {
+    height: 400px; /* Still substantial height on tablet */
+  }
+  
+  .contentContainer {
+    padding: 30px;
+  }
+  
+  .heroTitle {
+    font-size: 40px;
+  }
+}
+
+@media (max-width: 767px) {
+  .heroSection {
+    padding: 0 12px;
+  }
+  
+  .heroWrapper {
+    height: 350px; /* Minimum height on mobile */
+    border-radius: 8px;
+  }
+  
+  .contentContainer {
+    padding: 24px;
+  }
+  
+  .heroTitle {
+    font-size: 32px;
+  }
+  
+  .heroSubtitle {
+    font-size: 14px;
+    margin-top: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroWrapper {
+    height: 300px; /* Minimum height on very small devices */
+  }
+}
