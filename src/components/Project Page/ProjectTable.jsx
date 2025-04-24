@@ -5,10 +5,10 @@ import {
 import StatusBadge from "./StatusBadge";
 import styles from "./ProjectTable.module.css";
 
-const ProjectTable = () => {
+function ProjectTable() {
   const [projects, setProjects] = React.useState([]);
   React.useEffect(() => {
-    fetch("http://localhost:5000/projects")
+    fetch("http://localhost:3000/project")
       .then((response) => response.json())
       .then((data) => setProjects(data))
       .catch((error) => console.error("Error fetching data: ", error));
@@ -42,6 +42,6 @@ const ProjectTable = () => {
 
     </div>
   );
-};
+}
 
 export default ProjectTable;

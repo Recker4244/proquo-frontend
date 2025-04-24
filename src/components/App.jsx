@@ -1,3 +1,4 @@
+import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import LandingPage from "./Landing Page/LandingPage";
 import RegistrationPage from "./registration_page/RegistrationPage";
@@ -14,6 +15,7 @@ import OrderTrackingPage from "./Shipment Tracking/OrderTrackingPage";
 import CreateRFQ from "./CreateRFQ/CreateRFQ";
 import RFQManagement from "./RFQManagementV1.1/RFQManagement";
 import Login from "./Login Page/Login";
+import Register from "./Register Page/Register";
 
 function App() {
   return (
@@ -34,6 +36,7 @@ function App() {
         <Route path="/rfqPage" element={<CreateRFQ />} />
         <Route path="/rfqManage" element={<RFQManagement />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/userRegistration" element={<Register />} />
       </Routes>
     </Router>
   );

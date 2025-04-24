@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ShipmentDetails.module.css";
 
-const ShipmentDetails = () => {
+function ShipmentDetails() {
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>Shipment Details</h2>
@@ -27,6 +27,6 @@ const ShipmentDetails = () => {
       </div>
     </section>
   );
-};
+}
 
 export default ShipmentDetails;

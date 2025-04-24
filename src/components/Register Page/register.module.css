@@ -21,13 +21,13 @@ body{
     gap: 20px;
     flex-direction: column;
     position: relative;
-  max-width: 400px; /* Adjust width to fit your design */
-  width: 100%;
-  padding: 40px;
-  background-color: white;
-  border-radius: 10px; /* Rounded corners for the form */
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for the floating effect */
-  z-index: 1
+    max-width: 500px; /* Adjust width to fit your design */
+    width: 100%;
+    padding: 40px;
+    background-color: white;
+    border-radius: 10px; /* Rounded corners for the form */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Shadow for the floating effect */
+    z-index: 1
 }
 .logoContainer {
     align-items: center;
@@ -69,6 +69,7 @@ body{
     border: 1px solid #DEDBE5;
     outline: none;
     transition: all 0.3s ease-in-out;
+    width: 100% !important;
 }
 .input:focus{
   border: 1px solid #DEDBE5;
@@ -127,12 +128,19 @@ body{
   justify-content: end;
   text-decoration: none;
 }
-.passwordInput{
+.passwordInput,
+.emailInput{
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 .error {
+  color: red;
+  font-size: 0.875rem; /* smaller than normal text */
+  margin-top: 4px;
+  margin-left: 4px;
+}
+.serverError {
   color: red;
   font-size: 14px;
   margin-bottom: 10px;

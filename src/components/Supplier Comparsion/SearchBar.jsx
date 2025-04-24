@@ -1,9 +1,9 @@
 import React from "react";
-import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PropTypes from "prop-types";
 import styles from "./SupplierComparison.module.css";
 
-const SearchBar = ({ placeholder }) => {
+function SearchBar({ placeholder }) {
   return (
     <div className={styles.searchContainer}>
       <div className={styles.searchWrapper}>
@@ -18,7 +18,7 @@ const SearchBar = ({ placeholder }) => {
       </div>
     </div>
   );
-};
+}
 SearchBar.propTypes = {
   placeholder: PropTypes.string.isRequired
 };

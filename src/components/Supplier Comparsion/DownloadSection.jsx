@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SupplierComparison.module.css";
 
-const DownloadSection = () => {
+function DownloadSection() {
   return (
     <section className={styles.downloadSection}>
       <h3 className={styles.downloadTitle}>Download</h3>
@@ -10,5 +10,5 @@ const DownloadSection = () => {
       </div>
     </section>
   );
-};
+}
 export default DownloadSection;

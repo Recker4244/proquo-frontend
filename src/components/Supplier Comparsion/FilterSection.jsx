@@ -2,7 +2,7 @@ import React from "react";
 import SearchBar from "./SearchBar";
 import styles from "./SupplierComparison.module.css";
 
-const FilterSection = () => {
+function FilterSection() {
   return (
     <section className={styles.filterSection}>
       <h3 className={styles.filterTitle}>Filter &amp; Sort</h3>
@@ -26,5 +26,5 @@ const FilterSection = () => {
       </div> */}
     </section>
   );
-};
+}
 export default FilterSection;

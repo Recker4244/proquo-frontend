@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./PurchaseOrderPage.module.css";
 
-const SupplierConfirmation = () => {
+function SupplierConfirmation() {
   const supply = {
     supplierName: "Bauer Construction",
     supplierAddress: "1234 5th St, San Francisco, CA 94107",
@@ -101,6 +101,6 @@ const SupplierConfirmation = () => {
       </div>
     </section>
   );
-};
+}
 
 export default SupplierConfirmation;

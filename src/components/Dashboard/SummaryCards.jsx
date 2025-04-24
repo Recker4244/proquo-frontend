@@ -1,8 +1,8 @@
 import React from "react";
-import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
-import PendingActionsOutlinedIcon from '@mui/icons-material/PendingActionsOutlined';
-import DescriptionOutlinedIcon from '@mui/icons-material/DescriptionOutlined';
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import UploadFileOutlinedIcon from "@mui/icons-material/UploadFileOutlined";
+import PendingActionsOutlinedIcon from "@mui/icons-material/PendingActionsOutlined";
+import DescriptionOutlinedIcon from "@mui/icons-material/DescriptionOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import Cards from "./Cards";
 
 const summaryData = [

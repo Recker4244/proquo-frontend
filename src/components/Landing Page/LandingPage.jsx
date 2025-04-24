@@ -6,7 +6,7 @@ import Hero from "./Hero";
 import Features from "./Features";
 import Gallery from "./Gallery";
 
-const LandingPage = () => {
+function LandingPage() {
   return (
     <>
       <link
@@ -29,6 +29,6 @@ const LandingPage = () => {
       </main>
     </>
   );
-};
+}
 
 export default LandingPage;

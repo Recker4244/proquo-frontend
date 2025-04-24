@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Breadcrumbs.module.css";
 
-const Breadcrumbs = () => {
+function Breadcrumbs() {
   return (
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
       <ol className={styles.breadcrumbsList}>
@@ -17,6 +17,6 @@ const Breadcrumbs = () => {
       </ol>
     </nav>
   );
-};
+}
 
 export default Breadcrumbs;

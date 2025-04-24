@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ContactSupport.module.css";
 
-const ContactSupport = () => {
+function ContactSupport() {
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>Contact Support</h2>
@@ -14,6 +14,6 @@ const ContactSupport = () => {
       </div>
     </section>
   );
-};
+}
 
 export default ContactSupport;

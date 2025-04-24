@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SupplierComparison.module.css";
 
-const ProjectDetails = () => {
+function ProjectDetails() {
   return (
     <section className={styles.projectDetails}>
       <div className={styles.projectHeader}>
@@ -52,5 +52,5 @@ const ProjectDetails = () => {
       </div>
     </section>
   );
-};
+}
 export default ProjectDetails;

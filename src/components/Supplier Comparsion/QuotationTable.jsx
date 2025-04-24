@@ -4,7 +4,7 @@ import {
 } from "@mui/material";
 import styles from "./SupplierComparison.module.css";
 
-const QuotationTable = () => {
+function QuotationTable() {
   const suppliers = [
     {
       name: "Ultratech", price: "Rs.450,000", totalCost: "Rs.450,000", deliveryTime: "20 weeks", paymentTerms: "Advanced", ranking: "L1"
@@ -52,5 +52,5 @@ const QuotationTable = () => {
     </div>
 
   );
-};
+}
 export default QuotationTable;

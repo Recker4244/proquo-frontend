@@ -7,7 +7,7 @@ import SuccessBanner from "./SuccessBanner";
 import PODetails from "./PODetails";
 import Footer from "../sections/Footer";
 
-const POSummary = () => {
+function POSummary() {
   return (
     <>
       <link
@@ -26,6 +26,6 @@ const POSummary = () => {
       </div>
     </>
   );
-};
+}
 
 export default POSummary;

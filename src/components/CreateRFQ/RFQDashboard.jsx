@@ -2,7 +2,7 @@ import React from "react";
 import ProjectTable from "./RFQTable";
 import styles from "./RFQDashboard.module.css";
 
-const RFQDashboard = () => {
+function RFQDashboard() {
   return (
     <main className={styles.dashboard}>
       <div className={styles.content}>
@@ -14,6 +14,6 @@ const RFQDashboard = () => {
       </div>
     </main>
   );
-};
+}
 
 export default RFQDashboard;

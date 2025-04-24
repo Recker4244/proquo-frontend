@@ -4,7 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./FileUploadSection.module.css";
 
-const FileUploadSection = ({ iconUrl }) => {
+function FileUploadSection({ iconUrl }) {
   return (
     <section className={styles.uploadSection}>
       <div className={styles.uploadInfo}>
@@ -18,7 +18,7 @@ const FileUploadSection = ({ iconUrl }) => {
       </div>
     </section>
   );
-};
+}
 FileUploadSection.propTypes = {
   iconUrl: PropTypes.string.isRequired // Ensures iconUrl is a required string
 };

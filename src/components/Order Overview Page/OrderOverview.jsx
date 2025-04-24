@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./OrderOverview.module.css";
 import ProgressBar from "./ProgressBar";
 
-const OrderOverview = () => {
+function OrderOverview() {
   const Overview = {
     OrderDate: "Jul 1, 2025",
     ExpectedDelivery: "Jul 10, 2025",
@@ -38,7 +38,7 @@ const OrderOverview = () => {
           <span className={styles.progressTitle}>Shipment Progress</span>
           <span className={styles.progressValue}>{Overview.shipmentProgress}</span>
         </div>
-        <ProgressBar progress={Number(Overview.shipmentProgress.replace('%', ''))} />
+        <ProgressBar progress={Number(Overview.shipmentProgress.replace("%", ""))} />
       </div>
 
       <div className={styles.actions}>
@@ -47,6 +47,6 @@ const OrderOverview = () => {
       </div>
     </aside>
   );
-};
+}
 
 export default OrderOverview;

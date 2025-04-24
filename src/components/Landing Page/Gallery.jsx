@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Gallery.module.css";
 
-const Gallery = () => {
+function Gallery() {
   const images = [
     {
       src: "https://cdn.builder.io/api/v1/image/assets/TEMP/55eb3ef376b9a422b28be26fdf8d0d5d78d58aa8bac0473ef247e67dc21a6d0e?placeholderIfAbsent=true&apiKey=36e100f144574c0fa902b4dd3a0d8678",
@@ -32,5 +32,5 @@ const Gallery = () => {
       </div>
     </section>
   );
-};
+}
 export default Gallery;

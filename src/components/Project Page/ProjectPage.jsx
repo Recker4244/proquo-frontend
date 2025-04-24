@@ -5,7 +5,7 @@ import Header from "../sections/Header";
 import ProjectDashboard from "./ProjectDashboard";
 import styles from "./ProjectPage.module.css";
 
-const ProjectPage = () => {
+function ProjectPage() {
   return (
     <>
       <link
@@ -18,6 +18,6 @@ const ProjectPage = () => {
       </div>
     </>
   );
-};
+}
 
 export default ProjectPage;

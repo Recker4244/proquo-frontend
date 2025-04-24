@@ -5,7 +5,7 @@ import {
 import StatusBadge from "./StatusBadge";
 import styles from "./RFQTable.module.css";
 
-const RFQTable = () => {
+function RFQTable() {
   const [projects, setProjects] = React.useState([]);
   React.useEffect(() => {
     fetch("http://localhost:5000/projects")
@@ -42,6 +42,6 @@ const RFQTable = () => {
 
     </div>
   );
-};
+}
 
 export default RFQTable;

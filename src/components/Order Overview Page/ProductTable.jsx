@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ProductTable.module.css";
 
-const ProductTable = () => {
+function ProductTable() {
   const products = [
     {
       productName: "Premium Portland Cement",
@@ -35,6 +35,6 @@ const ProductTable = () => {
       ))}
     </section>
   );
-};
+}
 
 export default ProductTable;

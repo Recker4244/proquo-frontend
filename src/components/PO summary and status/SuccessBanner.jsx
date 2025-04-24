@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SuccessBanner.module.css";
 
-const SuccessBanner = () => {
+function SuccessBanner() {
   return (
     <section className={styles.banner}>
       <div className={styles.content}>
@@ -14,6 +14,6 @@ const SuccessBanner = () => {
       <button type="submit" className={styles.inviteButton}>Invite team</button>
     </section>
   );
-};
+}
 
 export default SuccessBanner;

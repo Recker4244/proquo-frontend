@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./Hero.module.css";
 
-const Hero = () => {
+function Hero() {
   return (
     <section className={styles.heroSection}>
       <div className={styles.heroContent}>
@@ -23,6 +23,6 @@ const Hero = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Hero;

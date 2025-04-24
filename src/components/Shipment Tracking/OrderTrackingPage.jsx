@@ -10,7 +10,7 @@ import ShipmentDetails from "./ShipmentDetails";
 import ContactSupport from "./ContactSupport";
 import styles from "./OrderTrackingPage.module.css";
 
-const OrderTrackingPage = () => {
+function OrderTrackingPage() {
   return (
     <>
       <link
@@ -32,6 +32,6 @@ const OrderTrackingPage = () => {
       </main>
     </>
   );
-};
+}
 
 export default OrderTrackingPage;

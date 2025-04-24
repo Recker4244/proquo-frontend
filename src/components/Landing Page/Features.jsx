@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Features.module.css";
 import FeatureCard from "./FeatureCard";
 
-const Features = () => {
+function Features() {
   const features = [
     {
       icon: "https://cdn.builder.io/api/v1/image/assets/TEMP/3af0017208fb1df82a95281075486fcb864ed9e2ba31e7b254cca6c07d41a6c8?placeholderIfAbsent=true&apiKey=36e100f144574c0fa902b4dd3a0d8678",
@@ -51,5 +51,5 @@ const Features = () => {
       </div>
     </section>
   );
-};
+}
 export default Features;

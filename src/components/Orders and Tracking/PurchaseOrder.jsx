@@ -3,7 +3,7 @@ import Header from "../sections/Header";
 import PurchaseOrdersTable from "./PurchaseOrdersTable";
 import styles from "./PurchaseOrder.module.css";
 
-const PurchaseOrder = () => {
+function PurchaseOrder() {
   return (
     <>
       <link
@@ -25,5 +25,5 @@ const PurchaseOrder = () => {
       </main>
     </>
   );
-};
+}
 export default PurchaseOrder;

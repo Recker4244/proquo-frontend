@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SupplierInfo.module.css";
 
-const SupplierInfo = () => {
+function SupplierInfo() {
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>Supplier Information</h2>
@@ -27,6 +27,6 @@ const SupplierInfo = () => {
       </div>
     </section>
   );
-};
+}
 
 export default SupplierInfo;

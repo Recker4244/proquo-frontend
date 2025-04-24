@@ -1,11 +1,11 @@
 import React from "react";
-import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
-import LocalShippingOutlinedIcon from '@mui/icons-material/LocalShippingOutlined';
+import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
+import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import { PiRoadHorizon, PiPackage } from "react-icons/pi";
 import TimelineItem from "./TimelineItem";
 import styles from "./TrackingTimeline.module.css";
 
-const TrackingTimeline = () => {
+function TrackingTimeline() {
   const trackingSteps = [
     {
       icon: <DoneOutlinedIcon style={{ fontSize: "24px" }} />,
@@ -51,6 +51,6 @@ const TrackingTimeline = () => {
       </div>
     </section>
   );
-};
+}
 
 export default TrackingTimeline;
