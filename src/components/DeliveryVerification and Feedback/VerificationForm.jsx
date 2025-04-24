@@ -1,8 +1,9 @@
 "use client";
+
 import React from "react";
 import styles from "./VerificationForm.module.css";
 
-const VerificationForm = () => {
+function VerificationForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Handle form submission
@@ -51,6 +52,6 @@ const VerificationForm = () => {
       </form>
     </section>
   );
-};
+}
 
 export default VerificationForm;

@@ -5,7 +5,7 @@ import {
 import StatusBadge from "./StatusBadge";
 import styles from "./ProjectTable.module.css";
 
-const ProjectTable = () => {
+function ProjectTable() {
   const [projects, setProjects] = React.useState([]);
   React.useEffect(() => {
     fetch("http://localhost:5000/projects")
@@ -42,6 +42,6 @@ const ProjectTable = () => {
 
     </div>
   );
-};
+}
 
 export default ProjectTable;

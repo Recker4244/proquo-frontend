@@ -1,18 +1,51 @@
-import React from "react";
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
+import { post } from "../../utils/makeRequest";
 import styles from "./login.module.css";
 
 function Login() {
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    email: "",
+    password: ""
+  });
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
   const handleKeyDown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
       togglePasswordVisibility();
     }
   };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSignIn = async (e) => {
+    e.preventDefault();
+    setErrorMessage("");
+    try {
+      const response = await post("user/login", formData);
+      localStorage.setItem("token", response.token);
+      navigate("/dashboard");
+    } catch (err) {
+      setErrorMessage(
+        err.message || "Login failed. Please check your credentials."
+      );
+    }
+  };
+
   return (
     <>
       <link
@@ -48,17 +81,32 @@ function Login() {
             <h3 className={styles.logoText}>proquo.tech</h3>
           </div>
           <div className={styles.loginDetails}>
+            {errorMessage && <div className={styles.error}>{errorMessage}</div>}
             <div className={styles.emailInput}>
               <label htmlFor="email" className={styles.label}>
                 Email
-                <input type="email" id="email" className={styles.input} />
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={styles.input}
+                />
               </label>
             </div>
             <div className={styles.passwordInput}>
               <label htmlFor="password" className={styles.label}>
                 Password
                 <div className={styles.passwordContainer}>
-                  <input type={passwordVisible ? 'text' : 'password'} id="password" className={`${styles.input} ${styles.password}`} />
+                  <input
+                    type={passwordVisible ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    className={`${styles.input} ${styles.password}`}
+                  />
                   <span
                     className={styles.eye_icon}
                     onClick={togglePasswordVisibility}
@@ -66,16 +114,26 @@ function Login() {
                     role="button"
                     tabIndex="0"
                   >
-                    {passwordVisible
-                      ? <VisibilityOffOutlinedIcon className={styles.icon} />
-                      : <VisibilityOutlinedIcon className={styles.icon} />}
+                    {passwordVisible ? (
+                      <VisibilityOffOutlinedIcon className={styles.icon} />
+                    ) : (
+                      <VisibilityOutlinedIcon className={styles.icon} />
+                    )}
                   </span>
                 </div>
               </label>
-              <a className={styles.forgot} href="/forgot">Forgot Password?</a>
+              <a className={styles.forgot} href="/forgot">
+                Forgot Password?
+              </a>
             </div>
             <div className={styles.signIn}>
-              <button type="submit" className={styles.signInButton}>Sign In</button>
+              <button
+                type="submit"
+                className={styles.signInButton}
+                onClick={handleSignIn}
+              >
+                Sign In
+              </button>
             </div>
             <div className={styles.account}>
               <a href="/register">Don&apos;t have an account?</a>

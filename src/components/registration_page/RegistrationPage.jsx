@@ -7,7 +7,7 @@ import FormSection from "./FormSection";
 import FileUploadSection from "./FileUploadSection";
 import SubmitButton from "./SubmitButton";
 
-const RegistrationPage = () => {
+function RegistrationPage() {
   return (
     <>
       <link
@@ -60,6 +60,6 @@ const RegistrationPage = () => {
       </main>
     </>
   );
-};
+}
 
 export default RegistrationPage;

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./LiveTrackingMap.module.css";
 
-const LiveTrackingMap = () => {
+function LiveTrackingMap() {
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>Live Tracking (Map)</h2>
@@ -14,6 +14,6 @@ const LiveTrackingMap = () => {
       </div>
     </section>
   );
-};
+}
 
 export default LiveTrackingMap;

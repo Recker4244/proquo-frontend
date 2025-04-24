@@ -5,7 +5,7 @@ import Header from "../sections/Header";
 import ProjectDashboard from "./RFQDashboard";
 import styles from "./CreateRFQ.module.css";
 
-const CreateRFQ = () => {
+function CreateRFQ() {
   return (
     <>
       <link
@@ -18,6 +18,6 @@ const CreateRFQ = () => {
       </div>
     </>
   );
-};
+}
 
 export default CreateRFQ;

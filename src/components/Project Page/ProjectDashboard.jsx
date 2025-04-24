@@ -3,7 +3,7 @@ import SearchBar from "./SearchBar";
 import ProjectTable from "./ProjectTable";
 import styles from "./ProjectDashboard.module.css";
 
-const ProjectDashboard = () => {
+function ProjectDashboard() {
   return (
     <main className={styles.dashboard}>
       <div className={styles.content}>
@@ -16,6 +16,6 @@ const ProjectDashboard = () => {
       </div>
     </main>
   );
-};
+}
 
 export default ProjectDashboard;

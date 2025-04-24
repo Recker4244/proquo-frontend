@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./SearchBar.module.css";
 
-const SearchBar = () => {
+function SearchBar() {
   return (
     <div className={styles.searchContainer}>
       <label htmlFor="searchInput" className={styles.searchLabel}>
@@ -15,5 +15,5 @@ const SearchBar = () => {
       </label>
     </div>
   );
-};
+}
 export default SearchBar;

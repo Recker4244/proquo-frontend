@@ -3,7 +3,7 @@
 import React from "react";
 import styles from "./SupplierComparison.module.css";
 
-const CustomPriceSuggestion = () => {
+function CustomPriceSuggestion() {
   return (
     <section className={styles.suggestionSection}>
       <div className={styles.suggestionForm}>
@@ -23,5 +23,5 @@ const CustomPriceSuggestion = () => {
       </p>
     </section>
   );
-};
+}
 export default CustomPriceSuggestion;

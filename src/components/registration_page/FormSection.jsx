@@ -4,9 +4,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./FormSection.module.css";
 
-const FormSection = ({
+function FormSection({
   label, type, tag, fullWidth = true
-}) => {
+}) {
   return (
     <div
       className={`${styles.formSection} ${fullWidth ? styles.fullWidth : ""}`}
@@ -20,7 +20,7 @@ const FormSection = ({
 
     </div>
   );
-};
+}
 FormSection.propTypes = {
   label: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,

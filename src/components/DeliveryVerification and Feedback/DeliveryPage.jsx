@@ -8,7 +8,7 @@ import OrderDetails from "./OrderDetails";
 import VerificationForm from "./VerificationForm";
 import styles from "./DeliveryPage.module.css";
 
-const DeliveryPage = () => {
+function DeliveryPage() {
   return (
     <main className={styles.pageContainer}>
       <link
@@ -30,6 +30,6 @@ const DeliveryPage = () => {
       </section>
     </main>
   );
-};
+}
 
 export default DeliveryPage;

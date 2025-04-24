@@ -4,7 +4,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styles from "./ProgressBar.module.css";
 
-const ProgressBar = ({ currentStep, totalSteps }) => {
+function ProgressBar({ currentStep, totalSteps }) {
   return (
     <section className={styles.progressContainer}>
       <header className={styles.stepIndicator}>
@@ -25,7 +25,7 @@ const ProgressBar = ({ currentStep, totalSteps }) => {
       </div>
     </section>
   );
-};
+}
 ProgressBar.propTypes = {
   currentStep: PropTypes.number.isRequired,
   totalSteps: PropTypes.number.isRequired

@@ -1,8 +1,8 @@
 import React from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import styles from "./FeatureCard.module.css";
 
-const FeatureCard = ({ icon, title, description }) => {
+function FeatureCard({ icon, title, description }) {
   return (
     <article className={styles.featureCard}>
       <div className={styles.iconContainer}>
@@ -14,7 +14,7 @@ const FeatureCard = ({ icon, title, description }) => {
       </div>
     </article>
   );
-};
+}
 FeatureCard.propTypes = {
   icon: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,

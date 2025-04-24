@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./OrderHeader.module.css";
 
-const OrderHeader = () => {
+function OrderHeader() {
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>Order #789456</h2>
@@ -18,6 +18,6 @@ const OrderHeader = () => {
       </nav>
     </section>
   );
-};
+}
 
 export default OrderHeader;

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./OrderDetails.module.css";
 
-const OrderDetails = () => {
+function OrderDetails() {
   const orderDetails = {
     PONumber: "1234",
     Supplier: "JSW Cement",
@@ -51,6 +51,6 @@ const OrderDetails = () => {
       </div>
     </section>
   );
-};
+}
 
 export default OrderDetails;

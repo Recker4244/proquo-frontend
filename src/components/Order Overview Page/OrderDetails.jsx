@@ -7,7 +7,7 @@ import OrderOverview from "./OrderOverview";
 import ProductTable from "./ProductTable";
 import ShipmentPaymentDetails from "./ShipmentPaymentDetails";
 
-const OrderDetails = () => {
+function OrderDetails() {
   return (
     <>
       <link
@@ -33,6 +33,6 @@ const OrderDetails = () => {
       </div>
     </>
   );
-};
+}
 
 export default OrderDetails;

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./ShipmentPaymentDetails.module.css";
 
-const ShippingPaymentDetails = () => {
+function ShippingPaymentDetails() {
   const ShipmentDetails = {
     deliveryDate: "Jul 10, 2025",
     address: "123 Brickyard Lane, Springfield, IL",
@@ -41,6 +41,6 @@ const ShippingPaymentDetails = () => {
       </section>
     </div>
   );
-};
+}
 
 export default ShippingPaymentDetails;

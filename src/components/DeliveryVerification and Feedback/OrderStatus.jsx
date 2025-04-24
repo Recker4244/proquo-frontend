@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./OrderStatus.module.css";
 
-const OrderStatus = () => {
+function OrderStatus() {
   const orderStatus = {
     deliveryDate: "Jul 23, 2023"
   };
@@ -14,6 +14,6 @@ const OrderStatus = () => {
       <time className={styles.deliveryDate}>{orderStatus.deliveryDate}</time>
     </section>
   );
-};
+}
 
 export default OrderStatus;

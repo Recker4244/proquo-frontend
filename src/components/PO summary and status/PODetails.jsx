@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./PODetails.module.css";
 
-const PODetails = () => {
+function PODetails() {
   const summary = {
     PONumber: "PO# 12-3456",
     supplier: "Acme Construction",
@@ -57,6 +57,6 @@ const PODetails = () => {
       <p className={styles.downloadText}>Or download your purchase order PDF</p>
     </section>
   );
-};
+}
 
 export default PODetails;

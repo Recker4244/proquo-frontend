@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import SettingsIcon from '@mui/icons-material/Settings';
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
-import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from 'react-router-dom';
+import SettingsIcon from "@mui/icons-material/Settings";
+import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
+import MenuIcon from "@mui/icons-material/Menu";
+import { Link } from "react-router-dom";
 import styles from "./Header.module.css";
 
-const Header = () => {
+function Header() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   return (
     <>
@@ -91,6 +91,6 @@ const Header = () => {
       </header>
     </>
   );
-};
+}
 
 export default Header;

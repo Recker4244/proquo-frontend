@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { FiMenu } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
-const NavBar = () => {
+function NavBar() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -16,6 +18,10 @@ const NavBar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleSignIn = () => {
+    navigate("/login");
   };
 
   return (
@@ -48,7 +54,7 @@ const NavBar = () => {
             </ul>
           )}
           <div className={styles.authButtons}>
-            <button type="submit" className={styles.signInButton}>
+            <button type="button" className={styles.signInButton} onClick={handleSignIn}>
               Sign in
             </button>
             <button type="submit" className={styles.getStartedButton}>
@@ -80,5 +86,6 @@ const NavBar = () => {
       )}
     </header>
   );
-};
+}
+
 export default NavBar;

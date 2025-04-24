@@ -6,7 +6,7 @@ import StatusBadge from "./StatusBadge";
 import SearchBar from "./SearchBar";
 import styles from "./PurchaseOrdersTable.module.css";
 
-const PurchaseOrdersTable = () => {
+function PurchaseOrdersTable() {
   const orders = useMemo(() => [
     {
       id: "#1234", supplier: "UltraTech Ltd.", quantity: "3,000", value: "Rs.1,000,000", location: "Mumbai", status: "Accepted"
@@ -70,7 +70,7 @@ const PurchaseOrdersTable = () => {
             type="button"
             key={filter}
             onClick={() => toggleFilter(filter)}
-            className={`${styles.filterTag} ${activeFilters.includes(filter) ? styles.active : ''}`}
+            className={`${styles.filterTag} ${activeFilters.includes(filter) ? styles.active : ""}`}
           >
             {filter}
           </button>
@@ -120,6 +120,6 @@ const PurchaseOrdersTable = () => {
       </div>
     </>
   );
-};
+}
 
 export default PurchaseOrdersTable;
