@@ -8,19 +8,23 @@ import Cards from "./Cards";
 const summaryData = [
   {
     title: "Total RFQs Created",
-    icon: <UploadFileOutlinedIcon />
+    icon: <UploadFileOutlinedIcon />,
+    value: 1
   },
   {
     title: "Pending PO Approvals",
-    icon: <PendingActionsOutlinedIcon />
+    icon: <PendingActionsOutlinedIcon />,
+    value: 2
   },
   {
     title: "Active Orders",
-    icon: <DescriptionOutlinedIcon />
+    icon: <DescriptionOutlinedIcon />,
+    value: 3
   },
   {
     title: "Orders Delivered",
-    icon: <LocalShippingOutlinedIcon />
+    icon: <LocalShippingOutlinedIcon />,
+    value: 4
   }
 ];
 

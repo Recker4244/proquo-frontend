@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate, Link } from "react-router-dom";
 import 'react-phone-input-2/lib/style.css';
 import PhoneInput from 'react-phone-input-2';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
@@ -18,6 +19,8 @@ function Register() {
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
+
+  const navigate = useNavigate();
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
@@ -49,6 +52,10 @@ function Register() {
         validationErrors.password = "Password must be 8-16 characters, with at least one uppercase letter, one lowercase letter, one number, and one special character.";
       }
     }
+    let formattedPhone = phoneNumber;
+    if (!formattedPhone.startsWith("+")) {
+      formattedPhone = `+91${phoneNumber}`;
+    }
 
     // If there are validation errors, set the error state and return early
     if (Object.keys(validationErrors).length > 0) {
@@ -59,7 +66,7 @@ function Register() {
     const userData = {
       name,
       email,
-      phone: phoneNumber,
+      phone: formattedPhone,
       password: e.target.password.value,
       designation,
       company_id: companyId
@@ -67,7 +74,7 @@ function Register() {
 
     try {
       // Sending POST request to the backend
-      const response = await fetch("http://localhost:3000/user", {
+      const response = await fetch("user", {
         method: "POST",
         headers: {
           "Content-Type": "application/json"
@@ -78,7 +85,7 @@ function Register() {
         const errorData = await response.json();
         throw new Error(errorData.message || "Something went wrong");
       }
-      window.location.href = "/dashboard"; 
+      navigate("/createProject"); 
     } catch (error) {
       console.error("Error:", error);
       setServerError(error.message);
@@ -217,7 +224,7 @@ function Register() {
             </div>
           </form>
           <div className={styles.account}>
-            <a href="/login">Already have an account?</a>
+            <Link to="/login">Already have an account?</Link>
           </div>
         </div>
       </div>

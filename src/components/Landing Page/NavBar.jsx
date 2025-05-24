@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { FiMenu } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 
 function NavBar() {
-  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
@@ -18,10 +17,6 @@ function NavBar() {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
-  };
-
-  const handleSignIn = () => {
-    navigate("/login");
   };
 
   return (
@@ -54,14 +49,16 @@ function NavBar() {
             </ul>
           )}
           <div className={styles.authButtons}>
-            <a href="/login">
+            <Link to="/login">
               <button type="submit" className={styles.signInButton}>
                 Sign in
               </button>
-            </a>
-            <button type="submit" className={styles.getStartedButton}>
-              Get started
-            </button>
+            </Link>
+            <Link to="/userRegistration">
+              <button type="submit" className={styles.getStartedButton}>
+                Get started
+              </button>
+            </Link>
             {isMobile && (
               <button type="submit" className={styles.hamburgerMenu} onClick={toggleMenu}>
                 <FiMenu size={24} />

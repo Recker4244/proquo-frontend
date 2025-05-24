@@ -1,56 +1,106 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
 import { PiRoadHorizon, PiPackage } from "react-icons/pi";
 import TimelineItem from "./TimelineItem";
 import styles from "./TrackingTimeline.module.css";
 
-function TrackingTimeline() {
-  const trackingSteps = [
-    {
-      icon: <DoneOutlinedIcon style={{ fontSize: "24px" }} />,
-      title: "Order Placed",
-      date: "July 20, 2024, 10:00 AM",
-      isActive: true
-    },
-    {
-      icon: <LocalShippingOutlinedIcon style={{ fontSize: "24px" }} />,
-      title: "Order Shipped",
-      date: "July 21, 2024, 2:00 PM",
-      isActive: true
-    },
-    {
-      icon: <PiRoadHorizon size={24} />,
-      title: "In Transit",
-      date: "July 22, 2024, 8:00 AM",
-      isActive: true
-    },
-    {
-      icon: <PiPackage size={24} />,
-      title: "Delivered",
-      date: "July 23, 2024, 12:00 PM",
-      isActive: false,
-      isLast: true
-    }
-  ];
+const STATUS_SEQUENCE = [
+  "Order Placed",
+  "Order Shipped",
+  "In Transit",
+  "Order Delivered"
+];
+
+const statusIconMap = {
+  "Order Placed": <DoneOutlinedIcon style={{ fontSize: "24px" }} />,
+  "Order Shipped": <LocalShippingOutlinedIcon style={{ fontSize: "24px" }} />,
+  "In Transit": <PiRoadHorizon size={24} />,
+  "Order Delivered": <PiPackage size={24} />,
+};
+
+function formatDateTime(isoString) {
+  if (!isoString) return "-";
+  const date = new Date(isoString);
+  return date.toLocaleString(undefined, {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+function TrackingTimeline({ orderId }) {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!orderId) return;
+    fetch(`/order/${orderId}/tracking`)
+      .then((res) => res.json())
+      .then((fetchedEvents) => {
+        const sorted = [...fetchedEvents].sort(
+          (a, b) => new Date(a.timestamp) - new Date(b.timestamp)
+        );
+        setEvents(sorted);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Failed to fetch tracking events:", err);
+        setLoading(false);
+      });
+  }, [orderId]);
+
+  if (loading) return <div>Loading shipment tracking...</div>;
+  if (!events.length) return <div>No tracking events found.</div>;
+
+  const timelineSteps = STATUS_SEQUENCE.map((status, idx) => {
+    const event = events.find((e) => e.status === status);
+    return {
+      status,
+      icon: statusIconMap[status],
+      date: event ? formatDateTime(event.timestamp) : null,
+      idx
+    };
+  });
+
+  // Find the highest index of any status present in events
+  const highestStatusIdx = Math.max(
+    ...events.map((e) => STATUS_SEQUENCE.indexOf(e.status)),
+    -1
+  );
+
+  const timelineStepsWithActive = timelineSteps.map((step, idx) => ({
+    ...step,
+    isActive: idx === highestStatusIdx && highestStatusIdx !== -1,
+    isCompleted: idx < highestStatusIdx && highestStatusIdx !== -1,
+    isLast: idx === STATUS_SEQUENCE.length - 1
+  }));
 
   return (
     <section className={styles.container}>
       <h2 className={styles.title}>Shipment Tracking</h2>
       <div className={styles.timeline}>
-        {trackingSteps.map((step, index) => (
+        {timelineStepsWithActive.map((step) => (
           <TimelineItem
-            key={step.title}
+            key={step.status}
             icon={step.icon}
-            title={step.title}
+            title={step.status}
             date={step.date}
-            isLast={step.isLast || index === trackingSteps.length - 1}
+            isLast={step.isLast}
             isActive={step.isActive}
+            isCompleted={step.isCompleted}
           />
         ))}
       </div>
     </section>
   );
 }
+
+TrackingTimeline.propTypes = {
+  orderId: PropTypes.string.isRequired,
+};
 
 export default TrackingTimeline;

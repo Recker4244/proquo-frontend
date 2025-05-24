@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { post } from "../../utils/makeRequest";
@@ -136,7 +136,7 @@ function Login() {
               </button>
             </div>
             <div className={styles.account}>
-              <a href="/userRegistration">Don&apos;t have an account?</a>
+              <Link to="/userRegistration">Don&apos;t have an account?</Link>
             </div>
           </div>
         </div>

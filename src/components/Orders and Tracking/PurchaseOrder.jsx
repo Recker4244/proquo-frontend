@@ -1,9 +1,11 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../sections/Header";
 import PurchaseOrdersTable from "./PurchaseOrdersTable";
 import styles from "./PurchaseOrder.module.css";
 
 function PurchaseOrder() {
+  const navigate = useNavigate();
   return (
     <>
       <link
@@ -16,7 +18,7 @@ function PurchaseOrder() {
           <div className={styles.contentWrapper}>
             <div className={styles.header}>
               <h2 className={styles.title}>Purchase Orders</h2>
-              <button type="button" className={styles.addButton}>New Order</button>
+              <button type="button" onClick={() => navigate('/createProject')} className={styles.addButton}>New Order</button>
             </div>
             <h2 className={styles.subtitle}>Track and manage all cement orders efficiently.</h2>
             <PurchaseOrdersTable />

@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import { useLocation } from "react-router-dom";
 import Header from "../sections/Header";
 import OrderHeader from "./OrderHeader";
 import TrackingTimeline from "./TrackingTimeline";
@@ -11,6 +12,10 @@ import ContactSupport from "./ContactSupport";
 import styles from "./OrderTrackingPage.module.css";
 
 function OrderTrackingPage() {
+  const { state } = useLocation();
+  const poId = state?.poId;
+  const orderId = state?.orderId;
+  
   return (
     <>
       <link
@@ -22,8 +27,8 @@ function OrderTrackingPage() {
         <section className={styles.content}>
           <div className={styles.contentWrapper}>
             <OrderHeader />
-            <TrackingTimeline />
-            <SupplierInfo />
+            <TrackingTimeline orderId={poId || orderId} />
+            <SupplierInfo poId={poId || orderId} />
             <LiveTrackingMap />
             <ShipmentDetails />
             <ContactSupport />

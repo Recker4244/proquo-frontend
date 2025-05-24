@@ -96,6 +96,12 @@
 .active{
   background-color: #b39ddb;
 }
+.viewDetailsButton{
+  border: none;
+  background-color: transparent;
+  color: #73618a;
+  cursor: pointer;
+}
 
 @media (width <= 640px) {
   .filterContainer {

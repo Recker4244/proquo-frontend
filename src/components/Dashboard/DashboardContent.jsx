@@ -1,7 +1,7 @@
 import React from "react";
 import SummaryCards from "./SummaryCards";
-import ProjectsTable from "./ProjectsTable";
-import RFQTable from "./RFQTable";
+import ProjectTable from "../Project Page/ProjectTable"
+import RFQList from "../RFQManagementV1.1/RFQList";
 import styles from "./InputDesign.module.css";
 
 function DashboardContent() {
@@ -28,12 +28,12 @@ function DashboardContent() {
 
       <section className={styles.projectsSection}>
         <h2 className={styles.sectionTitle}>Ongoing Projects</h2>
-        <ProjectsTable />
+        <ProjectTable />
       </section>
 
       <section className={styles.rfqSection}>
         <h2 className={styles.sectionTitle}>RFQ Status</h2>
-        <RFQTable />
+        <RFQList />
       </section>
     </div>
   );

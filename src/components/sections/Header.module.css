@@ -103,7 +103,9 @@
     color: #120d1c;
     font-size: 24px;
   }
-  
+  .withSidebar{
+    margin-left: 280px;
+  }
   
   
   @media (width <= 991px) {
@@ -113,6 +115,9 @@
     }
     .mobileMenuButton{
       display: block;
+    }
+    .withSidebar{
+      margin-left: 0px;
     }
     .navList { 
       display: none;

@@ -1,10 +1,9 @@
 import React from "react";
 import styles from "./RFQManagement.module.css";
 import Header from "../sections/Header";
-import FilterTabs from "./FilterTabs";
+// import FilterTabs from "./FilterTabs";
 import RFQOverview from "./RFQOverview";
 import RFQList from "./RFQList";
-import SearchBar from "../Orders and Tracking/SearchBar";
 
 function RFQManagement() {
   return (
@@ -20,11 +19,10 @@ function RFQManagement() {
           Efficiently manage RFQs, track supplier responses, and optimize
           procurement costs with real-time data insights.
         </p>
-        <FilterTabs />
+        {/* <FilterTabs /> */}
         <h2 className={styles.sectionHeading}>RFQ Overview</h2>
         <RFQOverview />
         <h2 className={styles.sectionHeading}>RFQ List</h2>
-        <SearchBar placeholder="Search RFQs by number, title, or supplier" />
         <RFQList />
       </section>
     </main>

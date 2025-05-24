@@ -3,7 +3,6 @@
 import React from "react";
 import styles from "./RFQPage.module.css";
 import Header from "../sections/Header";
-import ProjectForm from "./ProjectForm";
 import RFQForm from "./RFQForm";
 
 function RFQPage() {
@@ -17,10 +16,6 @@ function RFQPage() {
         <Header />
         <main className={styles.mainContent}>
           <div className={styles.contentWrapper}>
-            <h1 className={styles.projectTitle}>
-              Project: 123 Main St, San Francisco, CA
-            </h1>
-            <ProjectForm />
             <RFQForm />
           </div>
         </main>

@@ -1,5 +1,12 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import {
+  Drawer,
+  IconButton,
+  useMediaQuery,
+  useTheme,
+} from "@mui/material";
+import { GoSidebarCollapse } from "react-icons/go";
 import SearchIcon from "@mui/icons-material/Search";
 import GradingOutlinedIcon from "@mui/icons-material/GradingOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
@@ -9,6 +16,8 @@ import ContentCutOutlinedIcon from "@mui/icons-material/ContentCutOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
 import styles from "./InputDesign.module.css";
 
 const menuItems = [
@@ -23,19 +32,35 @@ const menuItems = [
 ];
 
 const footerItems = [
-  { icon: "URL_HELP_ICON", label: "Help Center", path: "/help" },
-  { icon: "URL_FEEDBACK_ICON", label: "Feedback", path: "/feedback" }
+  { icon: <HelpOutlineOutlinedIcon />, label: "Help Center", path: "/help" },
+  { icon: <FeedbackOutlinedIcon />, label: "Feedback", path: "/feedback" }
 ];
 
 function Sidebar() {
   const navigate = useNavigate();
+  const location = useLocation();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [open, setOpen] = useState(false);
 
+  // Handle navigation and close sidebar on mobile if necessary
   const handleNavigation = (path) => {
     navigate(path);
+    if (isMobile) setOpen(false);
   };
 
-  return (
-    <aside className={styles.sidebar}>
+  // Determine active route
+  const isActive = (path) => location.pathname === path;
+
+  // Effect to close drawer when resizing from mobile to desktop
+  useEffect(() => {
+    if (!isMobile && open) {
+      setOpen(false);
+    }
+  }, [isMobile, open]);
+
+  const sidebarContent = (
+    <div className={`${styles.sidebar} ${open ? styles.sidebarVisible : ''}`}>
       <div className={styles.searchContainer}>
         <div className={styles.searchWrapper}>
           <div className={styles.searchIconWrapper}>
@@ -50,7 +75,7 @@ function Sidebar() {
           <button
             type="button"
             key={item.label}
-            className={styles.navItem}
+            className={`${styles.navItem} ${isActive(item.path) ? styles.activeNavItem : ''}`}
             onClick={() => handleNavigation(item.path)}
           >
             {item.icon}
@@ -64,15 +89,37 @@ function Sidebar() {
           <button
             type="button"
             key={item.label}
-            className={styles.footerItem}
+            className={`${styles.footerItem} ${isActive(item.path) ? styles.activeNavItem : ''}`}
             onClick={() => handleNavigation(item.path)}
           >
-            <div dangerouslySetInnerHTML={{ __html: item.icon }} />
+            {item.icon}
             <span>{item.label}</span>
           </button>
         ))}
       </footer>
-    </aside>
+    </div>
+  );
+
+  return (
+    <div>
+      {isMobile ? (
+        <>
+          <IconButton
+            onClick={() => setOpen(true)}
+            sx={{
+              position: "fixed", top: 16, left: 16, zIndex: 1100
+            }}
+          >
+            {/* <GoSidebarCollapse /> */}
+          </IconButton>
+          <Drawer anchor="left" open={open} onClose={() => setOpen(false)}>
+            {sidebarContent}
+          </Drawer>
+        </>
+      ) : (
+        sidebarContent
+      )}
+    </div>
   );
 }
 

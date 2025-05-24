@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 } from "@mui/material"; 
@@ -7,6 +8,8 @@ import styles from "./PurchaseOrdersTable.module.css";
 
 const PurchaseOrdersTable = () => {
   const [orders, setOrders] = useState([]);
+  const navigate = useNavigate();
+
   React.useEffect(() => {
     fetch("/order")
       .then((response) => response.json())
@@ -14,58 +17,36 @@ const PurchaseOrdersTable = () => {
       .catch((error) => console.error("Error fetching data: ", error));
   }, []);
   
-  // const [activeFilters, setActiveFilter] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-
-  // const filterOptions = useMemo(
-  // () => [...new Set(orders.map((order) => order.status))], [orders]);
-
-  // const toggleFilter = (filter) => {
-  //   setActiveFilter((prevFilter) => (
-  //     prevFilter.includes(filter) ? prevFilter.filter((f) => f !== filter) : [filter]
-  //   ));
-  // };
 
   const filteredData = useMemo(() => {
     let data = orders;
-
-    // Apply status filter
-    // if (activeFilters.length > 0) {
-    //   data = data.filter((order) => activeFilters.includes(order.status));
-    // }
-
-    // Apply search filter
     if (searchQuery.trim() !== "") {
       data = data.filter(
         (order) => Object.values(order).some(
-          (value) => value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+          (value) => value && value.toString().toLowerCase().includes(searchQuery.toLowerCase())
         )
       );
     }
-
     return data;
   }, [searchQuery, orders]);
 
+  // Handler for View Details button click
+  const handleViewDetails = (orderId) => {
+    console.log(orderId);
+    
+    navigate("/track", { state: { orderId } });
+    // If you use route params, you can do: navigate(`/track-po/${poId}`);
+  };
+
   return (
     <>
-      {/* Search Bar */}
-      <SearchBar placeholder="Search by PO number, supplier, or delivery location" searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <SearchBar
+        placeholder="Search by PO number, supplier, or delivery location"
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+      />
 
-      {/* Filter Buttons
-      <div className={styles.filterContainer}>
-        {filterOptions.map((filter) => (
-          <button
-            type="button"
-            key={filter}
-            onClick={() => toggleFilter(filter)}
-            className={`${styles.filterTag} ${activeFilters.includes(filter) ? styles.active : ""}`}
-          >
-            {filter}
-          </button>
-        ))}
-      </div> */}
-
-      {/* Table */}
       <div className={styles.tableWrapper}>
         <TableContainer component={Paper} className={styles.tableContainer}>
           <Table stickyHeader>
@@ -96,7 +77,15 @@ const PurchaseOrdersTable = () => {
                     <TableCell className={styles.cell}>{order.delivery_address}</TableCell>
                     <TableCell className={styles.cell}>{order.point_of_contact}</TableCell>
                     <TableCell className={styles.cell}>{order.point_of_contactphone}</TableCell>
-                    <TableCell className={styles.actionCell}>View Details</TableCell>
+                    <TableCell className={styles.actionCell}>
+                      <button
+                        type="button"
+                        onClick={() => handleViewDetails(order.id)}
+                        className={styles.viewDetailsButton}
+                      >
+                        View Details
+                      </button>
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (

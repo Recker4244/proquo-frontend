@@ -16,14 +16,17 @@ import CreateRFQ from "./CreateRFQ/CreateRFQ";
 import RFQManagement from "./RFQManagementV1.1/RFQManagement";
 import Login from "./Login Page/Login";
 import Register from "./Register Page/Register";
+import NewProjectForm from "./CreateProject/NewProjectForm";
+import ScrollToTop from "./sections/ScrollToTop";
 
 function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/project" element={<ProjectPage />} />
+        <Route path="/projects" element={<ProjectPage />} />
         <Route path="/dashboard" element={<InputDesign />} />
         <Route path="/rfq" element={<RFQPage />} />
         <Route path="/compare" element={<SupplierComparison />} />
@@ -37,6 +40,7 @@ function App() {
         <Route path="/rfqManage" element={<RFQManagement />} />
         <Route path="/login" element={<Login />} />
         <Route path="/userRegistration" element={<Register />} />
+        <Route path="/createProject" element={<NewProjectForm />} />
       </Routes>
     </Router>
   );

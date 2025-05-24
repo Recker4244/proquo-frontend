@@ -93,6 +93,21 @@
 .activeDate {
   color: #660DD4;
 }
+.completedIcon {
+  color: #12b76a; /* Green for completed */
+}
+
+.completedTitle {
+  color: #12b76a;
+}
+
+.completedDate {
+  color: #12b76a;
+}
+
+.completedConnector {
+  background-color: #12b76a;
+}
 
 @media (width <= 640px) {
   .container {

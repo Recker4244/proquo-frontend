@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
+import PropTypes from "prop-types";
 import SettingsIcon from "@mui/icons-material/Settings";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Link } from "react-router-dom";
+import clsx from "clsx";
 import styles from "./Header.module.css";
 
-function Header() {
+function Header({ hasSidebar }) {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   return (
     <>
@@ -15,7 +17,10 @@ function Header() {
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap"
         rel="stylesheet"
       />
-      <header className={styles.header}>
+      <header className={clsx(styles.header, {
+        [styles.withSidebar]: hasSidebar,
+      })}
+      >
         <div className={styles.logoContainer}>
           <div className={styles.logoWrapper}>
             <svg
@@ -52,7 +57,7 @@ function Header() {
               <Link to="/dashboard" className={styles.navLink}>Dashboard</Link>
             </li>
             <li>
-              <Link to="/project" className={styles.navLink}>Projects</Link>
+              <Link to="/projects" className={styles.navLink}>Projects</Link>
             </li>
             <li>
               <Link to="/invoice" className={styles.navLink}>Invoices</Link>
@@ -92,5 +97,7 @@ function Header() {
     </>
   );
 }
-
+Header.propTypes = {
+  hasSidebar: PropTypes.bool.isRequired,
+};
 export default Header;

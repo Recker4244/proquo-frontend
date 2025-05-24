@@ -1,15 +1,20 @@
 "use client";
 
 import React from "react";
+import { useLocation } from "react-router-dom";
 import styles from "./SupplierComparison.module.css";
 import Header from "../sections/Header";
 import ProjectDetails from "./ProjectDetails";
 import QuotationTable from "./QuotationTable";
 import CustomPriceSuggestion from "./CustomPriceSuggestion";
-import FilterSection from "./FilterSection";
-import DownloadSection from "./DownloadSection";
+// import FilterSection from "./FilterSection";
+// import DownloadSection from "./DownloadSection";
 
 function SupplierComparison() {
+  const location = useLocation();
+  const {
+    rfqId
+  } = location.state || {};
   return (
     <>
       <link
@@ -20,11 +25,11 @@ function SupplierComparison() {
         <Header />
         <main className={styles.mainContent}>
           <div className={styles.contentWrapper}>
-            <ProjectDetails />
-            <QuotationTable />
-            <CustomPriceSuggestion />
-            <FilterSection />
-            <DownloadSection />
+            <ProjectDetails rfqId={rfqId} />
+            <QuotationTable rfqId={rfqId} />
+            {/* <CustomPriceSuggestion /> */}
+            {/* <FilterSection />
+            <DownloadSection /> */}
           </div>
         </main>
       </div>

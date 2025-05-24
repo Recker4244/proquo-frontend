@@ -13,7 +13,7 @@ function InputDesign() {
         href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap"
         rel="stylesheet"
       />
-      <Header />
+      <Header hasSidebar />
       <main className={styles.mainContainer}>
         <Sidebar />
         <section className={styles.contentWrapper}>

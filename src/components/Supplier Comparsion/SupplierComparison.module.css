@@ -209,6 +209,22 @@
     padding: 12px 16px;
     display: flex;  
   }
+  .sendButton {
+    color: #faf7fc;
+    background-color: #9e5efa;
+    border-radius: 12px;
+    width: 80px;
+    min-width: 84px;
+    max-width: 480px;
+    height: 40px;
+    padding: 0 16px;
+    font-family: Manrope;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    border: none;
+    cursor: pointer;
+  }
   @media(width <= 991px){
     .actionContainer{
       justify-content: flex-start;
@@ -363,4 +379,72 @@
     line-height: 21px;
     cursor: pointer;
   }
-  
+  .offerSummary {
+  width: 100%;
+  margin-top: 32px;
+  background: #faf7fc;
+  border: 1px solid #e0dbe5;
+  border-radius: 12px;
+  padding: 24px 24px 12px 24px;
+  box-sizing: border-box;
+}
+
+.offerTitle {
+  color: #120d1c;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-family: Manrope, sans-serif;
+}
+
+.offerSection {
+  margin-bottom: 18px;
+}
+
+.offerSubTitle {
+  color: #6b479e;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  font-family: Manrope, sans-serif;
+}
+
+.fullOfferBox, .partialOfferBox {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  background: #ede5f5;
+  border-radius: 8px;
+  padding: 14px 18px;
+  margin-bottom: 10px;
+}
+
+.supplierFullName, .supplierPartialName {
+  color: #120d1c;
+  font-weight: 600;
+  font-family: Manrope, sans-serif;
+  font-size: 15px;
+}
+
+.fullOfferItems, .partialOfferItems {
+  color: #6b479e;
+  font-size: 14px;
+  font-family: Manrope, sans-serif;
+}
+
+.acceptFullOfferButton, .acceptPartialOfferButton {
+  color: #fff;
+  background-color: #9e5efa;
+  border-radius: 8px;
+  border: none;
+  padding: 8px 20px;
+  font-family: Manrope, sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.sendButton:hover, .acceptFullOfferButton:hover, .acceptPartialOfferButton:hover {
+  background-color: #6b479e;
+}

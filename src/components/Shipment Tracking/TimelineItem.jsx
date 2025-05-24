@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import classNames from "classnames";
 import styles from "./TrackingTimeline.module.css";
 
 function TimelineItem({
@@ -7,23 +8,48 @@ function TimelineItem({
   title,
   date,
   isLast = false,
-  isActive = false
+  isActive = false,
+  isCompleted = false
 }) {
   return (
-    <div className={`${styles.timelineItem} ${isActive ? styles.activeItem : ""}`}>
+    <div
+      className={classNames(styles.timelineItem, {
+        [styles.activeItem]: isActive,
+        [styles.completedItem]: isCompleted && !isActive
+      })}
+    >
       <div className={styles.iconContainer}>
         {React.cloneElement(icon, {
-          className: isActive ? styles.activeIcon : styles.inactiveIcon
+          className: classNames({
+            [styles.activeIcon]: isActive,
+            [styles.completedIcon]: isCompleted && !isActive,
+            [styles.inactiveIcon]: !isActive && !isCompleted
+          })
         })}
         {!isLast && (
-        <div className={`${styles.connector} ${isActive ? styles.activeConnector : ""}`} />
+          <div
+            className={classNames(styles.connector, {
+              [styles.activeConnector]: isActive,
+              [styles.completedConnector]: isCompleted && !isActive
+            })}
+          />
         )}
       </div>
       <div className={styles.timelineContent}>
-        <h3 className={`${styles.timelineTitle} ${isActive ? styles.activeTitle : ""}`}>
+        <h3
+          className={classNames(styles.timelineTitle, {
+            [styles.activeTitle]: isActive,
+            [styles.completedTitle]: isCompleted && !isActive
+          })}
+        >
           {title}
         </h3>
-        <p className={`${styles.timelineDate} ${isActive ? styles.activeDate : ""}`}>
+        <p
+          className={classNames(styles.timelineDate, {
+            [styles.activeDate]: isActive,
+            [styles.completedDate]: isCompleted && !isActive
+          })}
+        >
           {date}
         </p>
       </div>
@@ -36,7 +62,8 @@ TimelineItem.propTypes = {
   title: PropTypes.string.isRequired,
   date: PropTypes.string.isRequired,
   isLast: PropTypes.bool.isRequired,
-  isActive: PropTypes.bool.isRequired
+  isActive: PropTypes.bool.isRequired,
+  isCompleted: PropTypes.bool.isRequired
 };
 
 export default TimelineItem;
