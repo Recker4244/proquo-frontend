@@ -1,6 +1,6 @@
 import React from "react";
 import SummaryCards from "./SummaryCards";
-import ProjectTable from "../Project Page/ProjectTable"
+import ProjectTable from "../Project Page/ProjectTable";
 import RFQList from "../RFQManagementV1.1/RFQList";
 import styles from "./InputDesign.module.css";
 

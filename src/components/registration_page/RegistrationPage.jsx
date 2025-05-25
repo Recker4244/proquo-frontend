@@ -58,7 +58,6 @@ function RegistrationPage() {
       }
       window.location.href = "/dashboard";
     } catch (error) {
-      console.error("Error:", error);
       setServerError(error.message);
     }
   };

@@ -54,7 +54,7 @@ function ProductTable({ poId }) {
 }
 
 ProductTable.propTypes = {
-  poId: PropTypes.string.isRequired,
+  poId: PropTypes.string.isRequired
 };
 
 export default ProductTable;

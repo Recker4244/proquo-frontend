@@ -6,7 +6,7 @@ function RFQForm() {
   const [projects, setProjects] = React.useState([]);
   const [selectedProjectId, setSelectedProjectId] = React.useState("");
   const [items, setItems] = React.useState([
-    { type: "", quantity: "", unit: "" },
+    { type: "", quantity: "", unit: "" }
   ]);
   const [title, setTitle] = React.useState("");
   const [deliveryLocation, setDeliveryLocation] = React.useState("");
@@ -65,15 +65,15 @@ function RFQForm() {
       deliveryLocation,
       preferredDeliveryDate,
       notes,
-      items,
+      items
     };
     try {
       const response = await fetch(`${apiUrl}/rfq`, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify(rfqData),
+        body: JSON.stringify(rfqData)
       });
 
       if (!response.ok) {
@@ -213,14 +213,14 @@ function RFQForm() {
           <FormSection
             label="Preferred delivery date"
             type="date"
-            tag="input" 
+            tag="input"
             value={preferredDeliveryDate}
             onChange={(e) => setPreferredDeliveryDate(e.target.value)}
           />
         </div>
 
         <div className={styles.formGroup}>
-          <FormSection 
+          <FormSection
             label="Additional notes/requirements"
             type="text"
             tag="textarea"

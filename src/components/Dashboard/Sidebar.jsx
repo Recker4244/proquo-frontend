@@ -4,9 +4,8 @@ import {
   Drawer,
   IconButton,
   useMediaQuery,
-  useTheme,
+  useTheme
 } from "@mui/material";
-import { GoSidebarCollapse } from "react-icons/go";
 import SearchIcon from "@mui/icons-material/Search";
 import GradingOutlinedIcon from "@mui/icons-material/GradingOutlined";
 import LocalShippingOutlinedIcon from "@mui/icons-material/LocalShippingOutlined";
@@ -16,8 +15,8 @@ import ContentCutOutlinedIcon from "@mui/icons-material/ContentCutOutlined";
 import PieChartOutlineOutlinedIcon from "@mui/icons-material/PieChartOutlineOutlined";
 import AutoGraphOutlinedIcon from "@mui/icons-material/AutoGraphOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import FeedbackOutlinedIcon from '@mui/icons-material/FeedbackOutlined';
+import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
+import FeedbackOutlinedIcon from "@mui/icons-material/FeedbackOutlined";
 import styles from "./InputDesign.module.css";
 
 const menuItems = [
@@ -60,7 +59,7 @@ function Sidebar() {
   }, [isMobile, open]);
 
   const sidebarContent = (
-    <div className={`${styles.sidebar} ${open ? styles.sidebarVisible : ''}`}>
+    <div className={`${styles.sidebar} ${open ? styles.sidebarVisible : ""}`}>
       <div className={styles.searchContainer}>
         <div className={styles.searchWrapper}>
           <div className={styles.searchIconWrapper}>
@@ -75,7 +74,7 @@ function Sidebar() {
           <button
             type="button"
             key={item.label}
-            className={`${styles.navItem} ${isActive(item.path) ? styles.activeNavItem : ''}`}
+            className={`${styles.navItem} ${isActive(item.path) ? styles.activeNavItem : ""}`}
             onClick={() => handleNavigation(item.path)}
           >
             {item.icon}
@@ -89,7 +88,7 @@ function Sidebar() {
           <button
             type="button"
             key={item.label}
-            className={`${styles.footerItem} ${isActive(item.path) ? styles.activeNavItem : ''}`}
+            className={`${styles.footerItem} ${isActive(item.path) ? styles.activeNavItem : ""}`}
             onClick={() => handleNavigation(item.path)}
           >
             {item.icon}

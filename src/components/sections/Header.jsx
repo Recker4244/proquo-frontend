@@ -18,7 +18,7 @@ function Header({ hasSidebar }) {
         rel="stylesheet"
       />
       <header className={clsx(styles.header, {
-        [styles.withSidebar]: hasSidebar,
+        [styles.withSidebar]: hasSidebar
       })}
       >
         <div className={styles.logoContainer}>
@@ -98,6 +98,6 @@ function Header({ hasSidebar }) {
   );
 }
 Header.propTypes = {
-  hasSidebar: PropTypes.bool.isRequired,
+  hasSidebar: PropTypes.bool.isRequired
 };
 export default Header;

@@ -37,10 +37,10 @@ function RFQList() {
   const formatted = date.toLocaleDateString("en-GB", {
     day: "2-digit",
     month: "short",
-    year: "numeric",
+    year: "numeric"
   });
   const handleViewDetails = (rfqId) => {
-    navigate('/compare', {
+    navigate("/compare", {
       state: {
         rfqId
       }
@@ -104,7 +104,7 @@ function RFQList() {
                       {new Date(rfq.preferredDeliveryDate).toLocaleDateString("en-GB", {
                         day: "2-digit",
                         month: "short",
-                        year: "numeric",
+                        year: "numeric"
                       })}
                     </TableCell>
                     <TableCell className={styles.cell}>

@@ -107,7 +107,7 @@ function PODetails({ poId }) {
 }
 
 PODetails.propTypes = {
-  poId: PropTypes.string.isRequired,
+  poId: PropTypes.string.isRequired
 };
 
 export default PODetails;

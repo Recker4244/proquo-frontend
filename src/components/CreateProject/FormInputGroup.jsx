@@ -33,9 +33,9 @@ FormInputGroup.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   iconName: PropTypes.node,
-  error: PropTypes.string.isRequired,
+  error: PropTypes.string.isRequired
 };
 FormInputGroup.defaultProps = {
-  iconName: null,
+  iconName: null
 };
 export default FormInputGroup;

@@ -17,7 +17,7 @@ const statusIconMap = {
   "Order Placed": <DoneOutlinedIcon style={{ fontSize: "24px" }} />,
   "Order Shipped": <LocalShippingOutlinedIcon style={{ fontSize: "24px" }} />,
   "In Transit": <PiRoadHorizon size={24} />,
-  "Order Delivered": <PiPackage size={24} />,
+  "Order Delivered": <PiPackage size={24} />
 };
 
 function formatDateTime(isoString) {
@@ -102,7 +102,7 @@ function TrackingTimeline({ orderId }) {
 }
 
 TrackingTimeline.propTypes = {
-  orderId: PropTypes.string.isRequired,
+  orderId: PropTypes.string.isRequired
 };
 
 export default TrackingTimeline;

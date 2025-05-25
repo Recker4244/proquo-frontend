@@ -27,7 +27,7 @@ function SupplierConfirmation() {
       totalCost: state.supplier?.totalCost,
       rfqItemId: state.supplier?.rfqItemId,
       deliveryTimeWeeks: state.supplier?.deliveryTimeWeeks,
-      paymentTerms: state.supplier?.paymentTerms,
+      paymentTerms: state.supplier?.paymentTerms
     }];
   }
 
@@ -78,8 +78,8 @@ function SupplierConfirmation() {
             quotation_item_id: item.quotationItemId,
             delivery_time_weeks: item.deliveryTimeWeeks,
             payment_terms: item.paymentTerms
-          })),
-        }),
+          }))
+        })
       });
 
       if (!orderRes.ok) throw new Error("Failed to create order");
@@ -90,7 +90,7 @@ function SupplierConfirmation() {
         body: JSON.stringify({
           status: "Order Placed",
           remarks: null
-        }),
+        })
       }).catch((err) => {
         // Log error, but don't block user flow
         console.error("Failed to create tracking event:", err);

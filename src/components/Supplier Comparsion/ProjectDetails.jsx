@@ -19,7 +19,6 @@ function ProjectDetails({ rfqId }) {
         const data = await response.json();
         setSummary(data);
       } catch (err) {
-        console.error(err);
         setError("Could not load project details.");
       } finally {
         setLoading(false);
@@ -126,7 +125,7 @@ function ProjectDetails({ rfqId }) {
   );
 }
 ProjectDetails.propTypes = {
-  rfqId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  rfqId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 };
 
 export default ProjectDetails;

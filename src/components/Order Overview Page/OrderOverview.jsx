@@ -107,7 +107,7 @@ function OrderOverview({ poId }) {
 }
 
 OrderOverview.propTypes = {
-  poId: PropTypes.string.isRequired,
+  poId: PropTypes.string.isRequired
 };
 
 export default OrderOverview;

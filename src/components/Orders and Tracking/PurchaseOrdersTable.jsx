@@ -2,7 +2,7 @@ import React, { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
-} from "@mui/material"; 
+} from "@mui/material";
 import SearchBar from "./SearchBar";
 import styles from "./PurchaseOrdersTable.module.css";
 
@@ -18,7 +18,7 @@ function PurchaseOrdersTable() {
       .then((data) => setOrders(data.rows))
       .catch((error) => console.error("Error fetching data: ", error));
   }, []);
-  
+
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredData = useMemo(() => {
@@ -36,7 +36,7 @@ function PurchaseOrdersTable() {
   // Handler for View Details button click
   const handleViewDetails = (orderId) => {
     console.log(orderId);
-    
+
     navigate("/track", { state: { orderId } });
     // If you use route params, you can do: navigate(`/track-po/${poId}`);
   };
@@ -65,15 +65,15 @@ function PurchaseOrdersTable() {
             </TableHead>
             <TableBody className={styles.tableBody}>
               {filteredData.length > 0 ? (
-                filteredData.map((order) => ( 
+                filteredData.map((order) => (
                   <TableRow key={order.id} className={styles.tableRow}>
                     <TableCell className={styles.cell}>{order.po_id}</TableCell>
                     <TableCell className={styles.cell}>{order.type_of_items}</TableCell>
                     <TableCell className={styles.cell}>
-                      {new Date(order.date_of_generation).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
+                      {new Date(order.date_of_generation).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric"
                       })}
                     </TableCell>
                     <TableCell className={styles.cell}>{order.delivery_address}</TableCell>

@@ -29,7 +29,7 @@ function ProjectTable() {
     }
     return data;
   }, [searchQuery, projects]);
-  
+
   return (
     <>
       <SearchBar placeholder="Search for projects, companies, or people..." searchQuery={searchQuery} setSearchQuery={setSearchQuery} />

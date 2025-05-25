@@ -131,7 +131,7 @@ function ShipmentPaymentDetails({ poId }) {
 }
 
 ShipmentPaymentDetails.propTypes = {
-  poId: PropTypes.string.isRequired,
+  poId: PropTypes.string.isRequired
 };
 
 export default ShipmentPaymentDetails;

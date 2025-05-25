@@ -1,9 +1,9 @@
 import React from "react";
 import { useNavigate, Link } from "react-router-dom";
-import 'react-phone-input-2/lib/style.css';
-import PhoneInput from 'react-phone-input-2';
-import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
-import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import "react-phone-input-2/lib/style.css";
+import PhoneInput from "react-phone-input-2";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import styles from "./register.module.css";
 
 function Register() {
@@ -87,7 +87,7 @@ function Register() {
         const errorData = await response.json();
         throw new Error(errorData.message || "Something went wrong");
       }
-      navigate("/createProject"); 
+      navigate("/createProject");
     } catch (error) {
       console.error("Error:", error);
       setServerError(error.message);

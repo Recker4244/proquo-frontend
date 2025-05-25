@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
-import AddIcon from '@mui/icons-material/Add';
+import AddIcon from "@mui/icons-material/Add";
 import styles from "./InputDesign.module.css";
 
 function Cards({ summaryData }) {
@@ -34,7 +34,7 @@ function Cards({ summaryData }) {
             <h3 className={styles.cardTitle}>{card.title}</h3>
             <div className={styles.numberContainer}>
               <p className={styles.cardValue}>{card.value}</p>
-              <button 
+              <button
                 type="button"
                 onClick={() => handleClick(card.title)}
                 className={styles.cardButton}

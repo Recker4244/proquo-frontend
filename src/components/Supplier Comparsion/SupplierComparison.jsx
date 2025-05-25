@@ -6,7 +6,7 @@ import styles from "./SupplierComparison.module.css";
 import Header from "../sections/Header";
 import ProjectDetails from "./ProjectDetails";
 import QuotationTable from "./QuotationTable";
-import CustomPriceSuggestion from "./CustomPriceSuggestion";
+// import CustomPriceSuggestion from "./CustomPriceSuggestion";
 // import FilterSection from "./FilterSection";
 // import DownloadSection from "./DownloadSection";
 

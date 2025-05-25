@@ -7,7 +7,7 @@ function SupplierInfo({ poId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   console.log(poId);
-  
+
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
@@ -65,7 +65,7 @@ function SupplierInfo({ poId }) {
 }
 
 SupplierInfo.propTypes = {
-  poId: PropTypes.string.isRequired,
+  poId: PropTypes.string.isRequired
 };
 
 export default SupplierInfo;

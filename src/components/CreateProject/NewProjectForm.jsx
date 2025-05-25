@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { FiMapPin, FiUser } from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
-import PhoneInput from 'react-phone-input-2';
+import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import ClipLoader from "react-spinners/ClipLoader";
 import styles from "./NewProjectForm.module.css";
@@ -21,7 +21,7 @@ function NewProjectForm() {
     workTypeSpecific: "",
     company_id: ""
   });
-  
+
   const [errors, setErrors] = useState({});
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,12 +44,12 @@ function NewProjectForm() {
 
   // Phone input handler
   const handlePhoneChange = (value, country) => {
-    setFormData((prev) => ({ 
-      ...prev, 
+    setFormData((prev) => ({
+      ...prev,
       siteInchargeNumber: value,
-      countryData: country 
+      countryData: country
     }));
-    
+
     if (errors.siteInchargeNumber) {
       setErrors((prev) => ({ ...prev, siteInchargeNumber: undefined }));
     }
@@ -59,24 +59,24 @@ function NewProjectForm() {
     if (!formData.siteInchargeNumber) {
       return "Phone number is required.";
     }
-    
+
     // Get country data from form state
     const country = formData.countryData;
-    
+
     if (!country) {
       return "Invalid country selection.";
     }
-    
+
     // Remove non-digit characters
     const digits = formData.siteInchargeNumber.replace(/\D/g, "");
-    
+
     // Check against country-specific format
     const requiredLength = country.format.replace(/[^.]/g, "").length;
-    
+
     if (digits.length < requiredLength) {
       return `Invalid ${country.name} phone number`;
     }
-    
+
     return null;
   };
 
@@ -93,11 +93,11 @@ function NewProjectForm() {
       project_type: "Project Type is required.",
       workType: "Work Type is required.",
       workTypeSpecific: "This field is required.",
-      company_id: "Company ID is required.",
+      company_id: "Company ID is required."
     };
 
     const validationErrors = {};
-    
+
     // Check required fields
     Object.entries(requiredFields).forEach(([field, message]) => {
       if (!formData[field]) validationErrors[field] = message;
@@ -132,7 +132,7 @@ function NewProjectForm() {
         const errorData = await response.json();
         throw new Error(errorData.message || "Submission failed");
       }
-      
+
       navigate("/dashboard");
     } catch (err) {
       setErrorMessage(err.message || "An error occurred during submission");
@@ -163,7 +163,7 @@ function NewProjectForm() {
         <FormInputGroup
           label="Project Name"
           value={formData.project_name}
-          onChange={handleChange('project_name')}
+          onChange={handleChange("project_name")}
           error={errors.project_name}
         />
 
@@ -265,7 +265,7 @@ function NewProjectForm() {
         <FormInputGroup
           label={workTypeSpecificLabel}
           value={formData.workTypeSpecific}
-          onChange={handleChange('workTypeSpecific')}
+          onChange={handleChange("workTypeSpecific")}
           error={errors.workTypeSpecific}
         />
 
@@ -273,13 +273,13 @@ function NewProjectForm() {
         <FormInputGroup
           label="Company ID"
           value={formData.company_id}
-          onChange={handleChange('company_id')}
+          onChange={handleChange("company_id")}
           error={errors.company_id}
         />
 
         {/* Submit Button */}
-        <button 
-          type="submit" 
+        <button
+          type="submit"
           className={styles.submitButton}
           disabled={isSubmitting}
         >

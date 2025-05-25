@@ -18,7 +18,7 @@ function PurchaseOrder() {
           <div className={styles.contentWrapper}>
             <div className={styles.header}>
               <h2 className={styles.title}>Purchase Orders</h2>
-              <button type="button" onClick={() => navigate('/createProject')} className={styles.addButton}>New Order</button>
+              <button type="button" onClick={() => navigate("/createProject")} className={styles.addButton}>New Order</button>
             </div>
             <h2 className={styles.subtitle}>Track and manage all cement orders efficiently.</h2>
             <PurchaseOrdersTable />

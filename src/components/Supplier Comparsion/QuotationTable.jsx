@@ -32,7 +32,6 @@ function QuotationTable({ rfqId }) {
           setSelectedMaterial(data.items[0].type);
         }
       } catch (err) {
-        console.error(err);
         setError("Could not load quotation details.");
       } finally {
         setLoading(false);
@@ -41,7 +40,7 @@ function QuotationTable({ rfqId }) {
 
     fetchSummary();
   }, [rfqId]);
-  
+
   // Group quotationItems by supplier
   const supplierCoverage = useMemo(() => {
     const map = {};
@@ -56,7 +55,7 @@ function QuotationTable({ rfqId }) {
           totalCost: qi.totalCost,
           quotationItemId: qi.id,
           deliveryTimeWeeks: qi.quotation?.deliveryTimeWeeks,
-          paymentTerms: qi.quotation?.paymentTerms,
+          paymentTerms: qi.quotation?.paymentTerms
         });
       });
     });
@@ -85,7 +84,7 @@ function QuotationTable({ rfqId }) {
         unit: rfqItem?.unit,
         rfqItemId: rfqItem?.id,
         quotationItemId: quotationItem?.id,
-        quotationId: quotationItem?.quotationId,
+        quotationId: quotationItem?.quotationId
       };
     });
     navigate("/purchaseOrder", {
@@ -94,8 +93,8 @@ function QuotationTable({ rfqId }) {
         deliveryLocation: summary.deliveryLocation,
         supplier: supplierData.supplier,
         items: itemsWithDetails,
-        isFullOffer: true,
-      },
+        isFullOffer: true
+      }
     });
   };
 
@@ -110,7 +109,7 @@ function QuotationTable({ rfqId }) {
         unit: rfqItem?.unit,
         rfqItemId: rfqItem?.id,
         quotationItemId: quotationItem?.id,
-        quotationId: quotationItem?.quotationId,
+        quotationId: quotationItem?.quotationId
       };
     });
 
@@ -120,8 +119,8 @@ function QuotationTable({ rfqId }) {
         deliveryLocation: summary.deliveryLocation,
         supplier: supplierData.supplier,
         items: itemsWithDetails,
-        isFullOffer: false,
-      },
+        isFullOffer: false
+      }
     });
   };
 
@@ -134,7 +133,7 @@ function QuotationTable({ rfqId }) {
         map[item.type].push({
           ...qi,
           ...qi.quotation,
-          rfqItemId: item.id,
+          rfqItemId: item.id
         });
       });
     });
@@ -153,7 +152,7 @@ function QuotationTable({ rfqId }) {
     });
     return arr.map((supplier, idx) => ({
       ...supplier,
-      ranking: `L${idx + 1}`,
+      ranking: `L${idx + 1}`
     }));
   }, [suppliers]);
 
@@ -161,7 +160,7 @@ function QuotationTable({ rfqId }) {
   const colorMap = {
     L1: "#d4edda", // green
     L2: "#fff3cd", // yellow
-    L3: "#f8d7da", // red
+    L3: "#f8d7da" // red
   };
 
   const handleMaterialChange = (event) => {
@@ -191,8 +190,8 @@ function QuotationTable({ rfqId }) {
         price: quotationItem?.price,
         totalCost: quotationItem?.totalCost,
         deliveryTimeWeeks: quotationItem?.quotation?.deliveryTimeWeeks,
-        paymentTerms: quotationItem?.quotation?.paymentTerms,
-      },
+        paymentTerms: quotationItem?.quotation?.paymentTerms
+      }
     });
   };
 
@@ -334,7 +333,7 @@ function QuotationTable({ rfqId }) {
 }
 
 QuotationTable.propTypes = {
-  rfqId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+  rfqId: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired
 };
 
 export default QuotationTable;

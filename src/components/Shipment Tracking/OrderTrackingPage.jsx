@@ -15,7 +15,7 @@ function OrderTrackingPage() {
   const { state } = useLocation();
   const poId = state?.poId;
   const orderId = state?.orderId;
-  
+
   return (
     <>
       <link
