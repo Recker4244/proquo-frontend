@@ -10,8 +10,11 @@ import styles from "./RFQList.module.css";
 function RFQList() {
   const [rfqs, setRfqs] = React.useState([]);
   const navigate = useNavigate();
+
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   React.useEffect(() => {
-    fetch("rfq")
+    fetch(`${apiUrl}/rfq`)
       .then((response) => response.json())
       .then((data) => setRfqs(data))
       .catch((error) => console.error("Error fetching data: ", error));

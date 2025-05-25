@@ -10,8 +10,10 @@ const PurchaseOrdersTable = () => {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   React.useEffect(() => {
-    fetch("/order")
+    fetch(`${apiUrl}/order`)
       .then((response) => response.json())
       .then((data) => setOrders(data.rows))
       .catch((error) => console.error("Error fetching data: ", error));

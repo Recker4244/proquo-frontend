@@ -15,10 +15,12 @@ function QuotationTable({ rfqId }) {
 
   const navigate = useNavigate();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-        const response = await fetch(`/rfq/rfq/${rfqId}`);
+        const response = await fetch(`${apiUrl}/rfq/rfq/${rfqId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch RFQ summary");
         }

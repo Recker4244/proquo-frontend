@@ -45,12 +45,14 @@ function SupplierConfirmation() {
     0
   );
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const handleConfirm = async () => {
     setLoading(true);
     setError("");
     try {
       // Fetch RFQ/project details if needed for the order
-      const rfqRes = await fetch(`/rfq/rfq/${rfqId}`);
+      const rfqRes = await fetch(`${apiUrl}/rfq/rfq/${rfqId}`);
       if (!rfqRes.ok) throw new Error("Failed to fetch RFQ/project");
       const rfqData = await rfqRes.json();
       const { project } = rfqData;
@@ -58,7 +60,7 @@ function SupplierConfirmation() {
       const typeOfItems = items.map((i) => i.type).join(", ");
       const dateOfGeneration = new Date().toISOString();
 
-      const orderRes = await fetch("/order", {
+      const orderRes = await fetch(`${apiUrl}/order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -82,7 +84,7 @@ function SupplierConfirmation() {
 
       if (!orderRes.ok) throw new Error("Failed to create order");
       const orderData = await orderRes.json();
-      await fetch(`/order/${orderData.id}/status`, {
+      await fetch(`${apiUrl}/order/${orderData.id}/status`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

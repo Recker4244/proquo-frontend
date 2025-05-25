@@ -15,8 +15,10 @@ function RFQForm() {
   const [errors, setErrors] = React.useState({});
   const [errorMessage, setErrorMessage] = React.useState("");
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   React.useEffect(() => {
-    fetch("project")
+    fetch(`${apiUrl}/project`)
       .then((res) => res.json())
       .then((data) => setProjects(data))
       .catch((err) => console.error("Error fetching projects:", err));
@@ -66,7 +68,7 @@ function RFQForm() {
       items,
     };
     try {
-      const response = await fetch("rfq", {
+      const response = await fetch(`${apiUrl}/rfq`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

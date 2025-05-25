@@ -6,9 +6,11 @@ function ProductTable({ poId }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     if (!poId) return;
-    fetch(`/order/${poId}`)
+    fetch(`${apiUrl}/order/${poId}`)
       .then((res) => res.json())
       .then((data) => {
         const allItems = (data.order_items || []).map((item) => ({

@@ -119,8 +119,8 @@ function NewProjectForm() {
         ...formData,
         siteInchargeNumber: `+${formData.siteInchargeNumber}`
       };
-
-      const response = await fetch("project", {
+      const apiUrl = process.env.REACT_APP_API_URL;
+      const response = await fetch(`${apiUrl}/project`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

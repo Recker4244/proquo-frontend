@@ -36,9 +36,11 @@ function TrackingTimeline({ orderId }) {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     if (!orderId) return;
-    fetch(`/order/${orderId}/tracking`)
+    fetch(`${apiUrl}/order/${orderId}/tracking`)
       .then((res) => res.json())
       .then((fetchedEvents) => {
         const sorted = [...fetchedEvents].sort(

@@ -10,9 +10,11 @@ function PODetails({ poId }) {
 
   const navigate = useNavigate();
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     if (poId) {
-      fetch(`/order/${poId}`)
+      fetch(`${apiUrl}/order/${poId}`)
         .then((res) => {
           if (!res.ok) throw new Error("Failed to fetch PO details");
           return res.json();

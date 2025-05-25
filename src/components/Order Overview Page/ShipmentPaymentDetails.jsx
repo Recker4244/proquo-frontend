@@ -29,9 +29,11 @@ function ShipmentPaymentDetails({ poId }) {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     if (!poId) return;
-    fetch(`/order/${poId}`)
+    fetch(`${apiUrl}/order/${poId}`)
       .then((res) => res.json())
       .then((data) => {
         setOrder(data);

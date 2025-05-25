@@ -8,10 +8,12 @@ function SupplierInfo({ poId }) {
   const [error, setError] = useState("");
   console.log(poId);
   
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     if (!poId) return;
     setLoading(true);
-    fetch(`/order/${poId}`)
+    fetch(`${apiUrl}/order/${poId}`)
       .then((res) => res.json())
       .then((order) => {
         // Gather all supplier names from order items

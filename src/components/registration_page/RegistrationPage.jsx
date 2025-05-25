@@ -40,9 +40,12 @@ function RegistrationPage() {
       gst,
       company_type: companyType
     };
+
+    const apiUrl = process.env.REACT_APP_API_URL;
+
     try {
       // Sending POST request to the backend
-      const response = await fetch("http://localhost:3000/company", {
+      const response = await fetch(`${apiUrl}/company`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json"

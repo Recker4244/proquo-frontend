@@ -8,8 +8,11 @@ import styles from "./ProjectTable.module.css";
 
 function ProjectTable() {
   const [projects, setProjects] = React.useState([]);
+
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   React.useEffect(() => {
-    fetch("project")
+    fetch(`${apiUrl}/project`)
       .then((response) => response.json())
       .then((data) => setProjects(data))
       .catch((error) => console.error("Error fetching data: ", error));

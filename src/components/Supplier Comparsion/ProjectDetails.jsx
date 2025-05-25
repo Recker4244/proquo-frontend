@@ -7,10 +7,12 @@ function ProjectDetails({ rfqId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-        const response = await fetch(`rfq/rfq/${rfqId}`);
+        const response = await fetch(`${apiUrl}/rfq/rfq/${rfqId}`);
         if (!response.ok) {
           throw new Error("Failed to fetch RFQ summary");
         }

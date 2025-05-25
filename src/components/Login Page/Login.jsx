@@ -14,6 +14,8 @@ function Login() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
+  const apiUrl = process.env.REACT_APP_API_URL;
+
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -36,7 +38,7 @@ function Login() {
     e.preventDefault();
     setErrorMessage("");
     try {
-      const response = await post("user/login", formData);
+      const response = await post(`${apiUrl}/user/login`, formData);
       localStorage.setItem("token", response.token);
       navigate("/dashboard");
     } catch (err) {
