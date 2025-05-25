@@ -6,7 +6,7 @@ import {
 import SearchBar from "./SearchBar";
 import styles from "./PurchaseOrdersTable.module.css";
 
-const PurchaseOrdersTable = () => {
+function PurchaseOrdersTable() {
   const [orders, setOrders] = useState([]);
   const navigate = useNavigate();
 
