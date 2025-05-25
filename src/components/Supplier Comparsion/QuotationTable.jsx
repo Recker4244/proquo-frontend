@@ -64,12 +64,12 @@ function QuotationTable({ rfqId }) {
 
   // Suppliers who quoted for all items
   const suppliersWithFullOffer = Object.entries(supplierCoverage)
-    .filter(([_, data]) => data.items.length
+    .filter(([, data]) => data.items.length
     === (summary.items?.length || 0) && data.items.length > 1)
     .map(([supplierName, data]) => ({ supplierName, ...data }));
 
   const suppliersWithPartialOffer = Object.entries(supplierCoverage)
-    .filter(([_, data]) => data.items.length < (summary.items?.length || 0)
+    .filter(([, data]) => data.items.length < (summary.items?.length || 0)
     && data.items.length > 1)
     .map(([supplierName, data]) => ({ supplierName, ...data }));
 

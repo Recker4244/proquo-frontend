@@ -2,7 +2,7 @@ import React from "react";
 import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 } from "@mui/material";
-import StatusBadge from "./StatusBadge";
+// import StatusBadge from "./StatusBadge";
 import SearchBar from "../Orders and Tracking/SearchBar";
 import styles from "./ProjectTable.module.css";
 

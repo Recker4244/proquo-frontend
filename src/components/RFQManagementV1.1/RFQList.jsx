@@ -31,14 +31,7 @@ function RFQList() {
     }
     return data;
   }, [searchQuery, rfqs]);
-  const isoDate = "2025-06-01T17:19:34.468Z";
-  const date = new Date(isoDate);
 
-  const formatted = date.toLocaleDateString("en-GB", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric"
-  });
   const handleViewDetails = (rfqId) => {
     navigate("/compare", {
       state: {

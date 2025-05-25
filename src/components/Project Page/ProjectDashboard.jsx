@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import SearchBar from "../Orders and Tracking/SearchBar";
 import ProjectTable from "./ProjectTable";
 import styles from "./ProjectDashboard.module.css";
 

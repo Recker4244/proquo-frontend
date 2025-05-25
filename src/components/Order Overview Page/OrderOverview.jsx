@@ -73,7 +73,6 @@ function OrderOverview({ poId }) {
   const supplier = getSupplierNames(order);
   // Status and shipment progress are placeholders; adjust as needed
   const status = order.status || "In Transit";
-  const shipmentProgress = order.shipmentProgress || "60%";
 
   return (
     <aside className={styles.container}>
