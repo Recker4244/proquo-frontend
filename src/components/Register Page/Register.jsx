@@ -1,122 +1,121 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import "react-phone-input-2/lib/style.css";
 import PhoneInput from "react-phone-input-2";
+import "react-phone-input-2/lib/style.css";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import styles from "./register.module.css";
 
 function Register() {
-  const [passwordVisible, setPasswordVisible] = React.useState(false);
-  const [phoneNumber, setPhoneNumber] = React.useState("");
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [designation, setDesignation] = React.useState("");
-  const [companyId, setCompanyId] = React.useState("");
-  const [errors, setErrors] = React.useState({});
-  const [serverError, setServerError] = React.useState("");
+  const [passwordVisible, setPasswordVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    designation: "",
+    companyId: ""
+  });
+  const [errors, setErrors] = useState({});
+  const [serverError, setServerError] = useState("");
+  const navigate = useNavigate();
 
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" });
+    setServerError("");
   };
 
-  const navigate = useNavigate();
+  const handlePhoneChange = (phone) => {
+    setForm({ ...form, phone });
+    setErrors({ ...errors, phone: "" });
+    setServerError("");
+  };
+
+  const togglePasswordVisibility = () => setPasswordVisible((v) => !v);
 
   const handleKeyDown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
+      event.preventDefault();
       togglePasswordVisibility();
     }
   };
 
+  const validate = () => {
+    const newErrors = {};
+    if (!form.name.trim()) newErrors.name = "Name is required.";
+    if (!form.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!/\S+@\S+\.\S+/.test(form.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+    if (!form.phone.trim()) newErrors.phone = "Phone is required.";
+    if (!form.designation.trim()) newErrors.designation = "Designation is required.";
+    if (!form.companyId.trim()) newErrors.companyId = "Company ID is required.";
+    if (!form.password) {
+      newErrors.password = "Password is required.";
+    } else {
+      const pwRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&]).{8,16}$/;
+      if (!pwRegex.test(form.password)) {
+        newErrors.password = "8-16 chars, upper, lower, number, special char.";
+      }
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    setErrors({});
-
-    // Basic validation to check if required fields are filled
-    const validationErrors = {};
-
-    const password = e.target.password.value;
-
-    if (!name) validationErrors.name = "Name is required.";
-    if (!email) validationErrors.email = "Email is required.";
-    if (!phoneNumber) validationErrors.phoneNumber = "Phone number is required.";
-    if (!designation) validationErrors.designation = "Designation is required.";
-    if (!companyId) validationErrors.companyId = "Company ID is required.";
-    if (!password) {
-      validationErrors.password = "Password is required.";
-    } else {
-      // Password Validation
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,16}$/;
-      if (!passwordRegex.test(password)) {
-        validationErrors.password = "Password must be 8-16 characters, with at least one uppercase letter, one lowercase letter, one number, and one special character.";
-      }
-    }
-    let formattedPhone = phoneNumber;
-    if (!formattedPhone.startsWith("+")) {
-      formattedPhone = `+91${phoneNumber}`;
-    }
-
-    // If there are validation errors, set the error state and return early
-    if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
-    }
-
-    const userData = {
-      name,
-      email,
-      phone: formattedPhone,
-      password: e.target.password.value,
-      designation,
-      company_id: companyId
-    };
-
+    if (!validate()) return;
+    setIsLoading(true);
+    setServerError("");
     const apiUrl = process.env.REACT_APP_API_URL;
-
     try {
-      // Sending POST request to the backend
-      const response = await fetch(`${apiUrl}/user`, {
+      const res = await fetch(`${apiUrl}/user`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(userData)
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          password: form.password,
+          phone: form.phone.startsWith("+") ? form.phone : `+91${form.phone}`,
+          designation: form.designation,
+          company_id: form.companyId
+        })
       });
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || "Something went wrong");
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err.message || "Registration failed");
       }
-      navigate("/createProject");
-    } catch (error) {
-      console.error("Error:", error);
-      setServerError(error.message);
+      // Small delay to show success state
+      setTimeout(() => {
+        navigate("/createProject");
+      }, 500);
+    } catch (err) {
+      setServerError(err.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return (
     <>
       <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
       />
       <div className={styles.content}>
         <div className={styles.section}>
           <div className={styles.logoContainer}>
             <div className={styles.logoWrapper}>
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+              <svg width="24" height="24" viewBox="0 0 16 16" fill="none">
                 <g clipPath="url(#clip0_114_6)">
                   <path
                     fillRule="evenodd"
                     clipRule="evenodd"
                     d="M14.6667 1.33333H10.2222V5.7778H5.7778V10.2222H1.33333V14.6667H14.6667V1.33333Z"
-                    fill="#120D1C"
+                    fill="#660DD4"
                   />
                 </g>
                 <defs>
@@ -126,107 +125,159 @@ function Register() {
                 </defs>
               </svg>
             </div>
-            <h3 className={styles.logoText}>proquo.tech</h3>
+            <h1 className={styles.logoText}>proquo.tech</h1>
           </div>
-          <form onSubmit={handleSubmit}>
+          <h2 className={styles.title}>Create your account</h2>
+          <form onSubmit={handleSubmit} className={isLoading ? styles.formLoading : ""}>
             {serverError && (
-              <p className={styles.serverError}>{serverError}</p>
+              <div className={styles.serverError} role="alert">
+                <span>⚠</span>
+                {serverError}
+              </div>
             )}
-            <div className={styles.loginDetails}>
-              <div className={styles.emailInput}>
-                <label htmlFor="name" className={styles.label}>
-                  Name
-                  <input
-                    type="text"
-                    id="name"
-                    className={styles.input}
-                    value={name}
-                    onChange={(e) => setName(e.target.value)} // Capture input
-                  />
-                </label>
-                {errors.name && <p className={styles.error}>{errors.name}</p>}
-                <label htmlFor="email" className={styles.label}>
-                  Email
-                  <input
-                    type="email"
-                    id="email"
-                    className={styles.input}
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)} // Capture input
-                  />
-                </label>
-                {errors.email && <p className={styles.error}>{errors.email}</p>}
+
+            {/* Personal Info */}
+            <div className={styles.formSection}>
+              <div className={styles.sectionTitle}>Personal Info</div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="name" className={styles.label}>Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  className={`${styles.input} ${errors.name ? styles.inputError : ""}`}
+                  value={form.name}
+                  onChange={handleChange}
+                  placeholder="Enter your name"
+                  disabled={isLoading}
+                  autoComplete="name"
+                />
+                {errors.name && <div className={styles.error}>{errors.name}</div>}
               </div>
-              <div className={styles.passwordInput}>
-                <label htmlFor="password" className={styles.label}>
-                  Password
-                  <div className={styles.passwordContainer}>
-                    <input
-                      type={passwordVisible ? "text" : "password"}
-                      id="password"
-                      className={`${styles.input} ${styles.password}`}
-                    />
-                    <span
-                      className={styles.eye_icon}
-                      onClick={togglePasswordVisibility}
-                      onKeyDown={handleKeyDown}
-                      role="button"
-                      tabIndex="0"
-                    >
-                      {passwordVisible ? (
-                        <VisibilityOffOutlinedIcon className={styles.icon} />
-                      ) : (
-                        <VisibilityOutlinedIcon className={styles.icon} />
-                      )}
-                    </span>
-                  </div>
-                </label>
-                {errors.password && <p className={styles.error}>{errors.password}</p>}
+              <div className={styles.inputGroup}>
+                <label htmlFor="email" className={styles.label}>Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  className={`${styles.input} ${errors.email ? styles.inputError : ""}`}
+                  value={form.email}
+                  onChange={handleChange}
+                  placeholder="Enter your email"
+                  disabled={isLoading}
+                  autoComplete="email"
+                />
+                {errors.email && <div className={styles.error}>{errors.email}</div>}
               </div>
-              <div className={styles.emailInput}>
-                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-                <label htmlFor="phone" className={styles.label}>
-                  Phone Number
-                  <PhoneInput
-                    country="in"
-                    value={phoneNumber}
-                    onChange={setPhoneNumber}
-                    inputClass={styles.input}
-                  />
-                </label>
-                {errors.phoneNumber && <p className={styles.error}>{errors.phoneNumber}</p>}
-                <label htmlFor="designation" className={styles.label}>
-                  Designation
-                  <input
-                    type="text"
-                    id="designation"
-                    className={styles.input}
-                    value={designation}
-                    onChange={(e) => setDesignation(e.target.value)} // Capture input
-                  />
-                </label>
-                {errors.designation && <p className={styles.error}>{errors.designation}</p>}
-                <label htmlFor="company_id" className={styles.label}>
-                  Company ID
-                  <input
-                    type="text"
-                    id="company_id"
-                    className={styles.input}
-                    value={companyId}
-                    onChange={(e) => setCompanyId(e.target.value)} // Capture input
-                  />
-                </label>
-                {errors.companyId && <p className={styles.error}>{errors.companyId}</p>}
-              </div>
-              <div className={styles.signIn}>
-                <button type="submit" className={styles.signInButton}>
-                  Register
-                </button>
+              <div className={styles.inputGroup}>
+                <label htmlFor="phone" className={styles.label}>Phone Number</label>
+                <PhoneInput
+                  country="in"
+                  value={form.phone}
+                  onChange={handlePhoneChange}
+                  disabled={isLoading}
+                  inputProps={{
+                    name: "phone",
+                    id: "phone",
+                    required: true,
+                    autoFocus: false,
+                    autoComplete: "tel"
+                  }}
+                />
+                {errors.phone && <div className={styles.error}>{errors.phone}</div>}
               </div>
             </div>
+
+            {/* Company Info */}
+            <div className={styles.formSection}>
+              <div className={styles.sectionTitle}>Company Info</div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="designation" className={styles.label}>Designation</label>
+                <input
+                  type="text"
+                  id="designation"
+                  name="designation"
+                  className={`${styles.input} ${errors.designation ? styles.inputError : ""}`}
+                  value={form.designation}
+                  onChange={handleChange}
+                  placeholder="Enter your designation"
+                  disabled={isLoading}
+                  autoComplete="organization-title"
+                />
+                {errors.designation && <div className={styles.error}>{errors.designation}</div>}
+              </div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="companyId" className={styles.label}>Company ID</label>
+                <input
+                  type="text"
+                  id="companyId"
+                  name="companyId"
+                  className={`${styles.input} ${errors.companyId ? styles.inputError : ""}`}
+                  value={form.companyId}
+                  onChange={handleChange}
+                  placeholder="Enter your company ID"
+                  disabled={isLoading}
+                  autoComplete="organization"
+                />
+                {errors.companyId && <div className={styles.error}>{errors.companyId}</div>}
+              </div>
+            </div>
+
+            {/* Security */}
+            <div className={styles.formSection}>
+              <div className={styles.sectionTitle}>Security</div>
+              <div className={styles.inputGroup}>
+                <label htmlFor="password" className={styles.label}>Password</label>
+                <div className={styles.passwordContainer}>
+                  <input
+                    type={passwordVisible ? "text" : "password"}
+                    id="password"
+                    name="password"
+                    className={`${styles.input} ${styles.passwordInput} ${errors.password ? styles.inputError : ""}`}
+                    value={form.password}
+                    onChange={handleChange}
+                    placeholder="Create a password"
+                    disabled={isLoading}
+                    autoComplete="new-password"
+                  />
+                  <button
+                    type="button"
+                    className={styles.eye_icon}
+                    onClick={togglePasswordVisibility}
+                    onKeyDown={handleKeyDown}
+                    aria-label={passwordVisible ? "Hide password" : "Show password"}
+                    disabled={isLoading}
+                    tabIndex={0}
+                  >
+                    {passwordVisible ? (
+                      <VisibilityOffOutlinedIcon className={styles.icon} />
+                    ) : (
+                      <VisibilityOutlinedIcon className={styles.icon} />
+                    )}
+                  </button>
+                </div>
+                {errors.password && <div className={styles.error}>{errors.password}</div>}
+              </div>
+            </div>
+
+            <button
+              type="submit"
+              className={`${styles.signInButton} ${isLoading ? styles.loading : ""}`}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <>
+                  <div className={styles.spinner} />
+                  Creating Account...
+                </>
+              ) : (
+                "Register"
+              )}
+            </button>
           </form>
           <div className={styles.account}>
-            <Link to="/login">Already have an account?</Link>
+            <span>Already have an account? </span>
+            <Link to="/login">Sign In</Link>
           </div>
         </div>
       </div>
