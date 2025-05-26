@@ -1,0 +1,65 @@
+.dashboard {
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px 160px;
+  display: flex;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.content {
+  flex-direction: column;
+  flex: 1;
+  align-items: flex-start;
+  max-width: 960px;
+  width: 100%;
+  display: flex;
+}
+
+.header {
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 16px;
+  display: flex;
+}
+
+.title {
+  color: #141217;
+  font-family: Manrope;
+  font-size: 32px;
+  font-weight: 700;
+  line-height: 40px;
+  margin: 0;
+  max-width: 400px;
+  flex: 1;
+}
+
+.addButton {
+  color: #fff;
+  text-align: center;
+  background-color: #8754f7;
+  border-radius: 12px;
+  height: 32px;
+  padding: 0 16px;
+  font-family: Manrope;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 21px;
+  border: none;
+  cursor: pointer;
+}
+
+@media (width <= 991px) {
+  .dashboard {
+    padding: 20px 80px;
+  }
+}
+
+@media (width <= 640px) {
+  .dashboard {
+    padding: 20px 16px;
+  }
+}

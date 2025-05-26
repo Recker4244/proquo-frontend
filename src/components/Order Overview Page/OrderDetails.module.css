@@ -1,0 +1,90 @@
+.container {
+    background-color: #fff;
+    font-family: Manrope;
+  }
+  
+  .mainContent {
+    gap: 4px;
+    padding: 20px 24px;
+    display: flex;
+  }
+  
+  @media (width <= 991px) {
+    .mainContent {
+      flex-direction: column;
+    }
+  }
+  
+  @media (width <= 640px) {
+    .mainContent {
+      padding: 12px;
+    }
+  }
+  
+  .orderSection {
+    flex: 1;
+    max-width: 920px;
+  }
+  
+  @media (width <= 991px) {
+    .orderSection {
+      width: 100%;
+      max-width: none;
+    }
+  }
+  
+  .orderTitle {
+    color: #121417;
+    padding: 16px;
+    font-size: 32px;
+    font-weight: 700;
+  }
+  
+  .actionButtons {
+    padding: 12px 16px;
+    gap: 12px;
+    display: flex;
+  }
+  
+  
+  @media (width <= 640px) {
+    .actionButtons {
+      flex-direction: column;
+    }
+  }
+  
+  .primaryButton {
+    color: #fff;
+    cursor: pointer;
+    background-color: #660DD4;
+    border: none;
+    border-radius: 12px;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  
+  .secondaryButton {
+    color: #121417;
+    cursor: pointer;
+    background-color: #EDE8F2;
+    border: none;
+    border-radius: 12px;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 700;
+  }
+  
+  .sidebar {
+    width: 360px;
+  }
+  
+  @media (width <= 991px) {
+    .sidebar {
+      width: 100%;
+      max-width: none;
+    }
+  }
+  

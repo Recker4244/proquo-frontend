@@ -1,0 +1,130 @@
+.header {
+    border-bottom: 1px solid #e5e8eb;
+    width: 100%;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 12px 40px;
+    flex-wrap: wrap;
+  }
+  
+  .logoContainer {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .logo {
+    width: 16px;
+    aspect-ratio: 1;
+    object-fit: contain;
+    object-position: center;
+  }
+  
+  .brandName {
+    color: #121217;
+    font-family: Manrope;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  
+  .navContent {
+    display: flex;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 32px;
+    min-width: 240px;
+    font-family: Manrope;
+    font-size: 14px;
+    margin-right: 50px;
+  }
+  
+  .navLinks {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    min-width: 240px;
+    min-height: 40px;
+    font-weight: 500;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .navLinks a {
+    color: #121217;
+    text-decoration: none;
+  }
+  
+  .authButtons {
+    display: flex;
+    gap: 8px;
+    font-weight: 700;
+  }
+  
+  .signInButton {
+    color: #fff;
+    background-color: #8754f7;
+    border-radius: 12px;
+    padding: 0 16px;
+    min-width: 84px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-family: inherit;
+  }
+  
+  .getStartedButton {
+    color: #121217;
+    background-color: #f2f0f5;
+    border-radius: 12px;
+    padding: 0 16px;
+    min-width: 84px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    font-weight: 700;
+    font-family: inherit; 
+  }
+  .hamburgerMenu{
+    background-color: white; /* Change to your preferred background color */
+    color: black; /* Change to your preferred icon color */
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+
+  }
+  
+  @media (width <= 991px) {
+    .navbar {
+      padding-left: 0px;
+      padding-right: 0px;
+      max-width: 100%;
+    }
+  
+    .brandName {
+      white-space: initial;
+    }
+  
+    .navContent {
+      max-width: 100%;
+      margin-right: 0px;
+    }
+    .navLinks {
+      flex-direction: column;
+      padding: 13px 0;
+    }
+  }
+  

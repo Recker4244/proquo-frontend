@@ -1,0 +1,156 @@
+.poContainer {
+  background-color: #fff;
+  border-radius: 12px;
+  max-width: 800px;
+  margin: 32px auto;
+  padding: 32px 24px;
+  box-shadow: 0 2px 12px #e0dbe5;
+  font-family: Manrope, sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.poTitle {
+  color: #120d1c;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0 0 12px 0;
+  font-family: Manrope, sans-serif;
+}
+
+.supplierSection {
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  padding: 16px 0;
+  display: flex;
+  gap: 8px;
+  border-bottom: 1px solid #e5e8eb;
+}
+
+.label {
+  color: #6b479e;
+  font-family: Manrope, sans-serif;
+  font-size: 14px;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.value {
+  color: #120d1c;
+  font-family: Manrope, sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.itemsSection {
+  margin-top: 24px;
+}
+
+.itemsTitle {
+  color: #120d1c;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 12px;
+  font-family: Manrope, sans-serif;
+}
+
+.itemsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background: #faf7fc;
+  border: 1px solid #e0dbe5;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.itemsTable th, .itemsTable td {
+  padding: 12px 16px;
+  text-align: left;
+  font-size: 15px;
+  font-family: Manrope, sans-serif;
+}
+
+.itemsTable th {
+  background: #ede5f5;
+  color: #120d1c;
+  font-weight: 700;
+}
+
+.itemsTable td {
+  color: #6b479e;
+  border-top: 1px solid #e0dbe5;
+}
+
+.totalSection {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 18px;
+  gap: 12px;
+}
+
+.totalLabel {
+  color: #6b479e;
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.totalValue {
+  color: #120d1c;
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.actions {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+  margin-top: 24px;
+}
+
+.confirmButton {
+  color: #faf7fc;
+  background-color: #9e5efa;
+  border-radius: 12px;
+  min-width: 120px;
+  height: 40px;
+  padding: 0 24px;
+  font-family: Manrope, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.confirmButton:hover {
+  background-color: #6b479e;
+}
+
+.backButton {
+  color: #120d1c;
+  background-color: #ede5f5;
+  border-radius: 12px;
+  min-width: 84px;
+  height: 40px;
+  padding: 0 24px;
+  font-family: Manrope, sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.backButton:hover {
+  background-color: #d9cfe8;
+}
+
+.error {
+  color: #d32f2f;
+  font-size: 16px;
+  margin: 32px;
+  text-align: center;
+}

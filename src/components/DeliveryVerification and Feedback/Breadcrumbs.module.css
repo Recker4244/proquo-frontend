@@ -1,0 +1,38 @@
+.breadcrumbs {
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+    display: flex;
+  }
+  
+  .breadcrumbsList {
+    display: flex;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .breadcrumbLink {
+    color: #704a9c;
+    font-family: Manrope;
+    font-size: 16px;
+    line-height: 24px;
+    text-decoration: none;
+  }
+  
+  .separator {
+    color: #704a9c;
+    font-family: Manrope;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .currentPage {
+    color: #140d1c;
+    font-family: Manrope;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  

@@ -1,0 +1,57 @@
+.detailsSection {
+    flex-direction: column;
+    padding: 16px;
+    display: flex;
+  }
+  
+  .sectionTitle {
+    color: #140d1c;
+    padding: 16px 0 8px;
+    font-family: Manrope;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    margin: 0;
+  }
+  
+  .detailsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    width: 100%;
+    display: grid;
+  }
+  
+  .detailItem {
+    border-width: 1px;
+    border-color: #e5e8eb;
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 8px;
+    display: flex;
+  }
+  
+  .detailLabel {
+    color: #704a9c;
+    font-family: Manrope;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  
+  .detailValue {
+    color: #140d1c;
+    font-family: Manrope;
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0;
+  }
+  
+  @media (width <= 991px) {
+    .detailsGrid {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
+    }
+  
+    .detailItem {
+      padding: 16px 0;
+    }
+  }
+  

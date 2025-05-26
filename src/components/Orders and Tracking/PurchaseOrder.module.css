@@ -1,0 +1,75 @@
+* {
+  box-sizing: border-box;
+}
+
+.container {
+    background-color: #fff;
+    min-height: 100vh;
+    font-family:
+      Work Sans,
+      sans-serif;
+  }
+  
+  .content {
+    justify-content: center;
+    padding: 20px 160px;
+    display: flex;
+  }
+  
+  .contentWrapper {
+    width: 100%;
+    max-width: 1000px;
+  }
+  .header {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+    padding: 0 16px;
+    display: flex;
+    padding-bottom: 0;
+  }
+  .title {
+    color: #140d1c;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+  }
+  .addButton {
+    color: #fff;
+    text-align: center;
+    background-color: #8754f7;
+    border-radius: 12px;
+    height: 32px;
+    padding: 0 16px;
+    font-family: Manrope;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    border: none;
+    cursor: pointer;
+  }
+  .subtitle {
+    color: #140d1c;
+    padding: 16px 16px 8px;
+    padding-top: 0;
+    font-size: 18px;
+    font-weight: normal;
+    line-height: 23px;
+  }
+  .searchBar{
+    background-color: black;
+  }
+  @media (width <= 991px) {
+    .content {
+      padding: 10px;
+    }
+  }
+  
+  @media (width <= 640px) {
+    .title {
+      font-size: 24px;
+    }
+  }
+  

@@ -1,0 +1,21 @@
+.submitButton {
+    background-color: #8754f7;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 480px;
+    min-height: 40px;
+    padding: 0 16px;
+    font-family: Manrope;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  
+  @media (width <= 991px) {
+    .submitButton {
+      max-width: 100%;
+    }
+  }
+  

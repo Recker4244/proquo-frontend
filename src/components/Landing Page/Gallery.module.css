@@ -1,0 +1,45 @@
+.gallery {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-left: 16px;
+}
+
+.imageGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  width: 98%;
+}
+
+.imageWrapper {
+  flex: 1 1 calc(25% - 12px); /* 4 images per row on large screens */
+  min-width: 150px; /* Prevents images from becoming too small */
+  max-width: 250px; /* Optional: Prevents them from getting too large */
+}
+
+.image {
+  aspect-ratio: 1;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 12px;
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .gallery{
+    max-width: 92%;
+  }
+  .imageWrapper {
+    flex: 1 1 calc(33.33% - 12px); /* 3 images per row */
+  }
+}
+
+@media (max-width: 600px) {
+  .imageWrapper {
+    flex: 1 1 calc(50% - 12px); /* 2 images per row */
+  }
+}
+
+

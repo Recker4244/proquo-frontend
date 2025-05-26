@@ -1,0 +1,49 @@
+.container {
+    width: 100%;
+  }
+  
+  .title {
+    color: #121417;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    align-self: stretch;
+    row-gap: 12px;
+    padding: 16px;
+    font-family:Manrope;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    margin: 0;
+  }
+  
+  .tabsContainer {
+    border-bottom: 1px solid #dbe0e5;
+    align-self: stretch;
+    align-items: flex-start;
+    gap: 32px;
+    padding: 0 16px;
+    display: flex;
+  }
+  
+  .tabItem {
+    color: #637587;
+    border-bottom: 3px solid #660DD4;
+    padding: 16px 0 13px;
+    font-family:Manrope;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+    text-decoration: none;
+  }
+  
+  @media (width <= 640px) {
+    .title {
+      padding: 12px;
+    }
+  
+    .tabsContainer {
+      gap: 16px;
+      padding: 0 12px;
+    }
+  }
+  

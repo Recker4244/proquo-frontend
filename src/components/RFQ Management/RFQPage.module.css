@@ -1,0 +1,277 @@
+.container {
+    background-color: #fff;
+    min-height: 100vh;
+    font-family: Manrope, sans-serif;
+  }
+  
+  
+  .mainContent {
+    justify-content: center;
+    padding: 20px 160px;
+    display: flex;
+  }
+  
+  @media (width<=991px) {
+    .mainContent {
+      padding: 20px 40px;
+    }
+  }
+  
+  @media (width<=640px) {
+    .mainContent {
+      padding: 20px;
+    }
+  }
+  
+  .contentWrapper {
+    width: 100%;
+    max-width: 960px;
+  }
+  
+  @media (width<=640px) {
+    .contentWrapper {
+      padding: 0;
+    }
+  }
+  
+  .projectTitle {
+    color: #120d1c;
+    padding: 16px;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 40px;
+    margin: 0;
+  }
+  
+  @media (width<=640px) {
+    .projectTitle {
+      font-size: 24px;
+      line-height: 32px;
+      padding: 12px 0;
+    }
+  }
+  
+  .formTitle {
+    color: #120d1c;
+    padding: 16px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    margin: 0;
+  }
+  @media (width<=640px){
+    .formTitle{
+      padding: 12px 0;
+    }
+  }
+  
+  .formGroup {
+    flex-direction: column;
+    gap: 8px;
+    width: 100%;
+    max-width: 480px;
+    padding: 12px 16px;
+    display: flex;
+  }
+  
+  @media (width<=640px) {
+    .formGroup {
+      padding: 12px 0;
+    }
+  }
+  
+  .formLabel {
+    color: #120d1c;
+    font-size: 16px;
+    line-height: 24px;
+  }
+  
+  .formInput {
+    background-color: #fff;
+    border: 1px solid #d9cfe8;
+    border-radius: 12px;
+    height: 56px;
+    padding: 15px;
+  }
+  
+  .formTextarea {
+    resize: vertical;
+    background-color: #fff;
+    border: 1px solid #d9cfe8;
+    border-radius: 12px;
+    min-height: 144px;
+    padding: 15px;
+  }
+  
+  .formAction {
+    max-width: 480px;
+    width: 100%;
+    padding: 12px 16px;
+  }
+  
+  @media (width<=640px) {
+    .formAction {
+      padding: 12px 0;
+    }
+  }
+  
+  .primaryButton {
+    color: #fff;
+    cursor: pointer;
+    background-color: #9e5efa;
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 480px;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+  }
+  
+  @media (width<=640px) {
+    .primaryButton {
+      width: 100%;
+    }
+  }
+  
+  .rfqTitle {
+    color: #120d1c;
+    padding: 20px 16px 8px;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    margin: 0;
+  }
+  
+  
+  .rfqDescription {
+    color: #120d1c;
+    padding: 4px 16px 12px;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+  }
+  @media (width<=640px) {
+    .rfqTitle,
+    .rfqDescription {
+      padding: 12px 0;
+    }
+  }  
+  .formRow {
+    gap: 16px;
+    max-width: 480px;
+    width: 100%;
+    padding: 12px 16px;
+    display: flex;
+    
+  }
+  
+  @media (width<=640px) {
+    .formRow {
+      padding: 12px 0;
+    }
+  }
+  @media (width<=376px) {
+    .formRow {
+      flex-direction: column;
+      gap: 5px;
+    }
+  }
+  .formGroupHalf {
+    flex-direction: column;
+    flex: 1;
+    gap: 8px;
+    max-width: 480px;
+    
+    display: flex;
+  }
+  
+  @media (width<=640px) {
+    .formGroupHalf {
+      padding: 12px 0;
+    }
+  }
+  
+  .secondaryButton {
+    color: #120d1c;
+    cursor: pointer;
+    background-color: #ede5f5;
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 480px;
+    height: 40px;
+    padding: 0 16px;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 21px;
+  }
+  
+  @media (width<=640px) {
+    .secondaryButton {
+      width: 100%;
+    }
+  }
+  
+  .formSection,
+  .rfqSection {
+    margin-bottom: 24px;
+  }
+  input[type="date"]::-webkit-datetime-edit {
+    color: gray; /* Change color of 'dd-mm-yyyy' placeholder */
+  }
+  .label {
+    width: 100%;
+    padding-bottom: 8px;
+    color: #121217;
+    font-family: Manrope;
+    font-size: 16px;
+    font-weight: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .input {
+    background-color: #fff;
+    border: 1px solid #dedbe5;
+    border-radius: 12px;
+    width: 100%;
+    min-height: 36px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 16px; 
+  }
+  
+  .input:focus {
+    outline: 2px solid #dedbe5;
+    outline-offset: 2px;
+  }
+  .removeButton {
+  background-color: #ff4d4f;
+  color: white;
+  border: none;
+  padding: 0 10px;
+  margin-top: 27px;
+  height: 40px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.serverError {
+  color: red;
+  font-size: 14px;
+  margin-bottom: 10px;
+  text-align: center;
+}
+.error {
+  color: red;
+  font-size: 0.875rem;
+  margin-top: 4px;
+  margin-left: 4px;
+}
+@media (width<=640px) {
+    .removeButton {
+      margin-top: 0px;
+    }
+  }

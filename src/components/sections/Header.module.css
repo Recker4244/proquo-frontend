@@ -1,0 +1,160 @@
+
+.header {
+    border-width: 1px;
+    border-color: #e5e8eb;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 40px;
+    display: flex;
+    background-color: #fff;
+    border-bottom: 1px solid #e5e8eb;
+  }
+  
+  .logoContainer {
+    align-items: center;
+    gap: 16px;
+    display: flex;
+  }
+  
+  .logoWrapper {
+    flex-direction: column;
+    align-items: flex-start;
+    display: flex;
+  }
+  
+  .logoText {
+    color: #120d1c;
+    height: 23px;
+    font-family:
+      Manrope,
+      sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 23px;
+    margin: 0;
+  }
+  
+  .desktopNav {
+    flex: 1;
+    justify-content: flex-end;
+    align-items: flex-start;
+    gap: 32px;
+    display: flex;
+    margin-right: 15px;
+  }
+  
+  .navList {
+    align-items: center;
+    gap: 36px;
+    height: 40px;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    justify-content: end;
+  }
+  
+  
+  .navLink {
+    color: #120d1c;
+    font-family:
+      Manrope,
+      sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 21px;
+    text-decoration: none;
+  }
+  
+  .userControls {
+    align-items: flex-start;
+    gap: 8px;
+    display: flex;
+    margin-left: 10px;
+  }
+  
+  .iconButton {
+    background-color: #ede5f5;
+    border-radius: 12px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    height: 40px;
+    padding: 0 10px;
+    display: flex;
+    border: none;
+    cursor: pointer;    
+  }
+  
+  .userAvatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+  }
+  
+  .mobileMenuButton {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+  
+  .menuIcon {
+    color: #120d1c;
+    font-size: 24px;
+  }
+  .withSidebar{
+    margin-left: 280px;
+  }
+  
+  
+  @media (width <= 991px) {
+    .header { 
+      padding: 12px 16px; 
+      position: relative; /* Added for positioning context */
+    }
+    .mobileMenuButton{
+      display: block;
+    }
+    .withSidebar{
+      margin-left: 0px;
+    }
+    .navList { 
+      display: none;
+      position: absolute;
+      top: 64px; /* Height of header + padding */
+      left: 0;
+      width: 100%;
+      background-color: #ede5f5;
+      padding: 20px 0;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      z-index: 100;
+      height: auto; /* Remove fixed height */
+    }
+  
+    .mobileMenuButton {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px; /* Changed from 16px */
+    }
+    .navList.active {
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Added */
+      gap: 30px;
+    }
+    /* Style for each list item in mobile menu */
+    .navList li {
+      width: 100%;
+      text-align: center;
+    }
+
+    /* Style for links in mobile menu */
+    .navList .navLink {
+      display: inline-block;
+      width: 100%;
+      padding: 10px 0;
+    }
+  }
+  

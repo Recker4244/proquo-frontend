@@ -1,0 +1,38 @@
+.statusSection {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    display: flex;
+  }
+  
+  .statusText {
+    color: #140d1c;
+    width: 100%;
+    font-family: Manrope;
+    font-size: 16px;
+    line-height: 24px;
+    margin: 0;
+  }
+  
+  .progressBar {
+    background-color: #d9cfe8;
+    border-radius: 4px;
+    width: 100%;
+    height: 8px;
+  }
+  
+  .progressFill {
+    background-color: #660dd4;
+    border-radius: 4px;
+    width: 100%;
+    height: 8px;
+  }
+  
+  .deliveryDate {
+    color: #704a9c;
+    font-family: Manrope;
+    font-size: 14px;
+    line-height: 21px;
+  }
+  
