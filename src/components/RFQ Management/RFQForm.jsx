@@ -24,11 +24,27 @@ function RFQForm() {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   React.useEffect(() => {
-    fetch(`${apiUrl}/project`)
-      .then((res) => res.json())
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+    fetch(`${apiUrl}/project`, {
+      headers: {
+        "x-auth-token": token,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          navigate("/login");
+          return [];
+        }
+        return res.json();
+      })
       .then((data) => setProjects(data))
       .catch((err) => console.error("Error fetching projects:", err));
-  }, [apiUrl]);
+  }, [apiUrl, navigate]);
 
   const handleItemChange = (index, field, value) => {
     const updatedItems = [...items];
@@ -101,14 +117,19 @@ function RFQForm() {
     };
 
     try {
+      const token = localStorage.getItem("token");
       const response = await fetch(`${apiUrl}/rfq`, {
         method: "POST",
         headers: {
+          "x-auth-token": token,
           "Content-Type": "application/json"
         },
         body: JSON.stringify(rfqData)
       });
-
+      if (response.status === 401) {
+        navigate("/login");
+        return;
+      }
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.message || "Failed to create RFQ");

@@ -19,17 +19,21 @@ function Cards({ summaryData }) {
       navigate("/rfq");
     }
   };
+
   const viewButtonTitles = new Set([
     "Pending PO Approvals",
     "Orders Delivered",
     "Pending Responses",
     "Potential Cost Savings"
   ]);
+
   return (
     <div className={styles.summaryGrid}>
       {summaryData.map((card) => (
         <article key={card.title} className={styles.summaryCard}>
-          {card.icon}
+          <div className={styles.cardIcon}>
+            {card.icon}
+          </div>
           <div className={styles.cardContent}>
             <h3 className={styles.cardTitle}>{card.title}</h3>
             <div className={styles.numberContainer}>
@@ -37,16 +41,13 @@ function Cards({ summaryData }) {
               <button
                 type="button"
                 onClick={() => handleClick(card.title)}
-                className={styles.cardButton}
+                className={
+                  viewButtonTitles.has(card.title) ? styles.cardViewButton : styles.cardButton
+                  }
+                aria-label={viewButtonTitles.has(card.title) ? `View ${card.title}` : `Add new ${card.title}`}
               >
                 {viewButtonTitles.has(card.title) ? (
-                  <button
-                    type="button"
-                    onClick={() => handleClick(card.title)}
-                    className={styles.cardViewButton}
-                  >
-                    View
-                  </button>
+                  "View"
                 ) : (
                   <AddIcon />
                 )}
@@ -58,7 +59,15 @@ function Cards({ summaryData }) {
     </div>
   );
 }
+
 Cards.propTypes = {
-  summaryData: PropTypes.isRequired
+  summaryData: PropTypes.arrayOf(
+    PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
+      icon: PropTypes.node.isRequired
+    })
+  ).isRequired
 };
+
 export default Cards;

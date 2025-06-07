@@ -4,7 +4,6 @@ import React, { useState } from "react";
 import {
   FiMapPin, FiUser, FiBriefcase
 } from "react-icons/fi";
-import { FaBuilding } from "react-icons/fa6";
 import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -21,8 +20,7 @@ function NewProjectForm() {
     approvedBrands: "",
     project_type: "",
     workType: "",
-    workTypeSpecific: "",
-    company_id: ""
+    workTypeSpecific: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -96,8 +94,7 @@ function NewProjectForm() {
       siteInchargeName: "Site Incharge Name is required.",
       project_type: "Project Type is required.",
       workType: "Work Type is required.",
-      workTypeSpecific: "This field is required.",
-      company_id: "Company ID is required."
+      workTypeSpecific: "This field is required."
     };
 
     const validationErrors = {};
@@ -122,10 +119,12 @@ function NewProjectForm() {
         ...formData,
         siteInchargeNumber: `+${formData.siteInchargeNumber}`
       };
+      const token = localStorage.getItem("token");
       const apiUrl = process.env.REACT_APP_API_URL;
       const response = await fetch(`${apiUrl}/project`, {
         method: "POST",
         headers: {
+          "x-auth-token": token,
           "Content-Type": "application/json"
         },
         body: JSON.stringify(submissionData)
@@ -286,20 +285,6 @@ function NewProjectForm() {
             disabled={isSubmitting}
           />
         </div>
-
-        {/* Company Information */}
-        <div className={styles.formSection}>
-          <div className={styles.sectionTitle}>Company Information</div>
-          <FormInputGroup
-            label="Company ID"
-            value={formData.company_id}
-            onChange={handleChange("company_id")}
-            iconName={<FaBuilding size={20} />}
-            error={errors.company_id}
-            disabled={isSubmitting}
-          />
-        </div>
-
         <button
           type="submit"
           className={`${styles.submitButton} ${isSubmitting ? styles.loading : ""}`}

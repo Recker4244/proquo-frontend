@@ -1,0 +1,409 @@
+/* SupplierOrdersTable.module.css */
+
+.ordersContainer {
+  width: 100%;
+  font-family: 'Manrope', sans-serif;
+}
+
+/* Empty State */
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.emptyIcon {
+  font-size: 48px;
+  margin-bottom: 16px;
+  opacity: 0.6;
+}
+
+.emptyText {
+  font-size: 18px;
+  font-weight: 600;
+  color: #4a5568;
+  margin: 0 0 8px 0;
+}
+
+.emptySubtext {
+  font-size: 14px;
+  color: #718096;
+  margin: 0;
+}
+
+/* Table Wrapper */
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.tableContainer {
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+}
+
+/* Table Styling */
+.ordersTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'Manrope', sans-serif;
+}
+
+.tableHeader {
+  background: linear-gradient(135deg, #660DD4 0%, #553c9a 100%);
+  color: white;
+  padding: 16px 20px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tableRow {
+  transition: all 0.2s ease;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tableRow:hover {
+  background-color: #f7fafc;
+}
+
+.tableRow:last-child {
+  border-bottom: none;
+}
+
+.tableCell {
+  padding: 16px 20px;
+  color: #4a5568;
+  font-size: 14px;
+  vertical-align: middle;
+}
+
+/* Order ID Styling */
+.orderId {
+  font-weight: 600;
+  color: #2d3748;
+  font-family: 'Monaco', 'Menlo', monospace;
+  background: #f7fafc;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* Status Badges */
+.statusBadge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.statusAccepted {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.statusShipped {
+  background: #bee3f8;
+  color: #2a4365;
+}
+
+.statusTransit {
+  background: #fbb6ce;
+  color: #702459;
+}
+
+.statusDelivered {
+  background: #c6f6d5;
+  color: #22543d;
+}
+
+.statusDefault {
+  background: #e2e8f0;
+  color: #4a5568;
+}
+
+/* Action Button */
+.actionButton {
+  background: linear-gradient(135deg, #660DD4 0%, #553c9a 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.actionButton:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(102, 13, 212, 0.3);
+}
+
+/* Modal Styling */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+}
+
+.modalContent {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 16px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.15),
+    0 1px 3px rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  width: 100%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: modalSlideUp 0.3s ease-out;
+}
+
+@keyframes modalSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 0 24px;
+  border-bottom: 2px solid #e2e8f0;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+}
+
+.modalTitle {
+  color: #2d3748;
+  font-size: 20px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.closeButton {
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 14px;
+  color: #4a5568;
+}
+
+.closeButton:hover {
+  background: #edf2f7;
+  border-color: #660DD4;
+  color: #660DD4;
+}
+
+.modalBody {
+  padding: 0 24px 24px 24px;
+}
+
+/* Detail Rows */
+.detailRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.detailRow:last-child {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 14px;
+}
+
+.detailValue {
+  font-weight: 600;
+  color: #2d3748;
+  font-family: 'Monaco', 'Menlo', monospace;
+  background: #f7fafc;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 13px;
+}
+
+/* Update Section */
+.updateSection {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 2px solid #e2e8f0;
+}
+
+.updateLabel {
+  display: block;
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.updateControls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.statusDropdown {
+  flex: 1;
+  padding: 12px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-family: 'Manrope', sans-serif;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.statusDropdown:focus {
+  outline: none;
+  border-color: #660DD4;
+  box-shadow: 0 0 0 3px rgba(102, 13, 212, 0.1);
+}
+
+.updateButton {
+  background: linear-gradient(135deg, #38a169 0%, #2f855a 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  font-family: 'Manrope', sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.updateButton:hover:not(:disabled) {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(56, 161, 105, 0.3);
+}
+
+.updateButton:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none !important;
+}
+
+/* Spinner */
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid transparent;
+  border-top: 2px solid white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .tableHeader,
+  .tableCell {
+    padding: 12px 16px;
+  }
+  
+  .modalContent {
+    margin: 20px;
+    max-width: calc(100vw - 40px);
+  }
+  
+  .modalHeader,
+  .modalBody {
+    padding: 20px;
+  }
+  
+  .updateControls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .updateButton {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+@media (max-width: 640px) {
+  .tableHeader,
+  .tableCell {
+    padding: 10px 12px;
+    font-size: 13px;
+  }
+  
+  .orderId {
+    font-size: 12px;
+  }
+  
+  .statusBadge {
+    font-size: 11px;
+    padding: 4px 8px;
+  }
+  
+  .actionButton {
+    padding: 8px 12px;
+    font-size: 13px;
+  }
+  
+  .detailRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}
+
+/* Focus styles for accessibility */
+.actionButton:focus-visible,
+.updateButton:focus-visible,
+.closeButton:focus-visible,
+.statusDropdown:focus-visible {
+  outline: 2px solid #660DD4;
+  outline-offset: 2px;
+}

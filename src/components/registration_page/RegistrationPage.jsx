@@ -1,8 +1,7 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styles from "./RegistrationPage.module.css";
-import ProgressBar from "./ProgressBar";
 import FormSection from "./FormSection";
-import SubmitButton from "./SubmitButton";
 
 function RegistrationPage() {
   const [companyName, setCompanyName] = useState("");
@@ -12,12 +11,21 @@ function RegistrationPage() {
   const [zipCode, setZipCode] = useState("");
   const [gst, setgstNumber] = useState("");
   const [companyType, setCompanyType] = useState("");
-  const [errors, setErrors] = React.useState({});
-  const [serverError, setServerError] = React.useState("");
+  const [errors, setErrors] = useState({});
+  const [serverError, setServerError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isRegistered, setIsRegistered] = useState(false);
+  const [companyId, setCompanyId] = useState("");
+  const [showId, setShowId] = useState(false);
+  const [isCopied, setIsCopied] = useState(false);
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
+    setServerError("");
+    setIsSubmitting(true);
 
     const validationErrors = {};
 
@@ -31,6 +39,7 @@ function RegistrationPage() {
 
     if (Object.keys(validationErrors).length > 0) {
       setErrors(validationErrors);
+      setIsSubmitting(false);
       return;
     }
 
@@ -44,7 +53,6 @@ function RegistrationPage() {
     const apiUrl = process.env.REACT_APP_API_URL;
 
     try {
-      // Sending POST request to the backend
       const response = await fetch(`${apiUrl}/company`, {
         method: "POST",
         headers: {
@@ -56,125 +64,230 @@ function RegistrationPage() {
         const errorData = await response.json();
         throw new Error(errorData.message || "Something went wrong");
       }
-      window.location.href = "/dashboard";
+      const result = await response.json();
+      setCompanyId(result.id || result.company?.id);
+      setIsRegistered(true);
     } catch (error) {
       setServerError(error.message);
+    } finally {
+      setIsSubmitting(false);
     }
   };
-  return (
-    <>
-      <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap"
-        rel="stylesheet"
-      />
+
+  const copyToClipboard = async () => {
+    try {
+      await navigator.clipboard.writeText(companyId);
+      setIsCopied(true);
+      // Reset the tick back to copy icon after 2 seconds
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+      // Fallback for older browsers
+      const textArea = document.createElement("textarea");
+      textArea.value = companyId;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setIsCopied(true);
+      setTimeout(() => {
+        setIsCopied(false);
+      }, 2000);
+    }
+  };
+
+  const handleCreateUser = () => {
+    navigate("/userRegistration");
+  };
+
+  if (isRegistered) {
+    return (
       <main className={styles.registrationPage}>
-        <div className={styles.container}>
-          <div className={styles.contentWrapper}>
-            <div className={styles.formContainer}>
-              <form className={styles.form} onSubmit={handleSubmit}>
-                <ProgressBar currentStep={1} totalSteps={5} />
+        <div className={styles.successContainer}>
+          <div className={styles.successCard}>
+            <div className={styles.successIcon}>🎉</div>
+            <h1 className={styles.successTitle}>Registration Successful!</h1>
+            <p className={styles.successSubtitle}>
+              Your company has been successfully registered.
+              {" "}
+              Please save your Company ID for future reference.
+            </p>
+            <div className={styles.idSection}>
+              <label htmlFor="company_id" className={styles.idLabel}>Your Company ID</label>
+              <div className={styles.idContainer}>
+                <input
+                  id="company_id"
+                  type={showId ? "text" : "password"}
+                  value={companyId}
+                  readOnly
+                  className={styles.idInput}
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowId(!showId)}
+                  className={styles.eyeButton}
+                  title={showId ? "Hide ID" : "Show ID"}
+                >
+                  {showId ? "🙈" : "👁️"}
+                </button>
+                <button
+                  type="button"
+                  onClick={copyToClipboard}
+                  className={`${styles.copyButton} ${isCopied ? styles.copied : ""}`}
+                  title={isCopied ? "Copied!" : "Copy ID"}
+                >
+                  {isCopied ? "✓" : "📋"}
+                </button>
+              </div>
+            </div>
+            <div className={styles.actionButtons}>
+              <button
+                type="submit"
+                onClick={handleCreateUser}
+                className={styles.primaryButton}
+              >
+                Continue to Create User Account
+              </button>
+            </div>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
-                <h1 className={styles.title}>Company Details</h1>
+  return (
+    <main className={styles.registrationPage}>
+      <div className={styles.container}>
+        <div className={styles.contentWrapper}>
+          <div className={styles.formContainer}>
+            <form className={styles.form} onSubmit={handleSubmit}>
+              <div className={styles.header}>
+                <h1 className={styles.title}>Company Registration</h1>
+                <p className={styles.subtitle}>
+                  Please provide your company details to get started
+                </p>
+              </div>
 
-                <div className={styles.formGrid}>
-                  {serverError && (
-                    <div className={styles.errorMessage}>
-                      {serverError}
-                    </div>
-                  )}
+              <div className={styles.formGrid}>
+                {serverError && (
+                  <div className={styles.errorBanner}>
+                    <span className={styles.errorIcon}>⚠️</span>
+                    {serverError}
+                  </div>
+                )}
+
+                <div className={styles.inputGroup}>
                   <FormSection
                     label="Company Name"
                     value={companyName}
                     onChange={(e) => setCompanyName(e.target.value)}
+                    placeholder="e.g., ABC Technologies Pvt Ltd"
+                    error={errors.companyName}
+                    required
                   />
-                  {errors.companyName && (
-                    <p className={styles.errorMessage}>
-                      {errors.companyName}
-                    </p>
-                  )}
+                </div>
+
+                <div className={styles.inputGroup}>
                   <FormSection
                     label="Street Address"
                     value={streetAddress}
                     onChange={(e) => setStreetAddress(e.target.value)}
                     tag="textarea"
+                    placeholder="Enter your complete street address including building number, street name, and area"
+                    error={errors.streetAddress}
+                    required
                   />
-                  {errors.streetAddress && (
-                    <p className={styles.errorMessage}>
-                      {errors.streetAddress}
-                    </p>
-                  )}
-                  <div className={styles.cityStateGroup}>
+                </div>
+
+                <div className={styles.rowGroup}>
+                  <div className={styles.inputGroup}>
                     <FormSection
                       label="City"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
+                      placeholder="e.g., Mumbai"
+                      error={errors.city}
+                      required
                     />
-                    {errors.city && (
-                    <p className={styles.errorMessage}>
-                      {errors.city}
-                    </p>
-                    )}
+                  </div>
+                  <div className={styles.inputGroup}>
                     <FormSection
                       label="State"
                       value={state}
                       onChange={(e) => setState(e.target.value)}
+                      placeholder="e.g., Maharashtra"
+                      error={errors.state}
+                      required
                     />
-                    {errors.state && (
-                      <p className={styles.errorMessage}>
-                        {errors.state}
-                      </p>
-                    )}
                   </div>
+                </div>
 
+                <div className={styles.inputGroup}>
                   <FormSection
                     label="Zip Code"
                     value={zipCode}
                     onChange={(e) => setZipCode(e.target.value)}
+                    placeholder="e.g., 400001"
+                    error={errors.zipCode}
+                    required
                   />
-                  {errors.zipCode && (
-                    <p className={styles.errorMessage}>
-                      {errors.zipCode}
-                    </p>
-                  )}
+                </div>
+
+                <div className={styles.inputGroup}>
                   <FormSection
                     label="GST Number"
                     value={gst}
                     onChange={(e) => setgstNumber(e.target.value)}
+                    placeholder="e.g., 22AAAAA0000A1Z5"
+                    error={errors.gst}
+                    required
                   />
-                  {errors.gst && (
-                    <p className={styles.errorMessage}>
-                      {errors.gst}
-                    </p>
-                  )}
-                  <label htmlFor="company_type" className={styles.label}>
-                    <span className={styles.labelText}>Company Type:</span>
+                </div>
+
+                <div className={styles.inputGroup}>
+                  <label className={styles.label}>
+                    <span className={styles.labelText}>
+                      Company Type
+                      <span className={styles.required}>*</span>
+                    </span>
                     <select
-                      id="company_type"
                       value={companyType}
                       onChange={(e) => setCompanyType(e.target.value)}
-                      className={styles.input}
+                      className={`${styles.select} ${errors.companyType ? styles.inputError : ""}`}
                     >
-                      <option value="">Select Company Type</option>
+                      <option value="">Select your company type</option>
                       <option value="Supplier">Supplier</option>
                       <option value="Buyer">Buyer</option>
                     </select>
+                    {errors.companyType && (
+                      <span className={styles.errorText}>{errors.companyType}</span>
+                    )}
                   </label>
-                  {errors.companyType && (
-                    <p className={styles.errorMessage}>
-                      {errors.companyType}
-                    </p>
+                </div>
+              </div>
+              <div className={styles.submitSection}>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={`${styles.submitButton} ${isSubmitting ? styles.submitting : ""}`}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <div className={styles.loader} />
+                      <span>Registering...</span>
+                    </>
+                  ) : (
+                    "Register Company"
                   )}
-                </div>
-
-                <div className={styles.submitSection}>
-                  <SubmitButton>Register & Proceed</SubmitButton>
-                </div>
-              </form>
-            </div>
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-      </main>
-    </>
+      </div>
+    </main>
   );
 }
 

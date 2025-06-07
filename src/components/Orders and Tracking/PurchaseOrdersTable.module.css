@@ -14,8 +14,8 @@
 }
 
 .headerCell {
-  background-color: #FAF7FC !important;
   color: #141217;
+  background-color: #ede8f2 !important;
   padding: 12px 16px;
   font-family: Manrope;
   font-size: 14px;
@@ -25,26 +25,19 @@
   text-align: center !important;
 }
 .status{
-  padding-left: 55px !important;
-}
-.location{
-  text-align: center !important;
-}
-.action{
-  text-align: center !important;
+  padding-left: 40px !important;
 }
 @media(width<=991px){
-  .tableWrapper{
-    padding: 4px 8px !important;
-  }
-  .statusCell{
-    width: 100% !important;
+  .status{
+    padding-left: 35px !important;
   }
 }
 .tableRow {
   border-top: 1px solid #e5e8eb;
 }
-
+.tableRow:hover{
+  background-color: #faf8fc;
+}
 .cell {
   color: #141217;
   padding: 8px 16px;
@@ -52,7 +45,10 @@
   font-size: 14px;
   font-weight: 400;
   line-height: 21px;
-  white-space: nowrap;
+  max-width: 150px;     /* Set your desired max width */
+  word-wrap: break-word;
+  white-space: normal;
+  overflow-wrap: break-word;
   text-align: center !important;
 }
 
@@ -65,51 +61,17 @@
 
 .actionCell {
   color: #73618a !important;
-  padding: 8px 16px !important;
+  /* padding: 8px 16px !important; */
   font-family: Manrope !important;
   font-size: 14px;
   font-weight: 700;
   line-height: 21px;
   cursor: pointer;
   white-space: nowrap;
-  text-align: center !important;
-}
-
-/* filterTags */
-.filterContainer {
-  flex-wrap: wrap;
-  gap: 12px;
-  padding: 12px 16px;
-  display: flex;
-}
-
-.filterTag {
-  color: #140d1c;
-  background-color: #ede8f2;
-  border: none;
-  border-radius: 12px;
-  height: 32px;
-  padding: 0 16px;
-  font-size: 14px;
-  cursor: pointer;
-}
-.active{
-  background-color: #b39ddb;
 }
 .viewDetailsButton{
   border: none;
   background-color: transparent;
   color: #73618a;
   cursor: pointer;
-}
-
-@media (width <= 640px) {
-  .filterContainer {
-    gap: 8px;
-  }
-
-  .filterTag {
-    padding: 0 12px;
-    font-size: 12px;
-  }
 }

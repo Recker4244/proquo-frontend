@@ -65,3 +65,9 @@
   cursor: pointer;
   white-space: nowrap;
 }
+.detailsButton{
+  border: none;
+  background-color: transparent;
+  color: #73618a;
+  cursor: pointer;
+}

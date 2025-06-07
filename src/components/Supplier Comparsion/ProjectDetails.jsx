@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 import styles from "./SupplierComparison.module.css";
 
@@ -7,12 +8,30 @@ function ProjectDetails({ rfqId }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const navigate = useNavigate();
+
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     const fetchSummary = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Session expired. Please log in again.");
+        navigate("/login");
+        return;
+      }
       try {
-        const response = await fetch(`${apiUrl}/rfq/rfq/${rfqId}`);
+        const response = await fetch(`${apiUrl}/rfq/rfq/${rfqId}`, {
+          headers: {
+            "x-auth-token": token,
+            "Content-Type": "application/json"
+          }
+        });
+        if (response.status === 401) {
+          setError("Session expired. Please log in again.");
+          navigate("/login");
+          return;
+        }
         if (!response.ok) {
           throw new Error("Failed to fetch RFQ summary");
         }

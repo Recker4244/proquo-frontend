@@ -1,16 +1,69 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import SettingsIcon from "@mui/icons-material/Settings";
 import HelpOutlineIcon from "@mui/icons-material/HelpOutline";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import { Link, useNavigate } from "react-router-dom";
 import clsx from "clsx";
+import { jwtDecode } from "jwt-decode";
 import styles from "./Header.module.css";
 
 function Header({ hasSidebar }) {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [userDropdown, setUserDropdown] = useState(false);
+  const [userName, setUserName] = useState("");
+  const dropdownRef = useRef(null);
+  const navigate = useNavigate();
+  const apiUrl = process.env.REACT_APP_API_URL;
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setUserDropdown(false);
+      }
+    }
+    if (userDropdown) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }
+    return undefined;
+  }, [userDropdown]);
+
+  const handleUserIconClick = async () => {
+    // Check for token and fetch user name
+    const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const { id } = jwtDecode(token);
+        // Optionally fetch from API for latest name, else decode from token
+        const res = await fetch(`${apiUrl}/user/${id}`, {
+          headers: {
+            "x-auth-token": token,
+            "Content-Type": "application/json"
+          }
+        });
+        const data = await res.json();
+        setUserName(data.name || data.fullName || "User");
+      } catch {
+        setUserName("User");
+      }
+    } else {
+      setUserName("User");
+    }
+    setUserDropdown((open) => !open);
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    setUserDropdown(false);
+    navigate("/login");
+  };
+
   return (
     <>
       <link
@@ -51,9 +104,6 @@ function Header({ hasSidebar }) {
         <nav className={styles.desktopNav}>
           <ul className={`${styles.navList} ${isMenuOpen ? styles.active : ""}`}>
             <li>
-              {/* <a href="/dashboard" className={styles.navLink}>
-                Dashboard
-              </a> */}
               <Link to="/dashboard" className={styles.navLink}>Dashboard</Link>
             </li>
             <li>
@@ -74,18 +124,33 @@ function Header({ hasSidebar }) {
           </ul>
         </nav>
 
-        <div className={styles.userControls}>
+        <div className={styles.userControls} ref={dropdownRef}>
           <button type="button" className={styles.iconButton} aria-label="Settings">
             <SettingsIcon style={{ fontSize: 20 }} />
           </button>
           <button type="button" className={styles.iconButton} aria-label="Help">
             <HelpOutlineIcon style={{ fontSize: 20 }} />
           </button>
-          <img
-            src="https://cdn.builder.io/api/v1/image/assets/TEMP/d2896d528807b8a444d15701d243772fe85c5ab0"
-            alt="User profile"
-            className={styles.userAvatar}
-          />
+          <button
+            type="button"
+            className={styles.iconButton}
+            aria-label="User menu"
+            onClick={handleUserIconClick}
+          >
+            <AccountCircleIcon style={{ fontSize: 28 }} />
+          </button>
+          {userDropdown && (
+            <div className={styles.userDropdown}>
+              <div className={styles.userName}>{userName}</div>
+              <button
+                type="button"
+                className={styles.logoutButton}
+                onClick={handleLogout}
+              >
+                Log out
+              </button>
+            </div>
+          )}
         </div>
 
         <button type="button" onClick={() => setIsMenuOpen(!isMenuOpen)} className={styles.mobileMenuButton} aria-label="Menu">
@@ -97,6 +162,7 @@ function Header({ hasSidebar }) {
     </>
   );
 }
+
 Header.propTypes = {
   hasSidebar: PropTypes.bool.isRequired
 };

@@ -25,12 +25,12 @@ function SupplierConfirmation() {
       unit: state.unit,
       price: state.supplier?.price,
       totalCost: state.supplier?.totalCost,
-      rfqItemId: state.supplier?.rfqItemId,
+      rfqItemId: state.rfqItemId,
       deliveryTimeWeeks: state.supplier?.deliveryTimeWeeks,
-      paymentTerms: state.supplier?.paymentTerms
+      paymentTerms: state.supplier?.paymentTerms,
+      quotationItemId: state.quotationItemId
     }];
   }
-
   if (!state || !items.length || !state.supplier) {
     return (
       <div className={styles.error}>
@@ -51,18 +51,36 @@ function SupplierConfirmation() {
     setLoading(true);
     setError("");
     try {
-      // Fetch RFQ/project details if needed for the order
-      const rfqRes = await fetch(`${apiUrl}/rfq/rfq/${rfqId}`);
+      const token = localStorage.getItem("token");
+      const rfqRes = await fetch(`${apiUrl}/rfq/rfq/${rfqId}`, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "application/json"
+        }
+      });
+      if (rfqRes.status === 401) {
+        setError("Session expired. Please log in again.");
+        navigate("/login");
+        return;
+      }
       if (!rfqRes.ok) throw new Error("Failed to fetch RFQ/project");
       const rfqData = await rfqRes.json();
       const { project } = rfqData;
 
       const typeOfItems = items.map((i) => i.type).join(", ");
       const dateOfGeneration = new Date().toISOString();
-
+      console.log("Order items being sent:", items);
+      if (!items.every((item) => item.quotationItemId && item.rfqItemId)) {
+        setError("One or more items are missing a quotation or RFQ reference. Please select a supplier's quotation for each item.");
+        return;
+      }
+      console.log(items);
       const orderRes = await fetch(`${apiUrl}/order`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({
           type_of_items: typeOfItems,
           date_of_generation: dateOfGeneration,
@@ -76,25 +94,33 @@ function SupplierConfirmation() {
             quantity: item.quantity,
             unit_price: Number(item.price),
             quotation_item_id: item.quotationItemId,
+            rfqItemId: item.rfqItemId,
             delivery_time_weeks: item.deliveryTimeWeeks,
             payment_terms: item.paymentTerms
           }))
         })
       });
-
+      if (orderRes.status === 401) {
+        setError("Session expired. Please log in again.");
+        navigate("/login");
+        return;
+      }
       if (!orderRes.ok) throw new Error("Failed to create order");
       const orderData = await orderRes.json();
-      await fetch(`${apiUrl}/order/${orderData.id}/status`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          status: "Order Placed",
-          remarks: null
-        })
-      }).catch((err) => {
-        // Log error, but don't block user flow
-        console.error("Failed to create tracking event:", err);
-      });
+      // await fetch(`${apiUrl}/order/${orderData.id}/status`, {
+      //   method: "POST",
+      //   headers: {
+      //     "x-auth-token": token,
+      //     "Content-Type": "application/json"
+      //   },
+      //   body: JSON.stringify({
+      //     status: "Order Placed",
+      //     remarks: null
+      //   })
+      // }).catch((err) => {
+      //   // Log error, but don't block user flow
+      //   console.error("Failed to create tracking event:", err);
+      // });
       navigate("/orderSummary", {
         state: { poId: orderData.id }
       });
