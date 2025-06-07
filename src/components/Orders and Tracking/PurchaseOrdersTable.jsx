@@ -13,8 +13,24 @@ function PurchaseOrdersTable() {
   const apiUrl = process.env.REACT_APP_API_URL;
 
   React.useEffect(() => {
-    fetch(`${apiUrl}/order`)
-      .then((response) => response.json())
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+      return;
+    }
+    fetch(`${apiUrl}/order`, {
+      headers: {
+        "x-auth-token": token,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((response) => {
+        if (response.status === 401) {
+          navigate("/login");
+          return null;
+        }
+        return response.json();
+      })
       .then((data) => setOrders(data.rows))
       .catch((error) => console.error("Error fetching data: ", error));
   }, []);
@@ -35,10 +51,7 @@ function PurchaseOrdersTable() {
 
   // Handler for View Details button click
   const handleViewDetails = (orderId) => {
-    console.log(orderId);
-
     navigate("/track", { state: { orderId } });
-    // If you use route params, you can do: navigate(`/track-po/${poId}`);
   };
 
   return (

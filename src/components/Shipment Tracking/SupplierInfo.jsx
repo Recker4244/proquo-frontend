@@ -13,8 +13,20 @@ function SupplierInfo({ poId }) {
   useEffect(() => {
     if (!poId) return;
     setLoading(true);
-    fetch(`${apiUrl}/order/${poId}`)
-      .then((res) => res.json())
+    const token = localStorage.getItem("token");
+    fetch(`${apiUrl}/order/${poId}`, {
+      headers: {
+        "x-auth-token": token,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          localStorage.removeItem("token");
+          window.location.href = "/login";
+        }
+        return res.json();
+      })
       .then((order) => {
         // Gather all supplier names from order items
         const names = (order.order_items || [])

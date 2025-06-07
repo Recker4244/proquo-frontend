@@ -5,14 +5,36 @@ import styles from "./ProductTable.module.css";
 function ProductTable({ poId }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if (!poId) return;
-    fetch(`${apiUrl}/order/${poId}`)
-      .then((res) => res.json())
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("Session expired. Please log in again.");
+      setLoading(false);
+      window.location.href = "/login";
+      return;
+    }
+    fetch(`${apiUrl}/order/${poId}`, {
+      headers: {
+        "x-auth-token": token,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          setError("Session expired. Please log in again.");
+          setLoading(false);
+          window.location.href = "/login";
+          return null;
+        }
+        return res.json();
+      })
       .then((data) => {
+        if (!data) return;
         const allItems = (data.order_items || []).map((item) => ({
           id: item.id,
           productName: item.description,
@@ -25,11 +47,13 @@ function ProductTable({ poId }) {
       })
       .catch((err) => {
         console.error("Failed to fetch order:", err);
+        setError("Could not load products.");
         setLoading(false);
       });
-  }, [poId]);
+  }, [poId, apiUrl]);
 
   if (loading) return <div>Loading products...</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
   if (products.length === 0) return <div className={styles.error}>No products found.</div>;
 
   return (

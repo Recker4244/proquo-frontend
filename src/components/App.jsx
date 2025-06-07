@@ -18,6 +18,10 @@ import Login from "./Login Page/Login";
 import Register from "./Register Page/Register";
 import NewProjectForm from "./CreateProject/NewProjectForm";
 import ScrollToTop from "./sections/ScrollToTop";
+import RFQListForSuppliers from "./CreateQuotation/RFQListForSuppliers";
+import SupplierDashboard from "./SupplierDashboard/SupplierDashboard";
+import ProjectDetails from "./CreateProject/ProjectDetails";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
@@ -25,22 +29,28 @@ function App() {
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<LandingPage />} />
-        <Route path="/register" element={<RegistrationPage />} />
-        <Route path="/projects" element={<ProjectPage />} />
-        <Route path="/dashboard" element={<InputDesign />} />
-        <Route path="/rfq" element={<RFQPage />} />
-        <Route path="/compare" element={<SupplierComparison />} />
-        <Route path="/purchaseOrder" element={<PurchaseOrderPage />} />
-        <Route path="/orderSummary" element={<POSummary />} />
-        <Route path="/orders" element={<PurchaseOrder />} />
-        <Route path="/feedback" element={<DeliveryPage />} />
-        <Route path="/overview" element={<OrderDetails />} />
-        <Route path="/track" element={<OrderTrackingPage />} />
-        <Route path="/rfqPage" element={<CreateRFQ />} />
-        <Route path="/rfqManage" element={<RFQManagement />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegistrationPage />} />
         <Route path="/userRegistration" element={<Register />} />
-        <Route path="/createProject" element={<NewProjectForm />} />
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/projects" element={<ProjectPage />} />
+          <Route path="/dashboard" element={<InputDesign />} />
+          <Route path="/rfq" element={<RFQPage />} />
+          <Route path="/compare" element={<SupplierComparison />} />
+          <Route path="/purchaseOrder" element={<PurchaseOrderPage />} />
+          <Route path="/orderSummary" element={<POSummary />} />
+          <Route path="/orders" element={<PurchaseOrder />} />
+          <Route path="/feedback" element={<DeliveryPage />} />
+          <Route path="/overview" element={<OrderDetails />} />
+          <Route path="/track" element={<OrderTrackingPage />} />
+          <Route path="/rfqPage" element={<CreateRFQ />} />
+          <Route path="/rfqManage" element={<RFQManagement />} />
+          <Route path="/createProject" element={<NewProjectForm />} />
+          <Route path="/createQuotation" element={<RFQListForSuppliers />} />
+          <Route path="/supplierDashboard" element={<SupplierDashboard />} />
+          <Route path="/projects/:projectId" element={<ProjectDetails />} />
+        </Route>
       </Routes>
     </Router>
   );

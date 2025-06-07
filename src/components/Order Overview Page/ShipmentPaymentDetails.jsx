@@ -28,24 +28,48 @@ function formatDate(dateString) {
 function ShipmentPaymentDetails({ poId }) {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if (!poId) return;
-    fetch(`${apiUrl}/order/${poId}`)
-      .then((res) => res.json())
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("Session expired. Please log in again.");
+      setLoading(false);
+      window.location.href = "/login";
+      return;
+    }
+    fetch(`${apiUrl}/order/${poId}`, {
+      headers: {
+        "x-auth-token": token,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          setError("Session expired. Please log in again.");
+          setLoading(false);
+          window.location.href = "/login";
+          return null;
+        }
+        return res.json();
+      })
       .then((data) => {
+        if (!data) return;
         setOrder(data);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Failed to fetch order:", err);
+        setError("Could not load shipment/payment details.");
         setLoading(false);
       });
-  }, [poId]);
+  }, [poId, apiUrl]);
 
   if (loading) return <div>Loading shipment and payment details...</div>;
+  if (error) return <div className={styles.error}>{error}</div>;
   if (!order) return <div className={styles.error}>Order not found.</div>;
 
   // Fallbacks for missing fields

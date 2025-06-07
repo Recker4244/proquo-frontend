@@ -20,7 +20,23 @@ function QuotationTable({ rfqId }) {
   useEffect(() => {
     const fetchSummary = async () => {
       try {
-        const response = await fetch(`${apiUrl}/rfq/rfq/${rfqId}`);
+        const token = localStorage.getItem("token");
+        if (!token) {
+          setError("Session expired. Please log in again.");
+          navigate("/login");
+          return;
+        }
+        const response = await fetch(`${apiUrl}/rfq/rfq/${rfqId}`, {
+          headers: {
+            "x-auth-token": token,
+            "Content-Type": "application/json"
+          }
+        });
+        if (response.status === 401) {
+          setError("Session expired. Please log in again.");
+          navigate("/login");
+          return;
+        }
         if (!response.ok) {
           throw new Error("Failed to fetch RFQ summary");
         }
@@ -83,10 +99,11 @@ function QuotationTable({ rfqId }) {
         quantity: rfqItem?.quantity,
         unit: rfqItem?.unit,
         rfqItemId: rfqItem?.id,
-        quotationItemId: quotationItem?.id,
+        quotationItemId: poItem.quotationItemId || poItem.id,
         quotationId: quotationItem?.quotationId
       };
     });
+    console.log(itemsWithDetails);
     navigate("/purchaseOrder", {
       state: {
         rfqId,
@@ -112,7 +129,6 @@ function QuotationTable({ rfqId }) {
         quotationId: quotationItem?.quotationId
       };
     });
-
     navigate("/purchaseOrder", {
       state: {
         rfqId,
@@ -170,30 +186,78 @@ function QuotationTable({ rfqId }) {
   if (loading) return <p>Loading quotations...</p>;
   if (error) return <p>{error}</p>;
 
-  const handleSendPO = (supplier) => {
-    const itemPurchased = summary.items.find((item) => item.id === supplier.rfqItemId);
-    const quotationItem = itemPurchased.quotationItems.find(
-      (qi) => qi.id === supplier.quotationItemId
+  const handleSendPO = (supplierData) => {
+    const rfqItem = summary.items.find((item) => item.id === supplierData.rfqItemId);
+
+    if (!rfqItem) {
+      console.error("RFQ Item not found for supplierData", supplierData);
+      return;
+    }
+
+    const matchedQuotationItem = rfqItem.quotationItems?.find(
+      (qi) => qi.quotationId === supplierData.quotationId
     );
+
+    if (!matchedQuotationItem) {
+      console.error("Matching QuotationItem not found in RFQ item:", rfqItem);
+      console.error("Looking for quotationItem with quotationId:", supplierData.quotationId);
+      console.error("Available quotationItems:", rfqItem.quotationItems);
+      return;
+    }
+
+    const itemDetails = {
+      type: rfqItem.type,
+      quantity: rfqItem.quantity,
+      unit: rfqItem.unit,
+      price: matchedQuotationItem.price,
+      totalCost: matchedQuotationItem.totalCost,
+      rfqItemId: rfqItem.id,
+      quotationItemId: matchedQuotationItem.id,
+      quotationId: matchedQuotationItem.quotationId,
+      deliveryTimeWeeks: matchedQuotationItem.quotation?.deliveryTimeWeeks,
+      paymentTerms: matchedQuotationItem.quotation?.paymentTerms
+    };
 
     navigate("/purchaseOrder", {
       state: {
         rfqId,
         deliveryLocation: summary.deliveryLocation,
-        supplier,
-        quantity: itemPurchased?.quantity,
-        unit: itemPurchased?.unit,
-        itemType: itemPurchased?.type,
-        rfqItemId: itemPurchased?.id,
-        quotationItemId: quotationItem?.id,
-        quotationId: quotationItem?.quotationId,
-        price: quotationItem?.price,
-        totalCost: quotationItem?.totalCost,
-        deliveryTimeWeeks: quotationItem?.quotation?.deliveryTimeWeeks,
-        paymentTerms: quotationItem?.quotation?.paymentTerms
+        supplier: matchedQuotationItem.quotation,
+        items: [itemDetails],
+        isFullOffer: false
       }
     });
   };
+
+  // const handleSendPO = (supplier) => {
+  //   console.table(supplier);
+  //   const itemPurchased = summary.items.find((item) => item.id === supplier.rfqItemId);
+  //   // This is the actual QuotationItem (not Quotation)
+  //   const quotationItem = itemPurchased.quotationItems.find(
+  //     (qi) => qi.id === supplier.quotationItemId // Always use quotationItemId!
+  //   );
+  //   navigate("/purchaseOrder", {
+  //     state: {
+  //       rfqId,
+  //       deliveryLocation: summary.deliveryLocation,
+  //       supplier: {
+  //         ...supplier,
+  //         quotationItemId: supplier.quotation.quotationIdid,
+  //         rfqItemId: supplier.rfqItemId
+  //       },
+  //       quantity: itemPurchased?.quantity,
+  //       unit: itemPurchased?.unit,
+  //       itemType: itemPurchased?.type,
+  //       rfqItemId: supplier.rfqItemId,
+  //       quotationItemId: supplier.id,
+  //       quotationId: supplier.id,
+  //       price: quotationItem?.price,
+  //       totalCost: quotationItem?.totalCost,
+  //       deliveryTimeWeeks: quotationItem?.quotation?.deliveryTimeWeeks,
+  //       paymentTerms: quotationItem?.quotation?.paymentTerms
+  //     }
+  //   });
+  // };
 
   return (
     <div className={styles.tableWrapper}>
@@ -266,7 +330,10 @@ function QuotationTable({ rfqId }) {
                   <button
                     type="button"
                     className={styles.sendButton}
-                    onClick={() => handleSendPO(supplier)}
+                    onClick={() => handleSendPO({
+                      ...supplier,
+                      quotationItemId: supplier.quotationItemId || supplier.id
+                    })}
                   >
                     Send PO
                   </button>

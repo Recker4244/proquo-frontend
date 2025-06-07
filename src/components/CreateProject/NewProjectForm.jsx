@@ -1,7 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
-import { FiMapPin, FiUser } from "react-icons/fi";
+import {
+  FiMapPin, FiUser, FiBriefcase
+} from "react-icons/fi";
 import { useNavigate } from "react-router-dom";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
@@ -18,8 +20,7 @@ function NewProjectForm() {
     approvedBrands: "",
     project_type: "",
     workType: "",
-    workTypeSpecific: "",
-    company_id: ""
+    workTypeSpecific: ""
   });
 
   const [errors, setErrors] = useState({});
@@ -40,6 +41,9 @@ function NewProjectForm() {
         [field]: undefined
       }));
     }
+    if (errorMessage) {
+      setErrorMessage("");
+    }
   };
 
   // Phone input handler
@@ -53,6 +57,9 @@ function NewProjectForm() {
     if (errors.siteInchargeNumber) {
       setErrors((prev) => ({ ...prev, siteInchargeNumber: undefined }));
     }
+    if (errorMessage) {
+      setErrorMessage("");
+    }
   };
 
   const validatePhoneNumber = () => {
@@ -60,17 +67,12 @@ function NewProjectForm() {
       return "Phone number is required.";
     }
 
-    // Get country data from form state
     const country = formData.countryData;
-
     if (!country) {
       return "Invalid country selection.";
     }
 
-    // Remove non-digit characters
     const digits = formData.siteInchargeNumber.replace(/\D/g, "");
-
-    // Check against country-specific format
     const requiredLength = country.format.replace(/[^.]/g, "").length;
 
     if (digits.length < requiredLength) {
@@ -92,8 +94,7 @@ function NewProjectForm() {
       siteInchargeName: "Site Incharge Name is required.",
       project_type: "Project Type is required.",
       workType: "Work Type is required.",
-      workTypeSpecific: "This field is required.",
-      company_id: "Company ID is required."
+      workTypeSpecific: "This field is required."
     };
 
     const validationErrors = {};
@@ -114,15 +115,16 @@ function NewProjectForm() {
     }
 
     try {
-      // Format phone number for backend
       const submissionData = {
         ...formData,
         siteInchargeNumber: `+${formData.siteInchargeNumber}`
       };
+      const token = localStorage.getItem("token");
       const apiUrl = process.env.REACT_APP_API_URL;
       const response = await fetch(`${apiUrl}/project`, {
         method: "POST",
         headers: {
+          "x-auth-token": token,
           "Content-Type": "application/json"
         },
         body: JSON.stringify(submissionData)
@@ -133,7 +135,10 @@ function NewProjectForm() {
         throw new Error(errorData.message || "Submission failed");
       }
 
-      navigate("/dashboard");
+      // Small delay to show success
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 500);
     } catch (err) {
       setErrorMessage(err.message || "An error occurred during submission");
     } finally {
@@ -143,93 +148,56 @@ function NewProjectForm() {
 
   const workTypeSpecificLabel = (() => {
     if (formData.workType === "Government") return "Government Department Name";
-    if (formData.workType === "Private") return "Private Department Client";
+    if (formData.workType === "Private") return "Private Client";
     return "Work Type Specific";
   })();
 
   return (
     <main className={styles.container}>
       <link
-        href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap"
         rel="stylesheet"
       />
-      <h1 className={styles.title}>New Project</h1>
+      <h1 className={styles.title}>Create New Project</h1>
       <form className={styles.formContainer} onSubmit={handleSubmit}>
         {errorMessage && (
-          <p className={styles.serverError}>{errorMessage}</p>
+          <div className={styles.serverError} role="alert">
+            <span>⚠</span>
+            {errorMessage}
+          </div>
         )}
 
-        {/* Project Name */}
-        <FormInputGroup
-          label="Project Name"
-          value={formData.project_name}
-          onChange={handleChange("project_name")}
-          error={errors.project_name}
-        />
+        {/* Project Information */}
+        <div className={styles.formSection}>
+          <div className={styles.sectionTitle}>Project Information</div>
+          <FormInputGroup
+            label="Project Name"
+            value={formData.project_name}
+            onChange={handleChange("project_name")}
+            error={errors.project_name}
+            disabled={isSubmitting}
+          />
 
-        {/* Project Location */}
-        <FormInputGroup
-          id="project_location"
-          label="Project Location"
-          value={formData.project_location}
-          onChange={handleChange("project_location")}
-          iconName={<FiMapPin size={20} />}
-          error={errors.project_location}
-        />
+          <FormInputGroup
+            label="Project Location"
+            value={formData.project_location}
+            onChange={handleChange("project_location")}
+            iconName={<FiMapPin size={20} />}
+            error={errors.project_location}
+            disabled={isSubmitting}
+          />
 
-        {/* Site Incharge Name */}
-        <FormInputGroup
-          id="siteInchargeName"
-          label="Site Incharge Name"
-          value={formData.siteInchargeName}
-          onChange={handleChange("siteInchargeName")}
-          iconName={<FiUser size={20} />}
-          error={errors.siteInchargeName}
-        />
-
-        {/* Phone Input */}
-        <div className={styles.inputGroup}>
-          {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-          <label htmlFor="siteInchargeNumber" className={styles.inputLabel}>
-            Site Incharge Number
-            <PhoneInput
-              country="in" // Default country
-              value={formData.siteInchargeNumber}
-              onChange={handlePhoneChange}
-              inputProps={{
-                name: "siteInchargeNumber",
-                required: true,
-                id: "siteInchargeNumber"
-              }}
-              inputClass={styles.input}
-              enableSearch
-              disableDropdown={false}
-              countryCodeEditable={false}
-            />
-          </label>
-          {errors.siteInchargeNumber && (
-            <p className={styles.error}>{errors.siteInchargeNumber}</p>
-          )}
-        </div>
-
-        {/* Approved Brands */}
-        <FormInputGroup
-          id="approvedBrands"
-          label="Approved Brands (If Any)"
-          value={formData.approvedBrands}
-          onChange={handleChange("approvedBrands")}
-        />
-
-        {/* Project Type Dropdown */}
-        <div className={styles.inputGroup}>
-          <label htmlFor="Project Type" className={styles.inputLabel}>
-            <span className={styles.labelText}>Project Type</span>
+          <div className={styles.inputGroup}>
+            <label htmlFor="project_type" className={styles.inputLabel}>
+              <span className={styles.labelText}>Project Type</span>
+            </label>
             <div className={styles.inputWrapperSelect}>
               <select
-                id="Project Type"
+                id="project_type"
                 value={formData.project_type}
                 onChange={handleChange("project_type")}
-                className={styles.input}
+                className={`${styles.input} ${errors.project_type ? styles.inputError : ""}`}
+                disabled={isSubmitting}
               >
                 <option value="">Select Project Type</option>
                 <option value="Bridge">Bridge</option>
@@ -237,56 +205,98 @@ function NewProjectForm() {
                 <option value="Building">Building</option>
               </select>
             </div>
-          </label>
-          {errors.project_type && <p className={styles.error}>{errors.project_type}</p>}
+            {errors.project_type && <p className={styles.error}>{errors.project_type}</p>}
+          </div>
         </div>
 
-        {/* Work Type Dropdown */}
-        <div className={styles.inputGroup}>
-          <label htmlFor="Work Type" className={styles.inputLabel}>
-            <span className={styles.labelText}>Work Type</span>
+        {/* Site Management */}
+        <div className={styles.formSection}>
+          <div className={styles.sectionTitle}>Site Management</div>
+          <FormInputGroup
+            label="Site Incharge Name"
+            value={formData.siteInchargeName}
+            onChange={handleChange("siteInchargeName")}
+            iconName={<FiUser size={20} />}
+            error={errors.siteInchargeName}
+            disabled={isSubmitting}
+          />
+
+          <div className={styles.inputGroup}>
+            <label htmlFor="siteInchargeNumber" className={styles.inputLabel}>
+              Site Incharge Number
+            </label>
+            <PhoneInput
+              country="in"
+              value={formData.siteInchargeNumber}
+              onChange={handlePhoneChange}
+              disabled={isSubmitting}
+              inputProps={{
+                name: "siteInchargeNumber",
+                required: true,
+                id: "siteInchargeNumber"
+              }}
+              enableSearch
+              disableDropdown={false}
+              countryCodeEditable={false}
+            />
+            {errors.siteInchargeNumber && (
+              <p className={styles.error}>{errors.siteInchargeNumber}</p>
+            )}
+          </div>
+        </div>
+
+        {/* Work Details */}
+        <div className={styles.formSection}>
+          <div className={styles.sectionTitle}>Work Details</div>
+          <div className={styles.inputGroup}>
+            <label htmlFor="workType" className={styles.inputLabel}>
+              <span className={styles.labelText}>Work Type</span>
+            </label>
             <div className={styles.inputWrapperSelect}>
               <select
-                id="Work Type"
+                id="workType"
                 value={formData.workType}
                 onChange={handleChange("workType")}
-                className={styles.input}
+                className={`${styles.input} ${errors.workType ? styles.inputError : ""}`}
+                disabled={isSubmitting}
               >
                 <option value="">Select Work Type</option>
                 <option value="Government">Government</option>
                 <option value="Private">Private</option>
               </select>
             </div>
-          </label>
-          {errors.workType && <p className={styles.error}>{errors.workType}</p>}
+            {errors.workType && <p className={styles.error}>{errors.workType}</p>}
+          </div>
+
+          <FormInputGroup
+            label={workTypeSpecificLabel}
+            value={formData.workTypeSpecific}
+            onChange={handleChange("workTypeSpecific")}
+            iconName={<FiBriefcase size={20} />}
+            error={errors.workTypeSpecific}
+            disabled={isSubmitting}
+          />
+
+          <FormInputGroup
+            label="Approved Brands (If Any)"
+            value={formData.approvedBrands}
+            onChange={handleChange("approvedBrands")}
+            error={errors.approvedBrands}
+            disabled={isSubmitting}
+          />
         </div>
-
-        {/* Work Type Specific */}
-        <FormInputGroup
-          label={workTypeSpecificLabel}
-          value={formData.workTypeSpecific}
-          onChange={handleChange("workTypeSpecific")}
-          error={errors.workTypeSpecific}
-        />
-
-        {/* Company ID */}
-        <FormInputGroup
-          label="Company ID"
-          value={formData.company_id}
-          onChange={handleChange("company_id")}
-          error={errors.company_id}
-        />
-
-        {/* Submit Button */}
         <button
           type="submit"
-          className={styles.submitButton}
+          className={`${styles.submitButton} ${isSubmitting ? styles.loading : ""}`}
           disabled={isSubmitting}
         >
           {isSubmitting ? (
-            <ClipLoader size={20} color="#ffffff" />
+            <>
+              <ClipLoader size={20} color="#ffffff" />
+              Creating Project...
+            </>
           ) : (
-            "Submit"
+            "Create Project"
           )}
         </button>
       </form>

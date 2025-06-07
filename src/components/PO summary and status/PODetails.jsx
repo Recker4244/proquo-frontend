@@ -14,8 +14,26 @@ function PODetails({ poId }) {
 
   useEffect(() => {
     if (poId) {
-      fetch(`${apiUrl}/order/${poId}`)
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setError("Session expired. Please log in again.");
+        setLoading(false);
+        navigate("/login");
+        return;
+      }
+      fetch(`${apiUrl}/order/${poId}`, {
+        headers: {
+          "x-auth-token": token,
+          "Content-Type": "application/json"
+        }
+      })
         .then((res) => {
+          if (res.status === 401) {
+            setError("Session expired. Please log in again.");
+            setLoading(false);
+            navigate("/login");
+            return null;
+          }
           if (!res.ok) throw new Error("Failed to fetch PO details");
           return res.json();
         })
@@ -29,7 +47,7 @@ function PODetails({ poId }) {
           setLoading(false);
         });
     }
-  }, [poId]);
+  }, [poId, apiUrl, navigate]);
 
   if (loading) return <div>Loading PO details...</div>;
   if (error) return <div className={styles.error}>{error}</div>;
@@ -91,13 +109,6 @@ function PODetails({ poId }) {
           onClick={() => navigate("/track", { state: { poId } })}
         >
           Track PO
-        </button>
-        <button
-          type="button"
-          className={styles.supplierButton}
-          onClick={() => navigate("/overview", { state: { poId } })}
-        >
-          View Supplier Status
         </button>
         <button type="button" onClick={() => navigate("/dashboard")} className={styles.dashboardButton}>Go to Dashboard</button>
       </div>

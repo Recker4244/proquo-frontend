@@ -48,31 +48,53 @@ function getSupplierNames(order) {
 function OrderOverview({ poId }) {
   const [order, setOrder] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   const apiUrl = process.env.REACT_APP_API_URL;
 
   useEffect(() => {
     if (!poId) return;
-    fetch(`${apiUrl}/order/${poId}`)
-      .then((res) => res.json())
+    const token = localStorage.getItem("token");
+    if (!token) {
+      setError("Session expired. Please log in again.");
+      setLoading(false);
+      window.location.href = "/login";
+      return;
+    }
+    fetch(`${apiUrl}/order/${poId}`, {
+      headers: {
+        "x-auth-token": token,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((res) => {
+        if (res.status === 401) {
+          setError("Session expired. Please log in again.");
+          setLoading(false);
+          window.location.href = "/login";
+          return null;
+        }
+        return res.json();
+      })
       .then((data) => {
+        if (!data) return;
         setOrder(data);
         setLoading(false);
       })
       .catch((err) => {
         console.error("Failed to fetch order:", err);
+        setError("Could not load order overview.");
         setLoading(false);
       });
-  }, [poId]);
+  }, [poId, apiUrl]);
 
   if (loading) return <aside className={styles.container}>Loading...</aside>;
+  if (error) return <aside className={styles.container}>{error}</aside>;
   if (!order) return <aside className={styles.container}>Order not found.</aside>;
 
   const orderDate = formatDate(order.date_of_generation);
   const expectedDelivery = getExpectedDelivery(order);
   const supplier = getSupplierNames(order);
-  // Status and shipment progress are placeholders; adjust as needed
-  const status = order.status || "In Transit";
 
   return (
     <aside className={styles.container}>
@@ -90,10 +112,6 @@ function OrderOverview({ poId }) {
         <div className={styles.detailRow}>
           <span className={styles.label}>Supplier</span>
           <span className={styles.value}>{supplier}</span>
-        </div>
-        <div className={styles.detailRow}>
-          <span className={styles.label}>Status</span>
-          <span className={styles.value}>{status}</span>
         </div>
       </div>
 

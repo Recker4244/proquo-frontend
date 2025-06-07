@@ -3,20 +3,43 @@ import {
   Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 } from "@mui/material";
 // import StatusBadge from "./StatusBadge";
+import { useNavigate } from "react-router-dom";
 import SearchBar from "../Orders and Tracking/SearchBar";
+import isTokenExpired from "../UtilityFunction";
 import styles from "./ProjectTable.module.css";
 
 function ProjectTable() {
   const [projects, setProjects] = React.useState([]);
 
+  const navigate = useNavigate();
+
   const apiUrl = process.env.REACT_APP_API_URL;
 
   React.useEffect(() => {
-    fetch(`${apiUrl}/project`)
-      .then((response) => response.json())
+    const token = localStorage.getItem("token");
+    console.log(token);
+    if (!token || isTokenExpired(token)) {
+      localStorage.removeItem("token");
+      navigate("/login");
+      return;
+    }
+    fetch(`${apiUrl}/project`, {
+      headers: {
+        "x-auth-token": token,
+        "Content-Type": "application/json"
+      }
+    })
+      .then((response) => {
+        if (response.status === 401 || response.status === 400) {
+          localStorage.removeItem("token");
+          navigate("/login");
+          return [];
+        }
+        return response.json();
+      })
       .then((data) => setProjects(data))
       .catch((error) => console.error("Error fetching data: ", error));
-  }, []);
+  }, [apiUrl]);
   const [searchQuery, setSearchQuery] = React.useState("");
   const filteredData = React.useMemo(() => {
     let data = projects;
@@ -57,7 +80,15 @@ function ProjectTable() {
                     <TableCell className={styles.cell}>{project.siteInchargeNumber}</TableCell>
                     <TableCell className={styles.cell}>{project.project_type}</TableCell>
                     <TableCell className={styles.cell}>{project.workType}</TableCell>
-                    <TableCell className={styles.actionCell}>View</TableCell>
+                    <TableCell className={styles.actionCell}>
+                      <button
+                        type="button"
+                        className={styles.detailsButton}
+                        onClick={() => navigate(`/projects/${project.id}`)}
+                      >
+                        View
+                      </button>
+                    </TableCell>
                   </TableRow>
                 ))
               ) : (

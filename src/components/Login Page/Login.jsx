@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
 import VisibilityOffOutlinedIcon from "@mui/icons-material/VisibilityOffOutlined";
 import { post } from "../../utils/makeRequest";
@@ -72,10 +73,14 @@ function Login() {
     try {
       const response = await post(`${apiUrl}/user/login`, formData);
       localStorage.setItem("token", response.token);
-      // Small delay to show success state
-      setTimeout(() => {
+      const decoded = jwtDecode(response.token);
+      if (decoded.company_type === "Buyer") {
         navigate("/dashboard");
-      }, 500);
+      } else if (decoded.company_type === "Supplier") {
+        navigate("/supplierDashboard");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       setErrorMessage(
         err.message || "Login failed. Please check your credentials."

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
 import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
@@ -88,10 +89,16 @@ function Register() {
         const err = await res.json();
         throw new Error(err.message || "Registration failed");
       }
-      // Small delay to show success state
-      setTimeout(() => {
+      const data = await res.json();
+      localStorage.setItem("token", data.token);
+      const decoded = jwtDecode(data.token);
+      if (decoded.company_type === "Buyer") {
         navigate("/createProject");
-      }, 500);
+      } else if (decoded.company_type === "Supplier") {
+        navigate("/createQuotation");
+      } else {
+        navigate("/");
+      }
     } catch (err) {
       setServerError(err.message);
     } finally {

@@ -1,50 +1,117 @@
 .formSection {
-    display: flex;
-    flex-direction: column;
-    min-width: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 160px;
+  margin-bottom: 20px;
+}
+
+.fullWidth {
+  flex: 1;
+  width: 100%;
+}
+
+/* Labels */
+.label {
+  color: #4a5568;
+  font-size: 14px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Manrope', sans-serif;
+}
+
+.required {
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+/* Input Styling */
+.input,
+.inputTextArea {
+  width: 100%;
+  padding: 14px 16px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 16px;
+  font-family: 'Manrope', sans-serif;
+  transition: all 0.2s ease;
+  background: white;
+  box-sizing: border-box;
+}
+
+.input:focus,
+.inputTextArea:focus {
+  outline: none;
+  border-color: #660DD4;
+  box-shadow: 0 0 0 3px rgba(102, 13, 212, 0.1);
+}
+
+.input::placeholder,
+.inputTextArea::placeholder {
+  color: #a0aec0;
+}
+
+/* Textarea specific styling */
+.inputTextArea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.5;
+}
+
+/* Error States */
+.inputError {
+  border-color: #e53e3e !important;
+  box-shadow: 0 0 0 3px rgba(229, 62, 62, 0.1) !important;
+}
+
+.errorText {
+  color: #e53e3e;
+  font-size: 14px;
+  font-weight: 500;
+  margin-top: 4px;
+}
+
+/* Responsive Design */
+@media (max-width: 991px) {
+  .formSection {
+    max-width: 100%;
   }
-  
-  .fullWidth {
-    flex: 1;
-    width: 100%;
+}
+
+@media (max-width: 768px) {
+  .input,
+  .inputTextArea {
+    padding: 12px 14px;
+    font-size: 16px; /* Prevents zoom on iOS */
   }
-  
-  .label {
-    width: 100%;
-    padding-bottom: 8px;
-    color: #121217;
-    font-family: Manrope;
-    font-size: 16px;
-    font-weight: 500;
-  }
-  
-  .input {
-    background-color: #fff;
-    border: 1px solid #dedbe5;
-    border-radius: 12px;
-    width: 100%;
-    min-height: 36px;
-    padding-left: 12px;
-    padding-right: 12px;
-    font-size: 16px; 
-  }
-  .inputTextArea{
-    padding: 12px 16px;
-    font-size: 16px; 
-      background-color: #fff;
-      border: 1px solid #dedbe5;
-      border-radius: 12px;
-      width: 100%;
-      min-height: 100px;
-    
-  }
-  
-  @media (width <= 991px) {
-    .formSection {
-      max-width: 100%;
-    }
-  }
-  .input:focus, .inputTextArea:focus {
-    outline: 2px solid #dedbe5;
-    outline-offset: 2px;
-  }
+}
+
+/* Focus styles for accessibility */
+.input:focus-visible,
+.inputTextArea:focus-visible {
+  outline: 2px solid #660DD4;
+  outline-offset: 2px;
+}
+
+/* Disabled state */
+.input:disabled,
+.inputTextArea:disabled {
+  background-color: #f7fafc;
+  color: #a0aec0;
+  cursor: not-allowed;
+  border-color: #e2e8f0;
+}
+
+/* Select styling if needed */
+select.input {
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+  background-position: right 12px center;
+  background-repeat: no-repeat;
+  background-size: 16px;
+  padding-right: 40px;
+}

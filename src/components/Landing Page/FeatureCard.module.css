@@ -1,49 +1,198 @@
 .featureCard {
-    background-color: #fff;
-    border: 1px solid #dedbe5;
-    border-radius: 8px;
-    flex: 1;
-    width: 178px;
-    padding: 16px;
+  background: #fff;
+  border: 1px solid #e5e8eb;
+  border-radius: 16px;
+  padding: 32px 24px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  animation: fadeInUp 0.6s ease forwards;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.featureCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(135deg, #8754f7, #a855f7);
+  transform: scaleX(0);
+  transition: transform 0.3s ease;
+}
+
+.featureCard:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(135, 84, 247, 0.15);
+  border-color: #8754f7;
+}
+
+.featureCard:hover::before {
+  transform: scaleX(1);
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  background: linear-gradient(135deg, #f8f7ff, #f0edff);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.featureCard:hover .iconContainer {
+  background: linear-gradient(135deg, #8754f7, #a855f7);
+  transform: scale(1.1);
+}
+
+.icon {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  transition: all 0.3s ease;
+  filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(246deg) brightness(104%) contrast(97%);
+}
+
+.featureCard:hover .icon {
+  filter: brightness(0) saturate(100%) invert(100%);
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.title {
+  font-family: 'Manrope', sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1.3;
+  color: #121217;
+  margin: 0 0 12px 0;
+  transition: color 0.3s ease;
+}
+
+.featureCard:hover .title {
+  color: #8754f7;
+}
+
+.description {
+  font-family: 'Manrope', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #6e618a;
+  margin: 0;
+  flex: 1;
+}
+
+/* Tablet Styles */
+@media (max-width: 991px) {
+  .featureCard {
+    padding: 28px 20px;
   }
   
   .iconContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: flex-start;
-    width: 100%;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 18px;
   }
   
   .icon {
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-    width: 24px;
-  }
-  
-  .content {
-    width: 100%;
-    margin-top: 12px;
-    font-family: Manrope;
+    width: 26px;
+    height: 26px;
   }
   
   .title {
-    color: #121217;
-    width: 100%;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 20px;
-    margin: 0;
+    font-size: 17px;
   }
   
   .description {
-    color: #6e618a;
-    width: 100%;
-    margin-top: 4px;
     font-size: 14px;
-    font-weight: 400;
-    line-height: 21px;
-    margin-bottom: 0;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .featureCard {
+    padding: 24px 20px;
+    border-radius: 12px;
   }
   
+  .featureCard:hover {
+    transform: translateY(-4px);
+  }
+  
+  .iconContainer {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 16px;
+  }
+  
+  .icon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .title {
+    font-size: 16px;
+    margin-bottom: 10px;
+  }
+  
+  .description {
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  .featureCard {
+    padding: 20px 16px;
+  }
+  
+  .iconContainer {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 14px;
+  }
+  
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .featureCard {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  
+  .featureCard:hover {
+    transform: none;
+  }
+  
+  .iconContainer,
+  .icon,
+  .title {
+    transition: none;
+  }
+}

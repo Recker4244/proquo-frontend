@@ -1,130 +1,217 @@
 .header {
-    border-bottom: 1px solid #e5e8eb;
-    width: 100%;
-  }
-  
+  border-bottom: 1px solid #e5e8eb;
+  width: 100%;
+  position: relative;
+}
+
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 12px 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Logo Section */
+.logoContainer {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.logo {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.brandName {
+  color: #121217;
+  font-family: Manrope, sans-serif;
+  font-size: 18px;
+  font-weight: 700;
+  line-height: 1;
+  margin: 0;
+}
+
+/* Desktop Navigation */
+.navLinks {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: Manrope, sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.navLink {
+  color: #121217;
+  text-decoration: none;
+  padding: 8px 0;
+  transition: color 0.3s ease;
+}
+
+.navLink:hover {
+  color: #8754f7;
+}
+
+/* Auth Buttons */
+.authButtons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.linkButton {
+  text-decoration: none;
+}
+
+.signInButton,
+.getStartedButton {
+  border-radius: 12px;
+  padding: 0 16px;
+  min-width: 84px;
+  height: 40px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-family: Manrope, sans-serif;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.signInButton {
+  color: #fff;
+  background-color: #8754f7;
+}
+
+.signInButton:hover {
+  background-color: #7043d4;
+  transform: translateY(-1px);
+}
+
+.getStartedButton {
+  color: #121217;
+  background-color: #f2f0f5;
+}
+
+.getStartedButton:hover {
+  background-color: #e8e4ed;
+  transform: translateY(-1px);
+}
+
+.hamburgerMenu {
+  background-color: transparent;
+  color: #121217;
+  border: none;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+  margin-left: 8px;
+}
+
+.hamburgerMenu:hover {
+  background-color: #f2f0f5;
+}
+
+/* Mobile Menu */
+.mobileMenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #fff;
+  border-bottom: 1px solid #e5e8eb;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transform: translateY(-100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.mobileMenuOpen {
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.mobileNavLinks {
+  list-style: none;
+  padding: 20px 40px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.mobileNavLink {
+  color: #121217;
+  text-decoration: none;
+  font-family: Manrope, sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 12px 0;
+  border-bottom: 1px solid #f2f0f5;
+  transition: color 0.3s ease;
+  display: block;
+}
+
+.mobileNavLink:hover {
+  color: #8754f7;
+}
+
+.mobileNavLink:last-child {
+  border-bottom: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
   .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 12px 40px;
-    flex-wrap: wrap;
-  }
-  
-  .logoContainer {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-  
-  .logo {
-    width: 16px;
-    aspect-ratio: 1;
-    object-fit: contain;
-    object-position: center;
-  }
-  
-  .brandName {
-    color: #121217;
-    font-family: Manrope;
-    font-size: 18px;
-    font-weight: 700;
-    line-height: 1;
-  }
-  
-  .navContent {
-    display: flex;
-    flex: 1;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 32px;
-    min-width: 240px;
-    font-family: Manrope;
-    font-size: 14px;
-    margin-right: 50px;
-  }
-  
-  .navLinks {
-    display: flex;
-    align-items: center;
-    gap: 36px;
-    min-width: 240px;
-    min-height: 40px;
-    font-weight: 500;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  .navLinks a {
-    color: #121217;
-    text-decoration: none;
+    padding: 12px 20px;
   }
   
   .authButtons {
-    display: flex;
-    gap: 8px;
-    font-weight: 700;
+    gap: 4px;
   }
   
-  .signInButton {
-    color: #fff;
-    background-color: #8754f7;
-    border-radius: 12px;
-    padding: 0 16px;
-    min-width: 84px;
-    height: 40px;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-    font-family: inherit;
-  }
-  
+  .signInButton,
   .getStartedButton {
-    color: #121217;
-    background-color: #f2f0f5;
-    border-radius: 12px;
-    padding: 0 16px;
-    min-width: 84px;
-    height: 40px;
-    border: none;
-    cursor: pointer;
-    font-weight: 700;
-    font-family: inherit; 
+    min-width: 70px;
+    font-size: 13px;
+    padding: 0 12px;
   }
-  .hamburgerMenu{
-    background-color: white; /* Change to your preferred background color */
-    color: black; /* Change to your preferred icon color */
-    border: none;
-    padding: 10px;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: background-color 0.3s ease;
+  
+  .mobileNavLinks {
+    padding: 20px;
+  }
+}
 
+@media (max-width: 480px) {
+  .navbar {
+    padding: 12px 16px;
   }
   
-  @media (width <= 991px) {
-    .navbar {
-      padding-left: 0px;
-      padding-right: 0px;
-      max-width: 100%;
-    }
-  
-    .brandName {
-      white-space: initial;
-    }
-  
-    .navContent {
-      max-width: 100%;
-      margin-right: 0px;
-    }
-    .navLinks {
-      flex-direction: column;
-      padding: 13px 0;
-    }
+  .brandName {
+    font-size: 16px;
   }
   
+  .signInButton,
+  .getStartedButton {
+    min-width: 60px;
+    font-size: 12px;
+    padding: 0 10px;
+    height: 36px;
+  }
+}

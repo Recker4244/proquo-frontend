@@ -26,7 +26,7 @@ function OrderTrackingPage() {
         <Header />
         <section className={styles.content}>
           <div className={styles.contentWrapper}>
-            <OrderHeader />
+            <OrderHeader poId={poId || orderId} />
             <TrackingTimeline orderId={poId || orderId} />
             <SupplierInfo poId={poId || orderId} />
             <LiveTrackingMap />
