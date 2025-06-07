@@ -77,7 +77,7 @@ function Login() {
       if (decoded.company_type === "Buyer") {
         navigate("/dashboard");
       } else if (decoded.company_type === "Supplier") {
-        navigate("/createQuotation");
+        navigate("/supplierDashboard");
       } else {
         navigate("/");
       }
